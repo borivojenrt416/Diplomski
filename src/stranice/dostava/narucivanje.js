@@ -308,7 +308,7 @@ class Narucivanje extends Component {
             <div></div>
             <div className="dugmici">
               <div className="dugmeZaNazad">
-                <Link className="linkInsideButton" to="#">
+                <Link className="linkInsideButton" to="/kupovina">
                   <button type="submit" className="dugmeVratiSeNazad">
                     Vrati se u korpu
                   </button>
