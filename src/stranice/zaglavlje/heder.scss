@@ -1,0 +1,35 @@
+.hed{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    .content{
+        width: 100%;
+        background-color: black;
+    }
+
+    .title{
+       margin:auto;
+    
+       display:block;
+     
+    }
+
+    img{
+        width:270px !important;
+        margin:0;
+
+    }
+    .nav{
+        background-color: red;
+    }
+    .unos{
+        margin-top:1vw;
+        text-align: center;
+        width:100%;
+        margin-bottom: 2vw;
+    }
+    .prijava{
+        position: absolute;
+        right:0;
+        top:0;
+        
+    }
+}

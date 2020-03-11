@@ -1,0 +1,115 @@
+.ispod{
+   
+    background-color: white;
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 4px black;
+    color:black;
+    text-align: left;
+    padding: 2px 0 10px 50px;
+    .podaci{
+        p{
+           margin:0;
+        }
+    }
+    .imeKorisnika{
+        color:rgb(0, 89, 255);
+    }
+//       button{
+//           margin-top: 5px;
+//       }
+//         .d{
+//             text-decoration: none;
+//             color:white;
+            
+//         }
+
+        input{
+            width:200px;
+        }
+    
+        // .buttonsForAdmin
+        // {
+        //     background-color: white;
+        //     width:80%;
+        //     box-shadow: 0 0 4px black;
+        //     text-align: left;
+        //     button{
+        //         display:inline-block;
+        //         padding:15px;
+        //         background-color: white;
+        //         color:black;
+        //         transition: 0.4s;
+        //         margin: 0;
+        //     }
+        //     button:hover{
+        //         background-color: rgb(70, 100, 139);
+        //         color:white;
+        //     }
+        // }
+   
+}
+
+.jedan{
+    // display: inline-block;
+    // width:70%;
+    // margin-left: auto;
+    // margin-right: auto;
+}
+.forma{
+//    margin-right: 15vw; 
+table{
+    // border:0;
+}
+}
+.forma,.novac{
+    // display:inline-block;
+    p{
+        // text-align: left;
+        // font-size: 20px;
+    }
+}
+.forma label{
+    margin-top:1vw;
+    display:block;
+    font-size:1vw
+}
+.novac{
+    // display:inline-block;
+    // width:35%;
+    // float:left;
+    // text-align: left;
+}
+table{
+    // text-align: center;
+    // border:1px solid black;
+    // width: 100%;
+}
+table th,tr{
+    // border:1px solid black;
+}
+
+table img{
+    // width:75px;
+}
+
+.nema{
+    // margin:15px 0;
+    // text-align: center;
+    // background-color: rgb(216,216,216);
+    // padding:20px;
+    .n{
+        // color:black;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .ispod{
+        width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+

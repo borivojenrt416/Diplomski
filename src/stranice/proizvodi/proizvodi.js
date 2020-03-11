@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./proizvodi.scss";
-import Card from "../card";
+import Card from "../kartice/card";
 import { connect } from "react-redux";
 import { uzmiTip } from "../../actions/tipAkcija";
 import { filteriDesktopRacunara } from "../../actions/filteriDesktopRacunaraAkcija";
@@ -158,7 +158,7 @@ class Proizvodi extends Component {
       } else if (this.props.match.params.tip === "memorije") {
         this.props.filteriMemorija(n, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "napajanja") {
-        this.props.filteriNapajanja(n2, this.props.match.params.tip);
+        this.props.filteriNapajanja(n, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "procesori") {
         this.props.filteriProcesora(n, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "ssd") {

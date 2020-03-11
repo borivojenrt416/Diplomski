@@ -135,6 +135,7 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
   
   export const filteriNapajanja = (filteri, t) => dispatch => {
       console.log("pozvano")
+      console.log(filteri)
     var cenaFilter = "";
     var imaSort = "";
     var proizvodjac = false;
@@ -150,6 +151,7 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         var niz2 = [];
         var proizvodjacFilteri = [];
         for (let filterIndex = 0; filterIndex < filteri.length; filterIndex++) {
+          console.log(filteri[filterIndex])
           if (filteri[filterIndex] === "ANTEC") {
             proizvodjac = true;
             proizvodjacFilteri.push(filteri[filterIndex]);
@@ -185,7 +187,7 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         if (gaming)
         nizGaming = filtrirajPoGamingu(gamingFilteri, niz2);
         if (!gaming) nizGaming = niz2;
-  
+        console.log(nizGaming)
         //Nalazenje da li ima u nizu filtera filter za izlaznu snagu
         var nizIS=[]
         var isFilteri=[]
@@ -226,6 +228,7 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         if (izlaznaSnaga)
         nizIS = filtrirajPoIzlaznojSnazi(isFilteri, nizGaming);
         if (!izlaznaSnaga)    nizIS = nizGaming;
+        console.log(nizIS)
         //Nalazenje da li ima u nizu filtera filter za tip napajanja
         var nizT=[]
         var tfilteri=[]
@@ -247,7 +250,8 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         if (tipt)
         nizT = filtrirajPoTipu(tfilteri,  nizIS);
         if (!tipt)  nizT =  nizIS;
-  
+        console.log(nizT)
+
         //Nalazenje da li ima u nizu filtera filter za oblik
         var nizOblik=[]
         var oblikFilteri=[]
@@ -266,7 +270,8 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         nizOblik = filtrirajPoObliku(oblikFilteri, nizT);
         if (!tipOblik)  nizOblik = nizT;
         
-       
+        console.log(nizOblik)
+
         //Nalazenje da li ima u nizu filtera filter za opseg cene
   
         var niz3 = [];
@@ -283,6 +288,8 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
           niz3 = nizOblik;
           console.log(niz3);
         }
+        console.log(niz3)
+
              //Sortiranje?
         for (let filterIndex = 0; filterIndex < filteri.length; filterIndex++) {
           if (filteri[filterIndex][0] === "S") imaSort = filteri[filterIndex];

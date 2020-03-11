@@ -1,0 +1,51 @@
+.kom{
+    width: 90%;
+    margin-left:auto;
+    margin-right: auto;
+
+.forma{
+    width:100%;
+    
+    label{
+        line-height: 0.5px;
+    }
+    .inp{
+        margin:1vw 1vw 1vw 0;
+        width:60%;
+        padding:10px;
+        font-size: 16px;
+    }
+    textarea{
+        font-size: 20px;
+    }
+    button{
+        background-color: rgb(235, 235, 235);
+        color:black;
+       font-size: 15px;
+       padding:0.5vw 1vw;
+    }
+
+ 
+
+}
+.listaKomentara{
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    .ime,.kom1,.datumKomentar{
+        display:inline-block;
+        p{
+            margin:0 0 5px 0;
+        }
+}
+.ime,.datumKomentar{
+    
+    width:25%;
+    
+}
+.kom1{
+    width:45%;
+}
+}
+
+}

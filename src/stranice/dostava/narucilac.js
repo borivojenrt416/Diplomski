@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 import './dostava.scss'
 export class Narucilac extends Component {
     constructor(props) {
@@ -30,9 +30,10 @@ export class Narucilac extends Component {
         render()
         {
             const { kupac } = this.props;
+            if(kupac)
             console.log(kupac)
-            if(kupac.ime===undefined)
-            {
+            // if(kupac.ime===undefined||kupac.prezime===undefined||kupac.email===undefined||kupac.telefon===undefined)
+            // {
                 return (
                     <div>
                         <div className="nazivKomponente"><h2 className="nazivKomponente">Narucilac</h2></div>
@@ -48,29 +49,31 @@ export class Narucilac extends Component {
                     </div>
     
                 );
-            }
-            else
-                {
-                    return(
+            // }
+            // else
+            //     {
+            //         return(
                     
-                        <div>
-                        <div className="nazivKomponente"><h2 className="nazivKomponente">Narucilac</h2></div>
-                        <div className="divForm">
-                            <form className="forma">
-                            <h4>Ime : {kupac.ime}</h4>
-                            <h4>Prezime : {kupac.prezime}</h4>
-                            <h4>Email : {kupac.email}</h4>
-                            <h4>Telefon : {kupac.telefon}</h4>
-                            </form>
-                        </div>
-                    </div>
+            //             <div>
+            //             <div className="nazivKomponente"><h2 className="nazivKomponente">Narucilac</h2></div>
+            //             <div className="divForm">
+            //                 <form className="forma">
+            //                 <h4>Ime : {kupac.ime}</h4>
+            //                 <h4>Prezime : {kupac.prezime}</h4>
+            //                 <h4>Email : {kupac.email}</h4>
+            //                 <h4>Telefon : {kupac.telefon}</h4>
+            //                 </form>
+            //             </div>
+            //         </div>
     
-                    );
-                }
+            //         );
+            //     }
             }
            
         }
 
-
-
-    export default Narucilac;
+        const mapStateToProps = state => ({
+            korisnik: state.korisnik.korisnik
+        })
+        
+        export default connect(mapStateToProps)(Narucilac)

@@ -1,0 +1,47 @@
+.red4{
+    margin-top:1vw;
+    text-align: center;
+    .veliko{
+        width:70px;
+    }
+    .pl{
+        padding:1.5vw 0;
+    }
+    .tekst{
+        margin-left: auto;
+        margin-right: auto;
+        width:60%;
+        font-size: 10px;
+    }
+    .mreze{
+        padding:1.5vw 0;
+        background-color: rgb(240, 240, 240);
+        font-size: 14px;
+        img{
+            width:42px;
+        }
+        
+    }
+    .copyright{
+        padding:1vw 0;
+        text-align: center;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 805px){
+    .red4{
+        img{
+            width:70px !important;
+        }
+        .mreze{
+            display:none !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 650px){
+    .pl,.tekst,.mreze{
+        display: none !important;
+    }
+}

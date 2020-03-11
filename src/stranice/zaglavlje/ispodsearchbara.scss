@@ -1,0 +1,47 @@
+    .iss{
+background-color: rgb(216, 216, 216);
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+    .i1{
+        text-align: center;
+        display:inline-block;
+        width:33.33%;
+        color:rgb(126, 126, 126);
+        font-weight: normal;
+        
+        h1{
+            vertical-align: middle;
+            color:black;
+        }
+        h1,.op{
+            display: inline-block;
+            padding-left:0.5vw;
+        }
+        .op{
+            line-height: 1px;
+            vertical-align: middle;
+            text-align: left;
+            font-size: 15px;
+            .l{
+                color:black;
+                text-decoration: underline;
+                font-size: 12px;
+              
+            }
+        }
+    }
+    }
+    @media only screen and (max-width: 768px){
+        .op{
+            font-size: 12px !important;
+            .l{
+                font-size: 9px !important;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 620px){
+        .iss{
+          display: none !important;
+        }
+
+    }

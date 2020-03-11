@@ -1,0 +1,136 @@
+.kupovina{
+    // text-align: center;
+    width:75%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 4px #000000;
+    
+    .nazivKomponente{
+        padding-top: 10px;
+        width:96%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    table{
+        width: 100%;
+        border:none !important;
+        padding:15px 5px;
+      
+    }
+    table th{
+   
+        border:none !important;
+        text-align: center;
+
+    }
+    
+    .pored{
+        display:inline-block;
+        margin:5px 10px 10px 0;
+       
+    }
+    .dugmeZaNazad,.dugmeZaNapred{
+        display:inline-block;
+        width: 50%;
+    }
+    .dugmici{
+        width:90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .dugmeZaNapred{
+        text-align: right;
+    }
+    .dugmeZaNazad{
+        text-align: left;
+        .linkInsideButton{
+            text-decoration: none;
+            color: white;
+        }
+    }
+    .dugmeKupi,.dugmeVratiSeNazad{
+     
+        // width: 10%;
+        background-color: rgb(0, 0, 0);
+        
+        margin-bottom: 20px;
+        color:rgb(255, 255, 255);
+        font-size: 14px;
+        padding:20px 15px;
+    }
+
+    .dugmeKupi:hover,.dugmeVratiSeNazad:hover{
+        background-color: rgb(61, 61, 61);
+
+    }
+    .racun{
+        width:95%;
+        text-align: right;
+    }
+
+}
+.cena2tekst{
+    // font-size: 1.5vw;
+}
+#cen2{
+    position: absolute;
+    font-size: 0.5vw;
+    padding-left:0.2vw;
+}
+.kol{
+    margin-top:1.5vw;
+}
+
+.kol input{
+    width:9vw;
+    
+}
+
+.slika{
+    margin-bottom:1.5vw
+}
+.sve{
+    h1{
+        text-align: center;
+    }
+}
+
+.prazno{
+    width:60%;
+    margin-right: auto;
+    margin-left: auto;;
+    padding:20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 4px black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    .ikonicaKorpe{
+        font-size:175px;
+        text-align: center;
+        margin:0;
+      
+    }
+    p{
+        text-align: center;
+        padding-bottom:25px;
+        margin-top: 0;
+    }
+    .back{
+        color:black;
+        text-align: center;
+        font-size: 15px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .kupovina{
+        width: 99%;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+
+  }

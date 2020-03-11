@@ -1,0 +1,97 @@
+.proizvod {
+  margin: 20px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 4px black;
+  // padding-bottom: 20px;
+  .levaStrana,
+  .desnaStrana {
+    display: inline-block;
+  }
+  .levaStrana {
+    width: 40%;
+    vertical-align: top;
+    padding-top: 15px;
+    .img {
+      margin: 0;
+      text-align: center;
+      img {
+        width: 250px;
+      }
+    }
+  }
+  .desnaStrana {
+    margin-top: 20px;
+    width: 60%;
+    .nazivpr {
+      font-size: 20px;
+
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .kr {
+      text-decoration: none;
+      color: white;
+    }
+    .dugmesredina {
+      padding-top: 25px;
+      text-align: center;
+      .kupi {
+        width: 65%;
+        padding: 15px;
+        background-color: rgb(41, 59, 82);
+        margin-bottom: 10px;
+        transition:0.4s;
+      }
+      .kupi:hover {
+        background-color: rgb(70, 100, 139);
+        }
+    }
+  }
+  .opis,.komentari{
+      background-color: white;
+      font-size: 16px;
+      color:black;
+      padding:15px;
+      margin:0;
+      transition:0.4s;
+      margin-bottom: 10px;
+
+  }
+  .opis:hover,.komentari:hover{
+    background-color: rgb(70, 100, 139);
+    color:white;
+    margin-bottom: 10px;
+   
+  }
+  
+}
+
+// @media only screen and (max-width:1047px){
+//   .proizvod{
+//  .levaStrana,.desnaStrana{
+//   margin-left: auto !important;
+//   margin-right: auto !important;
+// }
+// .desnaStrana{
+//   width:50% !important;
+//   font-size: 15px !important;
+// }
+//   }
+// }
+@media only screen and (max-width:1047px){
+  .proizvod{
+    .levaStrana,.desnaStrana{
+      display: block !important;
+      width: 80% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      img{
+        width: 250px !important;
+      }
+    }
+    }
+  }
+

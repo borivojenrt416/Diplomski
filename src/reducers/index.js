@@ -5,7 +5,8 @@ import korisnikReducer from './korisnikReducer'
 import dodajUKorpu from './dodajUKorpu'
 import istorijakupljenih from './istorijakupljenih'
 import dodajUOmiljeno from './dodajUOmiljeno';
-
+import usersReducer from './usersReducer';
+import orders from './orders'
 export default combineReducers({
 proizvodi:proizvodiReducer,
 tip:tipReducer,
@@ -15,5 +16,7 @@ poruka:dodajUKorpu,
 istorija:istorijakupljenih,
 broj:dodajUKorpu,
 omiljeno:dodajUOmiljeno,
-cena:dodajUKorpu
+cena:dodajUKorpu,
+users:usersReducer,
+orders:orders
 });

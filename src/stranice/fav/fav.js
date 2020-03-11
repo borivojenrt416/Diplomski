@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Omiljenocard from '../omiljenocard'
+import Omiljenocard from '../kartice/omiljenocard'
 import {
   Link,
 } from "react-router-dom";
-import '../komponente/kupovina.scss'
+import '../kupovina/kupovina.scss'
 class Fav extends Component {
   constructor(props) {
     super(props);

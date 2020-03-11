@@ -1,0 +1,150 @@
+.card {
+  border: 0.5px solid rgb(173, 173, 173);
+  width: 100%;
+  text-align: center;
+  color: black;
+  background-color: white;
+  position: relative;
+  
+  .buttonForFav {
+    text-align: right;
+    button {
+      margin: 2px;
+
+      background-color: white;
+      border: 0;
+      width: 40px;
+      font-size: 25px;
+      opacity: 50%;
+      color: #000;
+      //     float:right;
+    }
+  }
+  img {
+    width: 50%;
+    padding: 5px;
+    clear: left;
+    clear: right;
+    // position: relative;
+  }
+  .cena {
+    font-size: 12px;
+    text-align: left;
+    color: black;
+  }
+  .Naziv {
+    // position: relative;
+
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    height:45px;
+    
+
+  //  p{
+  //     font-size: 12px;
+  //     color:black;
+      
+      
+  //   }
+  }
+
+  .linija {
+    height: 20%;
+    position: relative;
+    margin-top: 5px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 50;
+  }
+
+  .kolic {
+    margin: 12px auto;
+    width: 90%;
+    padding: 10px;
+  }
+  .dodajUKorpu {
+    margin: 12px auto;
+    width: 90%;
+    padding: 14px;
+    background-color: rgb(41, 59, 82);
+
+    border: 0;
+    font-size: 12px;
+
+    .korpa {
+      font-size: 13px;
+    }
+  }
+
+  // .omiljeno{
+
+  // }
+  .brisi {
+    margin: 1px;
+    float: left;
+    background-color: white;
+    border: 0;
+    width: 40px;
+    font-size: 25px;
+    opacity: 50%;
+    color: #000;
+  }
+  .brisi:hover {
+    color: red;
+    font-weight: bold;
+  }
+  .brs {
+    text-decoration: none;
+    color: black;
+  }
+  .brs:hover {
+    color: red;
+  }
+  .omiljeno:hover {
+    opacity: 100%;
+    color: red;
+  }
+
+  .detalj {
+    position: absolute;
+    top: calc(100% / 2.5);
+    left: calc(100% / 2.7);
+    display: none;
+
+    .linkud {
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      border: 1px solid black;
+      padding: 10px;
+      font-size: 10px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+    }
+    .linkud:hover .detalj {
+      background-color: rgb(230, 230, 230);
+      opacity: 1%;
+    }
+  }
+  .dodajUKorpu:hover {
+    opacity: 1;
+    background-color: rgb(70, 100, 139);
+    
+  }
+}
+
+.card:hover .detalj {
+  display: block;
+  
+}
+.card:hover img {
+  opacity: 0.7;
+}
+
+@media only screen and (max-width: 800px) {
+    img{
+      width:125px !important;
+  }
+}
