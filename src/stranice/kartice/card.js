@@ -31,10 +31,11 @@ export class Card extends Component {
      
             return (
                 <div>
-                    <div className="card">
+                    <div className="card" >
                         <div className="buttonForFav">
                    <button type="button" id="" value="" className="omiljeno" onClick={this.omiljeno}><i className="far fa-heart"></i></button>
                    </div>
+                   <Link className="linkud" to={"/product/"+product.IdAll+"/"+product.ID}>
                    <div className="bezfloat">
       
                            
@@ -48,8 +49,9 @@ export class Card extends Component {
                         <p className="cena">Cena: {product.Cena}  RSD</p>
                         </div>
                         </div>
+                        </Link>
                         <button type="submit" className="dodajUKorpu" id={product.naziv} onClick={this.dodaj}>DODAJ U KORPU<span id="korpa"><i className="fas fa-cart-plus"></i></span></button>
-                        <div className="detalj"><Link className="linkud" to={"/product/"+product.IdAll+"/"+product.ID}>DETALJI</Link></div>
+
                     
                     </div>
                 </div>

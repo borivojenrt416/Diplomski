@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Card from "../kartice/card";
-import { connect } from "react-redux";
-import { uzmiTip } from "../../actions/tipAkcija";
 import "./pametanizbor.scss";
 export class Pametanizbor extends Component {
   _isMounted=false;
@@ -31,7 +29,7 @@ export class Pametanizbor extends Component {
     return (
       <div>
         <div className="pametanizbor">
-          <p className="podnaslov">Pametan izbor</p>
+          <p className="podnaslov">Brze memorije</p>
           {this.state.memorije.map(m => {
             if (m.Kapacitet === "8GB" || m.Kapacitet === "16GB")
               return (

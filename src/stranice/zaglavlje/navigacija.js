@@ -58,10 +58,10 @@ class Navigacija extends Component{
             </div>
             <div className="burger">
             <Link to="#" className="mobileLink" onClick={this.changeShow}><li><i className="fas fa-bars"></i></li></Link>
-            <div id="p" className="innerBurger">
+            <div id="p" className="innerBurger" >
            
-                    <Link to="/proizvodi/desktop" className="mobileLink"><li>Desktop računari</li></Link>
-                    <Link to="/proizvodi/monitori"  className="mobileLink"><li>Monitori</li></Link> 
+                    <Link to="/proizvodi/desktop" className="mobileLink" ><li>Desktop računari</li></Link>
+                    <Link to="/proizvodi/monitori"  className="mobileLink" ><li>Monitori</li></Link> 
                     <Link to="/proizvodi/maticneploce" className="mobileLink"><li>Matične ploče</li></Link> 
                     <Link to="/proizvodi/procesori" className="mobileLink"><li>Procesor</li></Link> 
                     <Link to="/proizvodi/memorije" className="mobileLink"><li>Memorije</li></Link> 

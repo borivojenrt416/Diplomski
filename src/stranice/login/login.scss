@@ -1,8 +1,8 @@
 .stil{
     width:100%;
-    // margin-left: auto;
-    // margin-right: auto;
-    margin:1vw 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin:20px 0;
     display:flex;
     color:black;
     justify-content: center;
@@ -13,7 +13,7 @@
         display:inline-block;
         width:30%;
         text-align: left;
-        padding:1vw 1.5vw;
+        padding:10px 15px;
         vertical-align: top;
        
         
@@ -36,6 +36,7 @@
             
             label{
                 line-height: 0.5px;
+                font-size: 16px;
             }
             .inp{
                 margin:1vw 1vw 1vw 0;

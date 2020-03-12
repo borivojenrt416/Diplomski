@@ -34,7 +34,7 @@ export class Preporuka extends Component {
      console.log(this.state.desktop)
         return (
             <div className="odeljak">
-            <p className="podnaslov">Preporučujemo za Vas</p>
+            <p className="podnaslov">Najbolji dekstop računari</p>
             {this.state.desktop.map(d=>{
              
               if(d.Operativni==="Nema operativni sistem"||d.Operativni==="Windows 10 Pro 64bit")

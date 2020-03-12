@@ -2,7 +2,7 @@
   border: 0.5px solid rgb(173, 173, 173);
   width: 100%;
   text-align: center;
-  color: black;
+  // color: black;
   background-color: white;
   position: relative;
   
@@ -116,7 +116,7 @@
 
     .linkud {
       text-decoration: none;
-      color: rgb(0, 0, 0);
+      // color: rgb(0, 0, 0);
       border: 1px solid black;
       padding: 10px;
       font-size: 10px;
@@ -135,6 +135,12 @@
   }
 }
 
+.linkud {
+  text-decoration: none;
+  h6{
+    color:black;
+  }
+}
 .card:hover .detalj {
   display: block;
   
@@ -144,7 +150,14 @@
 }
 
 @media only screen and (max-width: 800px) {
+  .card{
+    width:96% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
     img{
       width:125px !important;
   }
 }
+
+
