@@ -5,6 +5,7 @@ import { dodajUKorpu, vratiBroj } from "../../actions/dodajUKorpu";
 import { Opis } from './opis'
 import { Komentari } from './komentari'
 import "./product.scss";
+import {uzmiTip} from '../../actions/tipAkcija'
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +41,10 @@ class Product extends Component {
       }
   }
   componentWillMount() {
+    this.props.uzmiTip("");
+    console.log("pozvano")
+    console.log(this.props.tip);
+    localStorage.setItem("tip","");
     fetch(
       `http://localhost:4000/korisnici/proizvod/${this.props.match.params.IdAll}/${this.props.match.params.ID}`
     )
@@ -147,4 +152,4 @@ const mapStateToProps = state => ({
   korpa: state.korpa.korpa
 });
 
-export default connect(mapStateToProps, { dodajUKorpu, vratiBroj })(Product);
+export default connect(mapStateToProps, { dodajUKorpu, vratiBroj, uzmiTip })(Product);

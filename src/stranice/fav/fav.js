@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Omiljenocard from '../kartice/omiljenocard'
+import {uzmiTip} from '../../actions/tipAkcija'
 import {
   Link,
 } from "react-router-dom";
@@ -11,6 +12,14 @@ class Fav extends Component {
     this.state = {
     };
   }
+
+componentWillMount(){
+  this.props.uzmiTip("");
+  console.log("pozvano")
+  console.log(this.props.tip);
+  localStorage.setItem("tip","");
+}
+
   render() {
     console.log(this.props.omiljeno)
     if (this.props.omiljeno !== null) {
@@ -56,4 +65,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(Fav)
+export default connect(mapStateToProps,{uzmiTip})(Fav)

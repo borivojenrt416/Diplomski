@@ -16,10 +16,10 @@ export class Home extends Component {
   }
   componentWillMount() {
 
-    // this.props.uzmiTip("");
-    // console.log("pozvano")
-    // console.log(this.props.tip);
-    // localStorage.setItem("tip","");
+    this.props.uzmiTip("");
+    console.log("pozvano")
+    console.log(this.props.tip);
+    localStorage.setItem("tip","");
 
   
   }

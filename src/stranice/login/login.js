@@ -6,6 +6,8 @@ import linkedin from '../footer/mreze/linkedin.png'
 import twitter from '../footer/mreze/twitter.png'
 import {connect} from 'react-redux'
 import {uloguj} from "../../actions/uloguj"
+import {uzmiTip} from "../../actions/tipAkcija"
+
 class LogIn extends Component{
 constructor(props) {
     super(props)
@@ -17,7 +19,12 @@ constructor(props) {
          },
     }
 }
-
+componentWillMount(){
+    this.props.uzmiTip("");
+    console.log("pozvano")
+    console.log(this.props.tip);
+    localStorage.setItem("tip","");
+}
 render(){
     const {korisnik} = this.state
     return(
@@ -57,4 +64,4 @@ render(){
 const mapDispatchToProps = (dispatch) =>({
     uloguj:(email,lozinka)=>dispatch(uloguj(email,lozinka))
   })
-export default connect(mapDispatchToProps,{uloguj})(LogIn);
+export default connect(mapDispatchToProps,{uloguj, uzmiTip})(LogIn);

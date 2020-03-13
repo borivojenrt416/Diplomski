@@ -671,6 +671,22 @@ app.get("/orders/:id",(req,res)=>{
       }
   })
 })
+
+app.get("/specificOrders/:id",(req,res)=>{
+
+  console.log("SELECT SPECIFIC ORDERS")
+  connection.query(`SELECT * FROM narudzbenice WHERE IDK=?`,[req.params.id],(err,result)=>{
+    console.log(res)
+    if(err)
+    {   return res.send(err)
+    }
+    else{
+        return res.json({
+            data:result
+        })
+    }
+})
+})
 app.listen(4000, () => {
   console.log("Port 4000");
 });

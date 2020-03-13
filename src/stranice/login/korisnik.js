@@ -4,12 +4,13 @@ import "./korisnik.scss";
 import { connect } from "react-redux";
 import { uzmi } from "../../actions/istorijakupljenih";
 import { azuriraj } from "../../actions/uloguj";
+import { uzmiTip } from '../../actions/tipAkcija'
 export class Korisnik extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      korisnik: null
+      narudzbine: []
     };
   }
 
@@ -42,22 +43,39 @@ export class Korisnik extends Component {
     this.props.azuriraj(korisnik.id);
   };
   componentWillMount() {
+    this.props.uzmiTip("");
+    console.log("pozvano")
+    console.log(this.props.tip);
+    localStorage.setItem("tip","");
     if (this.props.korisnik === undefined) {
     } else {
       this.setState({
         korisnik: this.props.korisnik[0]
       });
     }
+    
   }
   componentDidMount() {
     if (this.props.korisnik !== undefined) {
       this.props.uzmi(this.props.korisnik[0].id);
     }
+    if(this.state.korisnik!==undefined)
+    {
+      fetch(`http://localhost:4000/specificOrders/${this.state.korisnik.email}`)
+      .then(response=>response.json())
+      .then(json=>{
+        {
+        this.setState({
+          narudzbine: json.data
+        })}}
+      )
+    }
+
   }
 
   render() {
     const { korisnik } = this.state;
-
+    console.log(this.state.narudzbine)
     if (this.props.korisnik === undefined) {
       return (
         <div className="nema">
@@ -83,6 +101,26 @@ export class Korisnik extends Component {
             <p>Sifra : <span className="imeKorisnika">{korisnik.sifra}</span></p><br/>
           </div>
           <h2 className="nazivKomponente">Narudžbine korisnika</h2>
+          <table className="opisnaTabela2">
+        <thead>
+          <tr>
+            <th>ID NARUDZBINE</th><th className="hideUser">ID Adrese</th><th>Datum</th><th className="hideUser">Status</th><th>Racun</th><th className="hideUser">Nacin placanja</th><th>Detalji</th>
+          </tr>
+        </thead>
+        <tbody>
+        {this.state.narudzbine.map(n=>(
+          <tr>
+            <td>{n.IDN}</td>
+            <td className="hideUser">{n.IDA!=null?n.IDA:"Nema adrese"}</td>
+            <td >{n.Datum}</td>
+            <td className="hideUser">{n.Status?"Odobreno":"Neodobreno"}</td>
+            <td>{n.Racun}RSD</td>
+            <td className="hideUser">{n.NacinPlacanja}</td>
+            <td><button value={n.IDN} type="submit">Detalji</button></td>
+          </tr>
+        ))}
+        </tbody>
+        </table>
         </div>
       </div>
       );
@@ -95,6 +133,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   uzmi: id => dispatch(uzmi(id)),
-  azuriraj: id => dispatch(azuriraj(id))
+  azuriraj: id => dispatch(azuriraj(id)),
+  uzmiTip: nesto => dispatch(uzmiTip(nesto))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Korisnik);

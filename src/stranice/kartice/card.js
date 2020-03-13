@@ -44,12 +44,14 @@ export class Card extends Component {
                     <div className="Naziv">
                         <h6>{product.Naziv}</h6>
                         </div>
+                      
+                        </div>
+
+                        </Link>
                         <div className="linija">
                         <hr />
                         <p className="cena">Cena: {product.Cena}  RSD</p>
                         </div>
-                        </div>
-                        </Link>
                         <button type="submit" className="dodajUKorpu" id={product.naziv} onClick={this.dodaj}>DODAJ U KORPU<span id="korpa"><i className="fas fa-cart-plus"></i></span></button>
 
                     

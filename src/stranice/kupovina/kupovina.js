@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Kupovinacard from '../kartice/kupovinacard'
+import { uzmiTip } from "../../actions/tipAkcija"
 import { isprazniKorpu } from "../../actions/dodajUKorpu"
 import { vratiBroj, filtriraj, kolicinaputacena, racunaj } from "../../actions/dodajUKorpu"
 import {
@@ -75,6 +76,14 @@ class Kupovina extends Component {
         niz[i].cena = JSON.parse(pamti)
     }
   }
+
+  componentWillMount(){
+    this.props.uzmiTip("");
+    console.log("pozvano")
+    console.log(this.props.tip);
+    localStorage.setItem("tip","");
+  }
+
   placanje = () => {
     // if (this.props.korisnik !== null && this.props.korisnik !== undefined) {
     //   var tk = JSON.stringify(this.state.racun)
@@ -192,4 +201,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { isprazniKorpu, vratiBroj, filtriraj, kolicinaputacena, racunaj })(Kupovina)
+export default connect(mapStateToProps, { isprazniKorpu, vratiBroj, filtriraj, kolicinaputacena, racunaj, uzmiTip })(Kupovina)
