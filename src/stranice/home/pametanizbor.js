@@ -33,7 +33,7 @@ export class Pametanizbor extends Component {
           {this.state.memorije.map(m => {
             if (m.Kapacitet === "8GB" || m.Kapacitet === "16GB")
               return (
-                <div className="pored">
+                <div key={m.IdAll + m.ID} className="pored">
                   <Card product={m} />
                 </div>
               );

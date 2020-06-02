@@ -40,7 +40,7 @@ class Proizvodi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tip: this.props.match.params.tip,
+      // tip: this.props.match.params.tip,
       filteri: []
     };
   }
@@ -101,23 +101,18 @@ class Proizvodi extends Component {
     var postoji = 0;
     for (let i = 0; i < n.length; i++) {
       if (n[i][0] === e.target.value[0]) {
-        console.log("posotji");
         var d = n[i];
         postoji = 1;
         n2 = n.filter(n => n != d);
         n2.push(e.target.value);
-        console.log(n2);
         this.setState({
           filteri: n2
         });
         if (this.props.match.params.tip === "desktop") {
-          console.log("desktop");
           this.props.filteriDesktopRacunara(n2, this.props.match.params.tip);
         } else if (this.props.match.params.tip === "monitori") {
-          console.log("monitori");
           this.props.filteriMonitora(n2, this.props.match.params.tip);
         } else if (this.props.match.params.tip === "grafickekarte") {
-          console.log("grafickekarte");
           this.props.filteriGrafickihKartica(n2, this.props.match.params.tip);
         } else if (this.props.match.params.tip === "hdd") {
           this.props.filteriHDD(n2, this.props.match.params.tip);
@@ -134,12 +129,10 @@ class Proizvodi extends Component {
         } else if (this.props.match.params.tip === "ssd") {
           this.props.filteriSSD(n2, this.props.match.params.tip);
         }
-        console.log("PRONADJENO", n2);
       }
     }
     if (postoji === 0) {
       n.push(e.target.value);
-      console.log(n);
       this.setState({
         filteri: n
       });
@@ -164,14 +157,7 @@ class Proizvodi extends Component {
       } else if (this.props.match.params.tip === "ssd") {
         this.props.filteriSSD(n, this.props.match.params.tip);
       }
-      console.log("NIJE PRONADJENO", n);
     }
-
-    // this.setState({
-    //   filteri:n
-    // })
-
-    // this.props.sortirajTip(this.props.tip,this.state.filteri)
   };
 
   // cenaDo=(e)=>{
@@ -211,26 +197,20 @@ class Proizvodi extends Component {
   // this.props.filteri(this.state.filteri,this.props.match.params.tip)
   // }
   checkChanged = e => {
-    console.log(e.target.value);
     var niz = this.state.filteri;
     var nadjenCheck = false;
     for (let i = 0; i < niz.length; i++) {
-      console.log(e.target.value);
       if (niz[i] === e.target.value) nadjenCheck = true;
     }
 
     if (nadjenCheck) {
-      console.log("Nadjen", e.target.value);
       var niz2 = niz.filter(n => n != e.target.value);
-      console.log(niz2);
       this.setState({
         filteri: niz2
       });
       if (this.props.match.params.tip === "desktop") {
-        console.log("Desktop parametar");
         this.props.filteriDesktopRacunara(niz2, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "monitori") {
-        console.log("Monitor parametar");
         this.props.filteriMonitora(niz2, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "grafickekarte") {
         this.props.filteriGrafickihKartica(niz2, this.props.match.params.tip);
@@ -251,16 +231,13 @@ class Proizvodi extends Component {
       }
     }
     if (!nadjenCheck) {
-      console.log("Nije nadjen", e.target.value);
       niz.push(e.target.value);
       this.setState({
         filteri: niz
       });
       if (this.props.match.params.tip === "desktop") {
-        console.log("Nije nadjen Desktop parametar");
         this.props.filteriDesktopRacunara(niz, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "monitori") {
-        console.log("Nije nadjen Monitor parametar");
         this.props.filteriMonitora(niz, this.props.match.params.tip);
       } else if (this.props.match.params.tip === "grafickekarte") {
         this.props.filteriGrafickihKartica(niz, this.props.match.params.tip);
@@ -281,6 +258,8 @@ class Proizvodi extends Component {
       }
     }
   };
+
+  
   clear = e => {
     e.preventDefault();
     // var checkBoxes = this.state.filteri;
@@ -293,7 +272,6 @@ class Proizvodi extends Component {
     );
 
     for (let i = 0; i < checkedBoxes.length; i++) {
-      console.log(checkedBoxes[i]);
       document.getElementById(checkedBoxes[i].id).checked = false;
     }
     this.setState({
@@ -324,7 +302,6 @@ class Proizvodi extends Component {
     document.getElementById("cenaDo").value = "dsvi";
   };
   render() {
-    console.log(this.props.tip);
     return (
       <div className="sve">
         <div>
@@ -455,7 +432,7 @@ class Proizvodi extends Component {
               )}
               <div className="cards">
                 {this.props.tip.map(i => (
-                  <div className="pored" key={i.Naziv}>
+                  <div key={i.IdAll + i.ID} className="pored" key={i.Naziv}>
                     <Card product={i} key={i.Naziv} />
                   </div>
                 ))}

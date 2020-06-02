@@ -19,7 +19,7 @@ export class FilteriDesktopRacunari extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
               <input type="checkbox" name="Intel" id="Intel" value="Intel" onChange={this.props.checkChanged}/>
                <label htmlFor="Intel">Intel</label><br/>
                <input type="checkbox" name="AMD" id="AMD" value="AMD" onChange={this.props.checkChanged}/>

@@ -26,7 +26,7 @@ export class FilteriMemorija extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="CRUCIAL" id="CRUCIAL" value="CRUCIAL" onChange={this.props.checkChanged}/>
                <label htmlFor="CRUCIAL">CRUCIAL</label><br/>
                <input type="checkbox" name="HYPERX" id="HYPERX" value="HYPERX" onChange={this.props.checkChanged}/>
@@ -69,7 +69,7 @@ export class FilteriMemorija extends Component {
                </div>
                <div className={this.state.hidden?"hidden":"visible"}>
                    <div className="hiddenButton">
-               <button type="submit" onClick={this.changeHidden}>Jos filtera...</button>
+               <button type="submit" onClick={this.changeHidden}>Još filtera...</button>
                </div>
                </div>
                <div className={!this.state.hidden?"hidden":"visible"}>

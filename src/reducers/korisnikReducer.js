@@ -1,8 +1,6 @@
 import {ULOGUJ, AZURIRAJKORISNIKA, ODJAVIKORISNIKA} from '../actions/types'
 
-const initialState={
-    
-}
+const initialState={}
 
 
 export default function(state=initialState,action){

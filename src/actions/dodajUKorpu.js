@@ -17,18 +17,6 @@ export function racunanje(korpa){
 
 export const racunaj = (korpa)=>dispatch=>{
     console.log("POZVANO???")
-    var racun = 0;
-    console.log(korpa)
-    // for(let i=0;i<korpa.length;i++)
-    // {
-    //     var a = JSON.stringify(korpa[i].proizvod.cena)
-    //     var d = a.replace('.','')
-    //     var s = JSON.parse(d)
-    //     var izracunaj = parseInt(s)*parseInt(korpa[i].kolicina)
-    //     racun+=izracunaj
-    // }
-    // var s = racun.toLocaleString()
-    // console.log(s)
     var t = racunanje(korpa)
     console.log(t)
     dispatch({
@@ -106,19 +94,12 @@ export const vratiBroj=(proizvodi)=>dispatch=>{
 }
 export const dodajUKorpu=(proizvod,postojeciniz,kolicina=1)=>dispatch=>{
     var br=0;
-    console.log("Usao u dodaj u korpu")
     for(let i=0;i<postojeciniz.length;i++)
     {
-        console.log(postojeciniz[i])
       if(postojeciniz[i].proizvod.Naziv===proizvod.Naziv)
-      {
-          console.log("Proizvod je vec u korpi!")
+    {
         br=1;
-        dispatch({
-            type:VRATIPORUKU,
-            payload:"Proizvod je vec dodat u Vau korpu!"
-       })
-      }
+    }
     }
     if(br===0)
     {

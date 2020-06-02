@@ -90,7 +90,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     return noviNiz;
   }
   export function sortiraj(vrednost,niz3){
-  
     for (let i = 0; i < niz3.length; i++) {
       for (let j = 0; j < niz3.length - i - 1; j++) {
         var a = JSON.stringify(niz3[j].Cena).replace(".", "");

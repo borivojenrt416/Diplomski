@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import Navigacija from "./navigacija";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import Navigacija from "./navigacija";
+
 import logo from "./logo.png";
 import "./heder.scss";
 import Searchbar from "./searchbar";
 import Prijavanav from "./prijavanav";
 import Ispodsearchbara from "./ispodsearchbara";
-import { connect } from "react-redux";
+
 class Heder extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Heder extends Component {
   render() {
 
     {
-      if (this.props.korisnik !== undefined && this.props.korisnik !== null) {
+      if (this.props.korisnik !== undefined && this.props.korisnik !== null && this.props.korisnik[0] !== undefined) {
         if (this.props.korisnik[0].Status === "admin") {
           return (
             <div className="hed">

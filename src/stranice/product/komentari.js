@@ -64,7 +64,7 @@ dodajKomentar=()=>{
 
                 {this.props.kom!==null&&this.props.kom.length!==0?<><div className="listaKomentara"><div className="ime">Ime korisnika</div><div className="kom1">Komentar</div><div className="datumKomentar">Datum</div></div>{
                 this.props.kom.map(komentar=>
-                (<div className="listaKomentara"><hr/><div className="ime"><p>{komentar.Ime}</p></div><div className="kom1"><p>{komentar.Komentar}</p></div><div className="datumKomentar">{komentar.Datum}</div><br/></div>)
+                (<div key={komentar.IDK} className="listaKomentara"><hr/><div className="ime"><p>{komentar.Ime}</p></div><div className="kom1"><p>{komentar.Komentar}</p></div><div className="datumKomentar">{komentar.Datum}</div><br/></div>)
                 )}</>
                 :
                 <></>

@@ -105,21 +105,28 @@ table img{
         // color:black;
     }
 }
+.nazivKomponente2{
+    text-align: left;
+}
 .opisnaTabela2{
-    width:98%;
-    margin-left: auto;
-    margin-right: auto;
+    width:85%;
+
     border-spacing: 0;
     border:none;
     border-collapse: collapse;
+
 }
 .opisnaTabela2 tbody td{
+    width: 15%;
     padding:10px;
-    text-align: left;
-    border: 1px solid black;
+    text-align: center;
+    border-top: 1px solid black;
     border-spacing: 0;
     margin:0;
     vertical-align: middle;
+    img{
+        width:75px;
+    }
 }
 
 button{
@@ -129,8 +136,23 @@ button{
             transition: 0.4s;
 }
 @media only screen and (max-width: 900px) {
- .hideUser{
-     display: none;
- }
+    img{
+        width:75px !important;
+    }
 }
 
+
+@media only screen and (max-width: 695px) {
+    img{
+        width:50px !important;
+    }
+    .hideUser{
+        display: none;
+    }
+    .opisnaTabela2{
+        width:90%;
+        margin-left:0 !important;
+        margin-right:0 !important;
+        font-size: 11px;
+    }
+}

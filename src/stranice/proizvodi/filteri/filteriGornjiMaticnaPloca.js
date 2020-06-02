@@ -21,8 +21,8 @@ export class FilteriGornjiMaticnaPloca extends Component {
               <div className="filtriranje">
                   <label htmlFor="sort">Sortiraj po </label>
                      <Link to="#" className="slct"><select id="sort" onChange={this.props.filter}>
-                            <option value="Scrast" >Ceni rastuce</option>
-                            <option value="Scopad" >Ceni opadajuce</option>
+                            <option value="Scrast" >Ceni rastuće</option>
+                            <option value="Scopad" >Ceni opadajuće</option>
                             <option value="Snrast" >Nazivu A-Z</option>
                             <option value="Snopad" >Nazivu Z-A</option>
                         </select></Link>

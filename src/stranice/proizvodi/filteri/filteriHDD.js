@@ -19,7 +19,7 @@ export class FilteriHDD extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="SEAGATE" id="SEAGATE" value="ESEAGATE" onChange={this.props.checkChanged}/>
                <label htmlFor="SEAGATE">SEAGATE</label><br/>
                <input type="checkbox" name="WD" id="WD" value="WD" onChange={this.props.checkChanged}/>

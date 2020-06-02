@@ -26,7 +26,7 @@ export class FilteriNapajanja extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="ANTEC" id="ANTEC" value="ANTEC" onChange={this.props.checkChanged}/>
                <label htmlFor="ANTEC">ANTEC</label><br/>
                <input type="checkbox" name="LC-POWER" id="LC-POWER" value="LC-POWER" onChange={this.props.checkChanged}/>

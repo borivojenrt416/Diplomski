@@ -35,26 +35,26 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.props.dohvatiProizvode();
-  }
-  napuni = () => {
-    fetch("http://localhost:4000/korisnici/sviproizvodi")
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          proizvodi: response.data
-        });
-      });
-  };
-  componentDidMount() {
-    this.napuni();
-  }
+  // componentWillMount() {
+  //   this.props.dohvatiProizvode();
+  // }
+  // napuni = () => {
+  //   fetch("http://localhost:4000/korisnici/sviproizvodi")
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       this.setState({
+  //         proizvodi: response.data
+  //       });
+  //     });
+  // };
+  // componentDidMount() {
+  //   this.napuni();
+  // }
 
   render() {
-    if (this.props.korisnik !== undefined && this.props.korisnik !== null) {
+    if (this.props.korisnik !== undefined && this.props.korisnik !== null && this.props.korisnik[0] !== undefined) {
       if (this.props.korisnik[0].Status === "admin") {
-        console.log(this.props.korisnik.Status, "POSTOIOAFGAH");
+        console.log(this.props.korisnik[0].Status, "POSTOIOAFGAH");
         return (
           <div className="App">
             <Heder />

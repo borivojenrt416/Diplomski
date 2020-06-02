@@ -10,7 +10,7 @@ export class Korisnik extends Component {
     super(props);
 
     this.state = {
-      narudzbine: []
+      proizvodi: []
     };
   }
 
@@ -44,9 +44,8 @@ export class Korisnik extends Component {
   };
   componentWillMount() {
     this.props.uzmiTip("");
-    console.log("pozvano")
-    console.log(this.props.tip);
     localStorage.setItem("tip","");
+
     if (this.props.korisnik === undefined) {
     } else {
       this.setState({
@@ -56,26 +55,23 @@ export class Korisnik extends Component {
     
   }
   componentDidMount() {
-    if (this.props.korisnik !== undefined) {
-      this.props.uzmi(this.props.korisnik[0].id);
-    }
     if(this.state.korisnik!==undefined)
     {
-      fetch(`http://localhost:4000/specificOrders/${this.state.korisnik.email}`)
+      console.log("postoji korisnik")
+      fetch(`http://localhost:4000/uzmiProizvode/${this.state.korisnik.email}`)
       .then(response=>response.json())
       .then(json=>{
         {
         this.setState({
-          narudzbine: json.data
+          proizvodi: json.data
         })}}
       )
     }
-
   }
 
   render() {
     const { korisnik } = this.state;
-    console.log(this.state.narudzbine)
+    console.log(this.state.proizvodi)
     if (this.props.korisnik === undefined) {
       return (
         <div className="nema">
@@ -100,23 +96,22 @@ export class Korisnik extends Component {
             <p>Prezime : <span className="imeKorisnika">{korisnik.prezime}</span></p><br/>
             <p>Sifra : <span className="imeKorisnika">{korisnik.sifra}</span></p><br/>
           </div>
-          <h2 className="nazivKomponente">Narudžbine korisnika</h2>
+          <h2 className="nazivKomponente2">Naručeni proizvodi</h2>
           <table className="opisnaTabela2">
         <thead>
           <tr>
-            <th>ID NARUDZBINE</th><th className="hideUser">ID Adrese</th><th>Datum</th><th className="hideUser">Status</th><th>Racun</th><th className="hideUser">Nacin placanja</th><th>Detalji</th>
+            <th className="nazivTabela">Naziv </th><th className="kolicinaTabela">Količina</th><th className="hideUser cenaTabela">Cena</th><th className="ukupnaCenaTabela">Ukupna cena</th><th className="hideUser datumTabela">Datum</th><th className="slikaTabela">Slika</th>
           </tr>
         </thead>
         <tbody>
-        {this.state.narudzbine.map(n=>(
+        {this.state.proizvodi.map(p=>(
           <tr>
-            <td>{n.IDN}</td>
-            <td className="hideUser">{n.IDA!=null?n.IDA:"Nema adrese"}</td>
-            <td >{n.Datum}</td>
-            <td className="hideUser">{n.Status?"Odobreno":"Neodobreno"}</td>
-            <td>{n.Racun}RSD</td>
-            <td className="hideUser">{n.NacinPlacanja}</td>
-            <td><button value={n.IDN} type="submit">Detalji</button></td>
+            <td className="nazivTabela">{p.Naziv}</td>
+            <td className="kolicinaTabela">{p.Kolicina}</td>
+            <td className="hideUser cenaTabela">{p.Cena} RSD</td>
+            <td className="ukupnaCenaTabela">{p.UkupnaCena} RSD</td>
+            <td className="hideUser datumTabela">{p.Datum}</td>
+            <td className="slikaTabela"><img src={p.Slika} /></td>
           </tr>
         ))}
         </tbody>

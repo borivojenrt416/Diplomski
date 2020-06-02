@@ -26,7 +26,7 @@ export class FilteriKucista extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="COOLER MASTER" id="COOLER MASTER" value="COOLER MASTER" onChange={this.props.checkChanged}/>
                <label htmlFor="COOLER MASTER">COOLER MASTER</label><br/>
                <input type="checkbox" name="LC-POWER" id="LC-POWER" value="LC-POWER" onChange={this.props.checkChanged}/>
@@ -35,7 +35,7 @@ export class FilteriKucista extends Component {
                <label htmlFor="NZXT">NZXT</label><br/><br/><hr/>
                </div>
                <div className="inside">
-             <label className="nazivCheckboxova">Tip kucista</label><br/>
+             <label className="nazivCheckboxova">Tip kućišta</label><br/>
                <input type="checkbox" name="Midi Tower" id="Midi Tower" value="Midi Tower" onChange={this.props.checkChanged}/>
                <label htmlFor="Midi Tower">Midi Tower</label><br/>
                <input type="checkbox" name="Mini Tower" id="Mini Tower" value="Mini Tower" onChange={this.props.checkChanged}/>
@@ -49,7 +49,7 @@ export class FilteriKucista extends Component {
                <label htmlFor="200W">200W</label><br/><br/><hr/>
                </div>
                <div className="inside">
-             <label className="nazivCheckboxova">Maksimalna duzina graficke kartice</label><br/>
+             <label className="nazivCheckboxova">Maksimalna dužina grafičke kartice</label><br/>
              <input type="checkbox" name="245mm" id="245mm" value="245mm" onChange={this.props.checkChanged}/>
                <label htmlFor="245mm">245mm</label><br/>
                <input type="checkbox" name="360mm" id="360mm" value="360mm" onChange={this.props.checkChanged}/>
@@ -84,7 +84,7 @@ export class FilteriKucista extends Component {
                </div>
                <div className={this.state.hidden?"hidden":"visible"}>
                    <div className="hiddenButton">
-               <button type="submit" onClick={this.changeHidden}>Jos filtera...</button>
+               <button type="submit" onClick={this.changeHidden}>Još filtera...</button>
                </div>
                </div>
                <div className={!this.state.hidden?"hidden":"visible"}>

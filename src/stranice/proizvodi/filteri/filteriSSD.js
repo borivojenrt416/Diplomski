@@ -26,7 +26,7 @@ export class FilteriSSD extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="SAMSUNG" id="SAMSUNG" value="SAMSUNG" onChange={this.props.checkChanged}/>
                <label htmlFor="SAMSUNG">SAMSUNG</label><br/>
                <input type="checkbox" name="A-DATA" id="A-DATA" value="A-DATA" onChange={this.props.checkChanged}/>
@@ -57,7 +57,7 @@ export class FilteriSSD extends Component {
                <label htmlFor="SATA III">SATA III</label><br/><br/><hr/>
                </div>
                <div className="inside">
-             <label className="nazivCheckboxova">Brzina citanja</label><br/>
+             <label className="nazivCheckboxova">Brzina čitanja</label><br/>
              <input type="checkbox" name="Do 335MB" id="Do 335MB" value="Do 335MB/s" onChange={this.props.checkChanged}/>
                <label htmlFor="Do 335MB">Do 335MB</label><br/>
                <input type="checkbox" name="Do 520MB" id="CDo 520MB/s" value="CDo 520MB/s" onChange={this.props.checkChanged}/>
@@ -74,7 +74,7 @@ export class FilteriSSD extends Component {
                <label htmlFor="Do 3500MB">Do 3500MB</label><br/><br/><hr/>
                </div><div className={this.state.hidden?"hidden":"visible"}>
                    <div className="hiddenButton">
-               <button type="submit" onClick={this.changeHidden}>Jos filtera...</button>
+               <button type="submit" onClick={this.changeHidden}>Još filtera...</button>
                </div>
                </div>
                <div className={!this.state.hidden?"hidden":"visible"}>

@@ -26,7 +26,7 @@ export class FilteriProcesor extends Component {
               <div>
             
             <div className="inside">
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="AMD" id="AMD" value="AMD" onChange={this.props.checkChanged}/>
                <label htmlFor="AMD">AMD</label><br/>
                <input type="checkbox" name="INTEL" id="INTEL" value="Intel" onChange={this.props.checkChanged}/>
@@ -40,7 +40,7 @@ export class FilteriProcesor extends Component {
                <label htmlFor="Ne">Ne</label><br/><br/><hr/>
                </div>
                <div className="inside">
-               <label className="nazivCheckboxova">Podnozje</label><br/>
+               <label className="nazivCheckboxova">Podnožje</label><br/>
                <input type="checkbox" name="AMD® sTRX4" id="AMD® sTRX4" value="AMD® sTRX4" onChange={this.props.checkChanged}/>
                <label htmlFor="AMD® sTRX4">AMD® sTRX4</label><br/>
                <input type="checkbox" name="Intel® 1151 (8. i 9. gen.)" id="Intel® 1151 (8. i 9. gen.)" value="Intel® 1151 (8. i 9. gen.)" onChange={this.props.checkChanged}/>
@@ -84,7 +84,7 @@ export class FilteriProcesor extends Component {
                </div>
                <div className={this.state.hidden?"hidden":"visible"}>
                    <div className="hiddenButton">
-               <button type="submit" onClick={this.changeHidden}>Jos filtera...</button>
+               <button type="submit" onClick={this.changeHidden}>Još filtera...</button>
                </div>
                </div>
                <div className={!this.state.hidden?"hidden":"visible"}>

@@ -39,7 +39,7 @@ export class Preporuka extends Component {
              
               if(d.Operativni==="Nema operativni sistem"||d.Operativni==="Windows 10 Pro 64bit")
               return (
-              <div className="pored">
+              <div key={d.IdAll + d.ID} className="pored">
                 <Card product = {d} />
                 </div>
               )

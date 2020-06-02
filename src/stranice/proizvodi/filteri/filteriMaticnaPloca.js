@@ -19,7 +19,7 @@ export class FilteriMaticnaPloca extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="ASUS" id="ASUS" value="ASUS" onChange={this.props.checkChanged}/>
                <label htmlFor="ASUS">ASUS</label><br/>
                <input type="checkbox" name="MSI" id="MSI" value="MSI" onChange={this.props.checkChanged}/>
@@ -35,7 +35,7 @@ export class FilteriMaticnaPloca extends Component {
                <label htmlFor="Ne">Ne</label><br/><br/><hr/>
                </div>
                <div className="inside">
-               <label className="nazivCheckboxova">Podnozje</label><br/>
+               <label className="nazivCheckboxova">Podnožje</label><br/>
                <input type="checkbox" name="Intel® 2066" id="Intel® 2066" value="Intel® 2066" onChange={this.props.checkChanged}/>
                <label htmlFor="Intel® 2066">Intel® 2066</label><br/>
                <input type="checkbox" name="AMD® TR4" id="AMD® TR4" value="AMD® TR4" onChange={this.props.checkChanged}/>
@@ -44,7 +44,7 @@ export class FilteriMaticnaPloca extends Component {
                <label htmlFor="AMD® AM4">AMD® AM4</label><br/><br/><hr/>
                </div>
                <div className="inside">
-             <label className="nazivCheckboxova">Cipset</label><br/>
+             <label className="nazivCheckboxova">Čipset</label><br/>
                <input type="checkbox" name="Intel® X299" id="Intel® X299" value="Intel® X299" onChange={this.props.checkChanged}/>
                <label htmlFor="Intel® X299">Intel® X299</label><br/>
                <input type="checkbox" name="AMD® X399" id="AMD® X399" value="AMD® X399" onChange={this.props.checkChanged}/>
@@ -60,7 +60,7 @@ export class FilteriMaticnaPloca extends Component {
                <label htmlFor="AMD">AMD</label><br/><br/><hr/>
                </div>
                <div className="inside">
-               <label className="nazivCheckboxova">Format ploce</label><br/>
+               <label className="nazivCheckboxova">Format ploče</label><br/>
                <input type="checkbox" name="ATX" id="ATX" value="ATX" onChange={this.props.checkChanged}/>
                <label htmlFor="ATX">ATX</label><br/>
                <input type="checkbox" name="E-ATX" id="E-ATX" value="E-ATX" onChange={this.props.checkChanged}/>

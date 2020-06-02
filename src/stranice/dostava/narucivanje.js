@@ -32,7 +32,7 @@ class Narucivanje extends Component {
 
   componentWillMount() {
     const { kupac } = this.state;
-    if (this.props.korisnik !== null && this.props.korisnik !== undefined) {
+    if (this.props.korisnik !== null && this.props.korisnik !== undefined  && this.props.korisnik[0] !== undefined) {
       console.log(this.props.korisnik[0].ime);
       this.setState({
         kupac: {
@@ -59,7 +59,7 @@ class Narucivanje extends Component {
       this.state.kupac.telefon !== undefined
     ) {
       if (
-        /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/.test(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
           this.state.kupac.email
         ) &&
         /[0-9]{7,10}/.test(this.state.kupac.telefon)
@@ -124,7 +124,8 @@ class Narucivanje extends Component {
                 var datum = new Date().getMinutes();
                 var idn = JSON.stringify(this.state.kupac.email).concat(datum);
                 console.log(idn);
-                var datum2 = (new Date().toLocaleDateString())+""+(new Date().toLocaleTimeString())
+                var datum2 = (new Date().toLocaleDateString())
+                console.log(datum2)
                 datum2 = datum2.split('/').join('_');
                 const {korpa} = this.props
                 //DODAVANJE NARUDZBINE
@@ -178,7 +179,7 @@ class Narucivanje extends Component {
               var datum = new Date().getMinutes();
               var idn = JSON.stringify(this.state.kupac.email).concat(datum);
               console.log(idn);
-              var datum2 = (new Date().toLocaleDateString())+""+(new Date().toLocaleTimeString())
+              var datum2 = (new Date().toLocaleDateString());
               datum2 = datum2.split('/').join('_');
               //DODAVANJE NARUDZBINE
               const {korpa} = this.props

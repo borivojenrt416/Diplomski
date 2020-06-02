@@ -57,7 +57,6 @@ deleteUs=(e)=>{
 }
 
 approveOrder=(e)=>{
-  console.log(e.target.value)
   this.props.approveOrder(e.target.value,this.props.orders)
 }
 

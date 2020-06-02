@@ -37,7 +37,7 @@ export class Letizimi extends Component {
             {this.state.monitori.map(m => {
             if (m.Tip_panela=="TN")
               return (
-                <div className="pored">
+                <div key={m.IdAll + m.ID} className="pored">
                   <Card product={m} />
                 </div>
               );

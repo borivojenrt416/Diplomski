@@ -19,17 +19,13 @@ constructor(props) {
 dodajKorisnika=e=>{
     e.preventDefault()
     const {korisnik} = this.state;
-    if(korisnik.ime===""||korisnik.prezime===""||korisnik.sifra===""||korisnik.email===""||korisnik.telefon==="")
+    if(korisnik !== undefined && korisnik !== null && korisnik.ime===""||korisnik.prezime===""||korisnik.sifra===""||korisnik.email===""||korisnik.telefon==="")
     {
             alert("POPUNITE SVA POLJA!")
     }
-    else
-    
-        // if(this.state.korisnik.telefon.match("[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2,3}"))
-        console.log(korisnik)
+    else{
         if(this.state.korisnik.telefon.match("[0-9]{9,10}"))
                 {
-                   
                     fetch(`http://localhost:4000/korisnici/pretrazi/${korisnik.email}`)
                     .then(response=>response.json())
                     .then(broj=>{
@@ -48,6 +44,7 @@ dodajKorisnika=e=>{
                     alert("UNESITE PRAVILNO BROJ TELEFONA!")
                 }  
       }
+    }
     
 
 
@@ -68,27 +65,6 @@ render(){
     </div>
     <div className="desnoL">
     <form className="forma">
-    {/* <table><tbody>
-                    <tr><td className="tt">Vaše ime</td><td><input required className="inp" id={korisnik.ime} value={korisnik.ime||''}  type="text" onChange={e=>this.setState({
-                   korisnik:{...korisnik,ime:e.target.value}
-               })}/></td></tr>
-               <tr><td className="tt">Vaše prezime</td><td> <input required className="inp" id={korisnik.prezime} value={korisnik.prezime||''} type="text" onChange={e=>this.setState({
-                   korisnik:{...korisnik,prezime:e.target.value}
-               })}/></td></tr>
-               <tr><td className="tt">Vaš email</td><td><input required className="inp" id={korisnik.email} value={korisnik.email||''} type="email" onChange={e=>this.setState({
-                   korisnik:{...korisnik,email:e.target.value}
-               })}/></td></tr>
-               <tr><td className="tt">Vaša sifra</td><td><input required className="inp" id={korisnik.sifra} value={korisnik.sifra||''} type="text" onChange={e=>this.setState({
-                   korisnik:{...korisnik,sifra:e.target.value}
-               })}/></td></tr>
-               <tr><td className="tt">Vaš broj telefona</td><td><input required className="inp" id={korisnik.telefon} value={korisnik.telefon||''} type="text" onChange={e=>this.setState({
-                   korisnik:{...korisnik,telefon:e.target.value}
-               })}/></td></tr>
-               <tr><td className="tt">Vaš datum rođenja</td><td><input required className="inp" id={korisnik.datumRodjenja} value={korisnik.datumRodjenja||''} type="date" onChange={e=>this.setState({
-                   korisnik:{...korisnik,datumRodjenja:e.target.value}
-               })}/></td></tr>
-               <tr><td className="tt"><button type="submit" onClick={this.dodajKorisnika}><Link className="lgn" to="/register">Registruj se</Link></button><br/><br/></td></tr>
-               </tbody></table>  */}
                <label htmlFor={korisnik.ime}>Vase ime</label><input required className="inp" id={korisnik.ime} value={korisnik.ime||''} placeholder="Unesite Vase ime..."  type="text" onChange={e=>this.setState({
                    korisnik:{...korisnik,ime:e.target.value}})}/><br/>
                    <label htmlFor={korisnik.prezime}>Vase prezime</label><input required className="inp" id={korisnik.prezime} value={korisnik.prezime||''} placeholder="Unesite Vase prezime..." type="text" onChange={e=>this.setState({

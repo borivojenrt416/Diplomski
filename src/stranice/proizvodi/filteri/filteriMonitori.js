@@ -19,7 +19,7 @@ export class FilteriMonitori extends Component {
             
             <div className="inside">
               
-               <label className="nazivCheckboxova">Proizvodjac</label><br/>
+               <label className="nazivCheckboxova">Proizvođač</label><br/>
                <input type="checkbox" name="ASUS" id="ASUS" value="ASUS" onChange={this.props.checkChanged}/>
                <label htmlFor="ASUS">ASUS</label><br/>
                <input type="checkbox" name="DELL" id="DELL" value="DELL" onChange={this.props.checkChanged}/>

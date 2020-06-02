@@ -18,6 +18,7 @@ componentWillMount(){
   console.log("pozvano")
   console.log(this.props.tip);
   localStorage.setItem("tip","");
+
 }
 
   render() {

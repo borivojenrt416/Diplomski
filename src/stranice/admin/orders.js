@@ -21,14 +21,14 @@ export class Orders extends Component {
         <tbody>
         {this.props.orders.map(o=>(
           <tr>
-            <td>{o.IDN}</td>
+            <td>{o.ID}</td>
             <td>{o.IDA!=null?o.IDA:"Nema adrese"}</td>
-            <td  className="hideUser">{o.Datum}</td>
+            <td  className="hideUser">{new Date(o.Datum).toLocaleDateString()}</td>
             <td>{o.Status?"Odobreno":"Neodobreno"}</td>
             <td className="hideUser">{o.IDK}</td>
             <td>{o.Racun}</td>
             <td className="hideUser">{o.NacinPlacanja}</td>
-            <td>{o.Status==false?<button className="removeUser" value={o.IDN} type="submit" onClick={this.props.approve}>OK</button>:<button disabled className="removeUser" value={o.IDN} type="submit" onClick={this.props.approve}>OK</button>}</td>
+            <td>{o.Status==false?<button className="removeUser" value={o.ID} type="submit" onClick={this.props.approve}>OK</button>:<button disabled className="removeUser" value={o.IDN} type="submit" onClick={this.props.approve}>OK</button>}</td>
           </tr>
         ))}
         </tbody>
