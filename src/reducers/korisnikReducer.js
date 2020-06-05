@@ -1,22 +1,36 @@
-import {ULOGUJ, AZURIRAJKORISNIKA, ODJAVIKORISNIKA} from '../actions/types'
-
+import {ULOGUJ, AZURIRAJKORISNIKA, ODJAVIKORISNIKA, NEUSPESNOPRIJAVLJIVANJE, ISPRAZNI} from '../actions/types'
+import { push } from 'react-router-redux'
 const initialState={}
-
 
 export default function(state=initialState,action){
     
     switch(action.type){
         case ULOGUJ:
-            return{...state,
-               korisnik:action.payload
+            push("/home")
+            return{
+               korisnik:action.payload,
+               greska:null
             }
 
+
+            case NEUSPESNOPRIJAVLJIVANJE:
+                console.log("gr")
+                return{
+                   korisnik:null,
+                   greska:action.payload
+                }
         case AZURIRAJKORISNIKA:
             return{
                 ...state,
                 korisnik:null
             }
             
+        case ISPRAZNI:
+            return{
+                ...state,
+                korisnik:null,
+                greska:null
+            }
             case ODJAVIKORISNIKA:
                 return{
                     ...state,

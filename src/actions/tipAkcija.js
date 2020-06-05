@@ -1,4 +1,4 @@
-import { UZMI_TIP } from "./types";
+import { UZMI_TIP, OZNACI } from "./types";
 
 
 // export const cenaTipDo=(vrsta,t)=>dispatch=>{
@@ -105,7 +105,12 @@ import { UZMI_TIP } from "./types";
 
 export const uzmiTip=(t)=>dispatch=>{
   console.log(t)
-    fetch(`http://localhost:4000/korisnici/${t}`)
+  const request = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tip:t })
+    };
+  fetch(`http://localhost:4000/vrstaProizvoda/`,request)
     .then(response=>response.json())
    .then(tip=>dispatch({
         type:UZMI_TIP,
@@ -117,5 +122,13 @@ export const nista=()=>dispatch=>{
   dispatch({
     type:UZMI_TIP,
     payload:null
+  })
+}
+
+export const oznaci=(tip)=>dispatch=>{
+  console.log(tip)
+  dispatch({
+    type:OZNACI,
+    payload:tip
   })
 }

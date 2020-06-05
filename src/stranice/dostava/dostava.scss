@@ -45,6 +45,13 @@
         padding:20px 15px;
     }
 
+    .dugmeKupiDisabled{
+        background-color: #cccccc;
+        color: #666666; 
+        margin-bottom: 20px;
+        font-size: 14px;
+        padding:20px 15px;
+    }
     .dugmeKupi:hover,.dugmeVratiSeNazad:hover{
         background-color: rgb(61, 61, 61);
 
@@ -111,4 +118,10 @@
         text-align: center;
         font-size: 15px;
     }
+}
+
+.errorMessage{
+    color:red;
+    font-size: 12px;
+
 }

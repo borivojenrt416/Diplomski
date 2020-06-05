@@ -34,15 +34,16 @@ export class Searchbar extends Component {
         var nizProizvoda = [];
         for (let i = 0; i < niz.length; i++) {
             var niz3 = [];
-            fetch(
-                `http://localhost:4000/korisnici/pretragaProizvoda/${niz[i]}/${naziv}`
-            )
+            fetch(`http://localhost:4000/korisnici/pretragaProizvoda/${niz[i]}/${naziv}`)
                 .then(response2 => response2.json())
                 .then(response2 => {
                     nizProizvoda = response2.data;
+                    console.log(response2.data);
+                    console.log(nizProizvoda);
                     for (let i = 0; i < nizProizvoda.length; i++) {
                         if (nizProizvoda[i].IdAll !== "") niz3.push(nizProizvoda[i]);
                     }
+                    console.log(niz3)
                     this.setState({
                         niz: niz3
                     });
@@ -80,6 +81,7 @@ export class Searchbar extends Component {
                         onBlur={this.focusFalse}
                         onFocus={this.focusChange}
                         onChange={this.pretrazi}
+                       
                     />
                     <div className="sp"></div>
 
@@ -89,7 +91,7 @@ export class Searchbar extends Component {
                         }
                     >
                         {this.state.niz.map(n => (
-                                <Link key={n.IdAll+n.ID} className="trazeno" to="#" onMouseDown={() => this.isprazni(n.IdAll, n.ID)}>
+                                <Link key={n.Naziv+n.ID} className="trazeno" to="#" onMouseDown={() => this.isprazni(n.IdAll, n.ID)}>
                                     <div className="unutraLink">
                                         <div id="naziv">{n.Naziv}</div>{" "}
                                         <div id="cena">{n.Cena} RSD</div>

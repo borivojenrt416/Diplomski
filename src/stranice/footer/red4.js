@@ -35,7 +35,7 @@ export class Red4 extends Component {
                     <div className="tekst">
                         <p>
                             Sve cene na ovom sajtu iskazane su u dinarima. PDV je uračunat u cenu.
-                            Gigatron maksimalno koristi sve svoje resurse da Vam svi artikli na ovom sajtu
+                            Electroshop maksimalno koristi sve svoje resurse da Vam svi artikli na ovom sajtu
                              budu prikazani sa ispravnim nazivima specifikacija, fotografijama i cenama.
                              Ipak, ne možemo garantovati da su sve navedene informacije i
                              fotografije artikala na ovom sajtu u potpunosti ispravne
@@ -51,7 +51,7 @@ export class Red4 extends Component {
                     <Link to="#" className="mreza"><img src={linkedin} /></Link>
                 </div>
                 <div className="copyright">
-                    <p>Copyright ©2019. Sva prava su zadržana.</p>
+                    <p>Copyright ©2020. Sva prava su zadržana.</p>
                 </div>
             </div>
         )

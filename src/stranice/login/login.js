@@ -1,12 +1,12 @@
 import React,{Component} from 'react'
 import './login.scss'
-import {Link} from 'react-router-dom'
+import {Link, Redirect, withRouter} from 'react-router-dom'
 import fb from '../footer/mreze/fb.png'
 import linkedin from '../footer/mreze/linkedin.png'
 import twitter from '../footer/mreze/twitter.png'
 import {connect} from 'react-redux'
-import {uloguj} from "../../actions/uloguj"
-import {uzmiTip} from "../../actions/tipAkcija"
+import {uloguj, isprazni} from "../../actions/uloguj"
+import {uzmiTip,oznaci} from "../../actions/tipAkcija"
 
 class LogIn extends Component{
 constructor(props) {
@@ -19,14 +19,32 @@ constructor(props) {
          },
     }
 }
-componentWillMount(){
-    this.props.uzmiTip("");
-    console.log("pozvano")
-    console.log(this.props.tip);
-    localStorage.setItem("tip","");
+
+
+componentWillUnmount(){
+    if(this.props.greska.greska)          
+         this.props.isprazni();
 }
+
+componentWillMount(){
+    this.props.oznaci();
+}
+    
+
 render(){
     const {korisnik} = this.state
+   if(this.props.korisnik!== undefined && this.props.korisnik!== null)
+   {
+       if(this.props.korisnik[0]!==null)
+       {
+           console.log('asd')
+        return(
+            <Redirect to="/"></Redirect>
+   )
+       }
+      
+   }
+   else{
     return(
             <div className="stil">
                 <div className="levoL">
@@ -40,6 +58,7 @@ render(){
             <div className="desnoL">
                 <h2>Registrovani korisnici</h2>
                 <p>Ako kod nas imate korisnički nalog, molimo ulogujte se.</p>
+                {this.props.greska.greska==null ? (<div></div>) : (<div className="error"><p>Unesite ispravne podatke!</p></div>)}
             <form className="forma">
                 <label htmlFor={korisnik.email}>Email adresa</label>
                 <input placeholder="Unesite Vaš email..." className="inp" type="email" value={korisnik.email} onChange={e=>this.setState({
@@ -47,7 +66,7 @@ render(){
                  <label htmlFor={korisnik.sifra}>Lozinka</label>
                 <input placeholder="Unesite Vašu lozinku..." className="inp" type="password" value={korisnik.sifra} onChange={e=>this.setState({
                    korisnik:{...korisnik,sifra:e.target.value}})}/><br/>
-                  <Link className="lgn" to="/"><button type="submit" onClick={()=>this.props.uloguj(this.state.korisnik.email,this.state.korisnik.sifra)}>Prijavi se</button></Link><br/><br/>
+                  <Link className="lgn" to="#"><button type="submit" onClick={()=>this.props.uloguj(this.state.korisnik.email,this.state.korisnik.sifra)}>Prijavi se</button></Link><br/><br/>
             </form>
             <hr/>
             <div className="drm">
@@ -61,7 +80,13 @@ render(){
     );
 }
 }
+}
 const mapDispatchToProps = (dispatch) =>({
     uloguj:(email,lozinka)=>dispatch(uloguj(email,lozinka))
   })
-export default connect(mapDispatchToProps,{uloguj, uzmiTip})(LogIn);
+
+const mapStateToProps = state => ({
+    greska: state.greska,
+    korisnik: state.korisnik.korisnik
+})
+export default connect(mapStateToProps,{uloguj, uzmiTip, isprazni, oznaci})(LogIn);

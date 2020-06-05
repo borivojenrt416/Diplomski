@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./admin.scss";
+import uuid from 'node-uuid'
 export class Users extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,7 @@ export class Users extends Component {
         </thead>
         <tbody>
         {this.props.users.map(u=>u.Status!=='admin'?(
-          <tr>
+          <tr key={u.id}>
             <td>{u.id}</td><td>{u.ime}</td><td>{u.prezime}</td><td className="hideUser">{new Date(u.datumRodjenja).toLocaleDateString()}</td><td>{u.email}</td><td className="hideUser">{u.sifra}</td><td className="hideUser">{u.telefon}</td><td><button className="removeUser" value={u.id} type="submit" onClick={this.props.deleteUser}>X</button></td>
           </tr>
         ):<></>)}

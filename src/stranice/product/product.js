@@ -41,7 +41,6 @@ class Product extends Component {
       }
   }
   componentWillMount() {
-    this.props.uzmiTip("");
     console.log("pozvano")
     console.log(this.props.tip);
     localStorage.setItem("tip","");

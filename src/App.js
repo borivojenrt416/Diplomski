@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-
+import history from './stranice/history'
 import { connect } from "react-redux";
 import { dohvatiProizvode } from "./actions/proizvodiAkcije";
 
@@ -61,6 +61,7 @@ class App extends React.Component {
             <div>
               <Switch>
                 <Route exact path="/" render={props => <Admin />} />
+                <Route exact path="/login" render={props => <LogIn />} />
                 <Route component={Error} />
               </Switch>
             </div>
@@ -80,12 +81,12 @@ class App extends React.Component {
                 <Route exact path="/home" render={props => <Home />} />
                 <Route exact path="/proizvodi/:tip" component={Proizvodi} />
                 <Route exact path="/login" render={props => <LogIn />} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/korisnik" render={props => <Korisnik />} />
-                <Route exact path="/kupovina" render={props => <Kupovina />} />
-                <Route exact path="/product/:IdAll/:ID" component={Product} />
-                <Route exact path="/ukloniti/:id" component={Obrisan} />
-                <Route exact path="/omiljeno" component={Fav} />
+                {/* <Route exact path="/register" component={Register} /> */}
+                <Route exact history = {history} path="/korisnik" render={props => <Korisnik />} />
+                <Route exact history = {history} path="/kupovina" render={props => <Kupovina />} />
+                <Route exact history = {history} path="/product/:IdAll/:ID" component={Product} />
+                <Route exact history = {history} path="/ukloniti/:id" component={Obrisan} />
+                <Route exact history = {history} path="/omiljeno" component={Fav} />
                 <Route
                   exact
                   path="/dostava"

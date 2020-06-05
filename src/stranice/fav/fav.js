@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Omiljenocard from '../kartice/omiljenocard'
-import {uzmiTip} from '../../actions/tipAkcija'
+import {uzmiTip,oznaci} from '../../actions/tipAkcija'
 import {
   Link,
 } from "react-router-dom";
@@ -14,7 +14,7 @@ class Fav extends Component {
   }
 
 componentWillMount(){
-  this.props.uzmiTip("");
+  this.props.oznaci("");
   console.log("pozvano")
   console.log(this.props.tip);
   localStorage.setItem("tip","");
@@ -37,7 +37,7 @@ componentWillMount(){
 
             {this.props.omiljeno.map(k => (
 
-              <Omiljenocard product={k}/>
+              <Omiljenocard product={k} key={k.Naziv}/>
 
 
             ))}
@@ -51,7 +51,7 @@ componentWillMount(){
           <div>
             <div className="prazno">
               <p className="ikonicaKorpe"><i className="fas fa-shopping-cart"></i></p>
-              <p>Trenutno nemate nijedan proizvod na Vašoj listi želji</p>
+              <p>Trenutno nemate nijedan proizvod na Vašoj listi želja</p>
               <p><Link className="back" to="/home">Vrati se na početnu stranu</Link></p>
             </div>
           </div>
@@ -66,4 +66,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps,{uzmiTip})(Fav)
+export default connect(mapStateToProps,{uzmiTip,oznaci})(Fav)

@@ -40,13 +40,15 @@ this.props.poz()
     {
         const {product} = this.props   
             return (
+                <tbody>
                 <tr>
                     <td><div className="ArtikalSlika"><img src={product.proizvod.image}/></div></td>
-                    <td><div className="ArtikalNaziv"><h5>{product.proizvod.Naziv}</h5><h5>Proizvodjac : {product.proizvod.Proizvodjac}</h5></div></td>
+                    <td><div className="ArtikalNaziv"><h5>{product.proizvod.Naziv}</h5><h5>Proizvođač : {product.proizvod.Proizvodjac}</h5></div></td>
                     <td><div className="ArtikalKolicina"> <input id={"1".concat(JSON.stringify(product.proizvod.Naziv))} className="kolic" type="number"  value={this.props.product.kolicina} onChange={this.ok} min="1"/></div></td>
                     <td><button type="button" id="" value="" className="brisi" onClick={this.brisi}><i className="far fa-window-close"></i></button></td>
-                    <td><div className="ArtikalCena"><p>Cena: {(product.proizvod.Cena*product.kolicina).toLocaleString()}  RSD</p></div></td>
+                    <td><div className="ArtikalCena"><p>Cena: {(product.proizvod.Cena*product.kolicina).toLocaleString().replace(',','.')}  RSD</p></div></td>
                 </tr>
+                </tbody>
             )
         }
          

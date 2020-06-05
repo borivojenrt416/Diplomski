@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Users} from './users'
 import {Orders} from './orders'
 import "./admin.scss";
+import uuid from 'node-uuid'
 import { connect } from "react-redux";
 import {deleteUser,getUsers,getOrders,approveOrder} from '../../actions/admin'
 export class Admin extends Component {
@@ -14,16 +15,7 @@ export class Admin extends Component {
     };
   }
 
-  changeUserCard(){
-    this.setState({
-        korisnici:true
-    })
-}
-changeOrderCard(){
-  this.setState({
-      korisnici:false
-  })
-}
+
   componentWillMount() {
     if(!this.state._isMounted)
     {
@@ -40,13 +32,13 @@ changeOrderCard(){
 
   changeUserCard=()=>{
       this.setState({
-          korisnici:true
+          korisnici:false
       })
       console.log("user")
   }
   changeOrderCard=()=>{
     this.setState({
-        korisnici:false
+        korisnici:true
     })
     console.log("order")
 }
@@ -63,13 +55,13 @@ approveOrder=(e)=>{
   render() {
 console.log(this.props.users)
 console.log(this.props.orders)
-this.props.users.map(u=>console.log(u))
-        return (<div className="admin">
+        return (
+        <div className="admin" key={uuid()}>
             <div className="buttonsForAdmin">
-                <button className="Users" onClick={this.changeUserCard}>Korisnici</button>
-                <button className="Orders" onClick={this.changeOrderCard}>Narudžbenice</button>
+            <button className="Orders" onClick={this.changeOrderCard}>Narudžbenice</button>
+            <button className="Users" onClick={this.changeUserCard}>Korisnici</button>
             </div>
-            {this.state.korisnici? <Users users={this.props.users} deleteUser={this.deleteUs} />:<Orders orders={this.props.orders} approve={this.approveOrder}/>}
+            {!this.state.korisnici? <Users users={this.props.users} deleteUser={this.deleteUs} /> : <Orders  orders={this.props.orders} approve={this.approveOrder}/>} }
           
         </div>);
       }

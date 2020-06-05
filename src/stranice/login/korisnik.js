@@ -4,7 +4,7 @@ import "./korisnik.scss";
 import { connect } from "react-redux";
 import { uzmi } from "../../actions/istorijakupljenih";
 import { azuriraj } from "../../actions/uloguj";
-import { uzmiTip } from '../../actions/tipAkcija'
+import { uzmiTip, oznaci } from '../../actions/tipAkcija'
 export class Korisnik extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +43,9 @@ export class Korisnik extends Component {
     this.props.azuriraj(korisnik.id);
   };
   componentWillMount() {
-    this.props.uzmiTip("");
+    this.props.oznaci("")
+
+    // this.props.uzmiTip("");
     localStorage.setItem("tip","");
 
     if (this.props.korisnik === undefined) {
@@ -105,8 +107,8 @@ export class Korisnik extends Component {
         </thead>
         <tbody>
         {this.state.proizvodi.map(p=>(
-          <tr>
-            <td className="nazivTabela">{p.Naziv}</td>
+          <tr key={p.Naziv+p.Cena+p.Datum.toString()}>
+            <td className="nazivTabela">{p.Naziv.toString().split("\"")}</td>
             <td className="kolicinaTabela">{p.Kolicina}</td>
             <td className="hideUser cenaTabela">{p.Cena} RSD</td>
             <td className="ukupnaCenaTabela">{p.UkupnaCena} RSD</td>
@@ -129,6 +131,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   uzmi: id => dispatch(uzmi(id)),
   azuriraj: id => dispatch(azuriraj(id)),
-  uzmiTip: nesto => dispatch(uzmiTip(nesto))
+  uzmiTip: nesto => dispatch(uzmiTip(nesto)),
+  oznaci: tip => dispatch(oznaci(tip))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Korisnik);

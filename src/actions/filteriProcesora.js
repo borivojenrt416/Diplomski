@@ -71,6 +71,8 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     var noviNiz = [];
     for (let f = 0; f <filteri.length; f++) {
       for (let i = 0; i < niz.length; i++) {
+        console.log(niz[i].Tip_procesora)
+        console.log(filteri[f])
         if (niz[i].Tip_procesora === filteri[f]) {
           noviNiz.push(niz[i]);
         }
@@ -84,7 +86,9 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     var noviNiz = [];
     for (let f = 0; f < filteri.length; f++) {
       for (let i = 0; i < niz.length; i++) {
-        if (niz[i].Broj_jezgara === filteri[f][0]) {
+        var s = niz[i].Broj_jezgara+"b";
+        console.log(s);
+        if (s === filteri[f]) {
           noviNiz.push(niz[i]);
         }
       }
@@ -101,7 +105,9 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     console.log(filteri)
     for (let f = 0; f < filteri.length; f++) {
       for (let i = 0; i < niz.length; i++) {
-        if (niz[i].Threads === filteri[f][0]) {
+        var s = niz[i].Threads+"t";
+        console.log(s)
+        if (s === filteri[f]) {
           noviNiz.push(niz[i]);
         }
       }
@@ -172,7 +178,12 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     var proizvodjac = false;
     var gaming = false;
     var podnozje = false;
-    fetch(`http://localhost:4000/korisnici/${t}`)
+    const request = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tip:t })
+      };
+    fetch(`http://localhost:4000/vrstaProizvoda/`,request)
       .then(response => response.json())
       .then(niz => {
         for (let i = 0; i < niz.data.length; i++) {
@@ -244,11 +255,11 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         var filteri2=[]
         var tiptp=false;
         for (let filterIndex = 0; filterIndex < filteri.length; filterIndex++) {
-          if (filteri[filterIndex] === "Intel® Core™ i5") {
+          if (filteri[filterIndex] === "INTEL® Core™ i5") {
             tiptp = true;
             filteri2.push(filteri[filterIndex]);
           }
-          if (filteri[filterIndex] === "AMD Ryzen 7") {
+          if (filteri[filterIndex] === "AMD® Ryzen 7") {
             tiptp = true;
             filteri2.push(filteri[filterIndex]);
           }
@@ -380,9 +391,10 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
             RFFilteri.push(filteri[filterIndex]);
           }
          }
+         console.log(nizTh)
          if (tipRF)
          nizRF = filtrirajPoRadnojFrekvenciji(RFFilteri, nizTh);
-         if (!tipRF)  nizRF = nizBrJ;
+         if (!tipRF)  nizRF = nizTh;
         //Nalazenje da li ima u nizu filtera filter za opseg cene
   
         var niz3 = [];

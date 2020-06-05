@@ -162,7 +162,12 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     var proizvodjac = false;
     var tk = false;
     var napajanje = false;
-    fetch(`http://localhost:4000/korisnici/${t}`)
+    const request = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tip:t })
+      };
+    fetch(`http://localhost:4000/vrstaProizvoda/`,request)
       .then(response => response.json())
       .then(niz => {
         for (let i = 0; i < niz.data.length; i++) {
@@ -197,7 +202,7 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
             tk = true;
             tkFilteri.push(filteri[filterIndex]);
           }
-          if (filteri[filterIndex] === "Mni Tower") {
+          if (filteri[filterIndex] === "Mini Tower") {
             tk = true;
             tkFilteri.push(filteri[filterIndex]);
           }

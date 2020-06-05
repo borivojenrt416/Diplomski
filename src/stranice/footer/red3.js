@@ -14,7 +14,7 @@ export class Red3 extends Component {
                             <p>066 6 67 67 67</p>
                         </div>
                         <div className="desno1">
-                            <h4>Pravna lica lica</h4>
+                            <h4>Pravna lica</h4>
                             <p>011 44 14 010</p>
                         </div>
                     </div>

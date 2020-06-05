@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import './prijavanav.scss'
 import { odjavi } from '../../actions/uloguj'
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 export class Prijavanav extends Component {
 
 
@@ -11,8 +13,8 @@ export class Prijavanav extends Component {
             return (
                 <div>
                     <div className="prijavanav">
-                    <Link to="/kupovina" ><li>{this.props.cena}RSD<i className="fas fa-shopping-cart"></i></li></Link>
-                        <Link to="/omiljeno"><li><i className="far fa-heart"></i></li></Link>
+                    <Link to="/kupovina" ><li>{this.props.cena? this.props.cena : 0}RSD<i className="fas fa-shopping-cart"></i></li></Link>
+                        <Link to="/omiljeno"><li>{this.props.omiljeno.omiljeno.length>0?(<FavoriteIcon className="padding red"/>):(<FavoriteBorderIcon className="padding red"/>)}</li></Link>
                         <Link to="/login" ><li>Prijava</li></Link>
                     </div>
                 </div>
@@ -27,8 +29,8 @@ export class Prijavanav extends Component {
                 <div>
                     <div className="prijavanav">
                         <Link to="/korisnik" ><li>{this.props.korisnik[0].ime}</li></Link>
-                        <Link to="/kupovina"  ><li>{this.props.cena}RSD<i className="fas fa-shopping-cart"></i></li></Link>
-                        <Link to="/omiljeno" ><li><i className="far fa-heart"></i></li></Link>
+                        <Link to="/kupovina"  ><li>{this.props.cena? this.props.cena : 0}RSD<i className="fas fa-shopping-cart"></i></li></Link>
+                        <Link to="/omiljeno" ><li>{this.props.omiljeno.omiljeno.length>0?(<FavoriteIcon className="padding red"/>):(<FavoriteBorderIcon className="padding red"/>)}</li></Link>
                         <Link to="/login" ><li onClick={this.props.odjavi}>Odjava</li></Link>
                     </div>
                 </div>
@@ -52,7 +54,8 @@ export class Prijavanav extends Component {
 const mapStateToProps = state => ({
     korisnik: state.korisnik.korisnik,
     broj: state.broj.broj,
-    cena: state.cena.cena
+    cena: state.cena.cena,
+    omiljeno: state.omiljeno
 })
 
 export default connect(mapStateToProps, {odjavi})(Prijavanav)

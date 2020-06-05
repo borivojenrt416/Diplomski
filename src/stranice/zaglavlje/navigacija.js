@@ -43,16 +43,16 @@ class Navigacija extends Component{
         return(<div>
             <div className="lista">
                 <ul className="flex-container">
-                    <Link to="/proizvodi/desktop" ><li className={localStorage.getItem("tip")=="desktop"?"act":""}>Desktop računari</li></Link>
-                    <Link to="/proizvodi/monitori"  ><li className={localStorage.getItem("tip")=="monitori"?"act":""}>Monitori</li></Link> 
-                    <Link to="/proizvodi/maticneploce"  ><li className={localStorage.getItem("tip")=="maticneploce"?"act":""}>Matične ploče</li></Link> 
-                    <Link to="/proizvodi/procesori"  ><li className={localStorage.getItem("tip")=="procesori"?"act":""}>Procesor</li></Link> 
-                    <Link to="/proizvodi/memorije" ><li className={localStorage.getItem("tip")=="memorije"?"act":""}>Memorije</li></Link> 
-                    <Link to="/proizvodi/grafickekarte"  ><li className={localStorage.getItem("tip")=="grafickekarte"?"act":""}>Grafičke kartice</li></Link> 
-                    <Link to="/proizvodi/hdd"  ><li className={localStorage.getItem("tip")=="hdd"?"act":""}>HDD</li></Link>
-                    <Link to="/proizvodi/ssd"  ><li className={localStorage.getItem("tip")=="ssd"?"act":""}>SSD</li></Link>
-                    <Link to="/proizvodi/napajanja"  ><li className={localStorage.getItem("tip")=="napajanja"?"act":""}>Napajanja</li></Link>
-                    <Link to="/proizvodi/kucista"  ><li className={localStorage.getItem("tip")=="kucista"?"act":""}>Kućišta</li></Link>  
+                    <Link to="/proizvodi/desktop" ><li className={this.props.oznaka=="desktop"?"act":""}>Desktop računari</li></Link>
+                    <Link to="/proizvodi/monitori"  ><li className={this.props.oznaka=="monitori"?"act":""}>Monitori</li></Link> 
+                    <Link to="/proizvodi/maticneploce"  ><li className={this.props.oznaka=="maticneploce"?"act":""}>Matične ploče</li></Link> 
+                    <Link to="/proizvodi/procesori"  ><li className={this.props.oznaka=="procesori"?"act":""}>Procesor</li></Link> 
+                    <Link to="/proizvodi/memorije" ><li className={this.props.oznaka=="memorije"?"act":""}>Memorije</li></Link> 
+                    <Link to="/proizvodi/grafickekarte"  ><li className={this.props.oznaka=="grafickekarte"?"act":""}>Grafičke kartice</li></Link> 
+                    <Link to="/proizvodi/hdd"  ><li className={this.props.oznaka=="hdd"?"act":""}>HDD</li></Link>
+                    <Link to="/proizvodi/ssd"  ><li className={this.props.oznaka=="ssd"?"act":""}>SSD</li></Link>
+                    <Link to="/proizvodi/napajanja"  ><li className={this.props.oznaka=="napajanja"?"act":""}>Napajanja</li></Link>
+                    <Link to="/proizvodi/kucista"  ><li className={this.props.oznaka=="kucista"?"act":""}>Kućišta</li></Link>  
                 </ul>
               
             </div>
@@ -78,7 +78,8 @@ class Navigacija extends Component{
     }
 }
 const mapStateToProps = state =>({
-    tip:state.tip.tip
+    tip:state.tip.tip,
+    oznaka:state.oznaka.oznaka
   })
   
   export default connect(mapStateToProps)(Navigacija);

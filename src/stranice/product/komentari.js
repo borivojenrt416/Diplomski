@@ -55,11 +55,11 @@ dodajKomentar=()=>{
     return (
             <div className="kom">
                 <form className="forma">
-                <label htmlFor={komentar.ime}>Vase ime</label><input required className="inp" id={komentar.ime} value={komentar.ime||''} placeholder="Unesite Vase ime..."  type="text" onChange={e=>this.setState({
+                <label htmlFor={komentar.ime}>Vaše ime</label><input required className="inp" id={komentar.ime} value={komentar.ime||''} placeholder="Unesite Vaše ime..."  type="text" onChange={e=>this.setState({
                    komentar:{...komentar,ime:e.target.value}})}/><br/>
-                <label htmlFor={komentar.poruka}>Komentar : </label><textarea rows="4" cols="50" required className="inp" id={komentar.poruka} value={komentar.poruka||''} placeholder="Unesite Vas komentar..."  type="text" onChange={e=>this.setState({
+                <label htmlFor={komentar.poruka}>Komentar : </label><textarea rows="4" cols="50" required className="inp" id={komentar.poruka} value={komentar.poruka||''} placeholder="Unesite Vaš komentar..."  type="text" onChange={e=>this.setState({
                    komentar:{...komentar,poruka:e.target.value}})}/><br/>
-                 <button type="submit" onClick={this.dodajKomentar}>Dodaj komentar</button><br/><br/>
+                 <button type="submit" className="dodajKomentar" onClick={this.dodajKomentar}>Dodaj komentar</button><br/><br/>
                 </form>
 
                 {this.props.kom!==null&&this.props.kom.length!==0?<><div className="listaKomentara"><div className="ime">Ime korisnika</div><div className="kom1">Komentar</div><div className="datumKomentar">Datum</div></div>{

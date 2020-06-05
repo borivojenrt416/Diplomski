@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./proizvodi.scss";
 import Card from "../kartice/card";
 import { connect } from "react-redux";
-import { uzmiTip } from "../../actions/tipAkcija";
+import { uzmiTip,oznaci } from "../../actions/tipAkcija";
 import { filteriDesktopRacunara } from "../../actions/filteriDesktopRacunaraAkcija";
 import { filteriMonitora } from "../../actions/filteriMonitori";
 import { filteriGrafickihKartica } from "../../actions/filteriGrafickihKartica";
@@ -47,18 +47,22 @@ class Proizvodi extends Component {
   componentWillMount() {
     console.log(this.props.match.params.tip);
     this.props.uzmiTip(this.props.match.params.tip);
+    this.props.oznaci(this.props.match.params.tip)
     localStorage.setItem("tip", this.props.match.params.tip);
     console.log(this.props.match.params.tip);
+    console.log(this.props.oznaka)
   }
 
   componentWillUpdate(prevProps) {
     localStorage.setItem("tip", prevProps.match.params.tip);
     if (this.props.match.params.tip !== prevProps.match.params.tip) {
       this.props.uzmiTip(prevProps.match.params.tip);
+      this.props.oznaci(prevProps.match.params.tip)
       localStorage.setItem("tip", prevProps.match.params.tip);
       let checkedBoxes = document.querySelectorAll(
         "input[type=checkbox]:checked"
       );
+      console.log(this.props.oznaka)
 
       for (let i = 0; i < checkedBoxes.length; i++) {
         console.log(checkedBoxes[i]);
@@ -432,7 +436,7 @@ class Proizvodi extends Component {
               )}
               <div className="cards">
                 {this.props.tip.map(i => (
-                  <div key={i.IdAll + i.ID} className="pored" key={i.Naziv}>
+                  <div className="pored" key={i.Naziv}>
                     <Card product={i} key={i.Naziv} />
                   </div>
                 ))}
@@ -445,11 +449,13 @@ class Proizvodi extends Component {
   }
 }
 const mapStateToProps = state => ({
-  tip: state.tip.tip
+  tip: state.tip.tip,
+  oznaka:state.oznaka
 });
 
 export default connect(mapStateToProps, {
   uzmiTip,
+  oznaci,
   filteriDesktopRacunara,
   filteriMonitora,
   filteriGrafickihKartica,

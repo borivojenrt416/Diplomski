@@ -10,7 +10,9 @@ import orders from './orders'
 export default combineReducers({
 proizvodi:proizvodiReducer,
 tip:tipReducer,
+oznaka:tipReducer,
 korisnik:korisnikReducer,
+greska:korisnikReducer,
 korpa:dodajUKorpu,
 poruka:dodajUKorpu,
 istorija:istorijakupljenih,

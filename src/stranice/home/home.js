@@ -6,7 +6,7 @@ import './home.scss'
 
 import { connect } from 'react-redux'
 import { dohvatiProizvode } from '../../actions/proizvodiAkcije'
-import {uzmiTip} from '../../actions/tipAkcija'
+import {uzmiTip,oznaci} from '../../actions/tipAkcija'
 export class Home extends Component {
   constructor(props) {
     super(props);
@@ -15,11 +15,11 @@ export class Home extends Component {
     }
   }
   componentWillMount() {
-
-    this.props.uzmiTip("");
-    console.log("pozvano")
-    console.log(this.props.tip);
-    localStorage.setItem("tip","");
+    this.props.oznaci("")
+    // this.props.uzmiTip("");
+    // console.log("pozvano")
+    // console.log(this.props.tip);
+    // localStorage.setItem("tip","");
 
   
   }
@@ -41,4 +41,4 @@ export class Home extends Component {
 const mapStateToProps = state => ({
   korisnik: state.korisnik.korisnik,
 })
-export default connect(mapStateToProps, { dohvatiProizvode, uzmiTip })(Home);
+export default connect(mapStateToProps, { dohvatiProizvode, uzmiTip, oznaci })(Home);

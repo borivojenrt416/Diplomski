@@ -1,7 +1,8 @@
-import {UZMI_TIP,SORTIRAJ_TIP,CENA_TIP, FILTERI} from '../actions/types'
+import {UZMI_TIP,SORTIRAJ_TIP,CENA_TIP, FILTERI, OZNACI} from '../actions/types'
 
 const initialState={
-    tip:[]
+    tip:[],
+    oznaka:""
 }
 
 
@@ -13,6 +14,11 @@ export default function(state=initialState,action){
                 ...state,
                 tip:action.payload
             }
+            case OZNACI:
+                return{
+                    ...state,
+                    oznaka:action.payload
+                }
         case SORTIRAJ_TIP:
             console.log(action.payload)
             return{

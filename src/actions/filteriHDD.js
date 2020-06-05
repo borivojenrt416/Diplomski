@@ -54,6 +54,7 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     console.log(niz)
     for (let f = 0; f < filteri.length; f++) {
       for (let i = 0; i < niz.length; i++) {
+        console.log(niz[i].Format,filteri[f])
         if (niz[i].Format === filteri[f]) {
           noviNiz.push(niz[i]);
         }
@@ -136,7 +137,12 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     var proizvodjac = false;
     var kapacitet = false;
     var format = false;
-    fetch(`http://localhost:4000/korisnici/${t}`)
+    const request = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tip:t })
+      };
+    fetch(`http://localhost:4000/vrstaProizvoda/`,request)
       .then(response => response.json())
       .then(niz => {
         for (let i = 0; i < niz.data.length; i++) {
@@ -203,11 +209,11 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         for (let filterIndex = 0; filterIndex < filteri.length; filterIndex++) {
             if (filteri[filterIndex] === "2.5\"") {
                 format = true;
-                fFilteri.push("PCIe");
+                fFilteri.push("2.5\"");
             }
             if (filteri[filterIndex] === "3.5\"") {
                 format = true;
-                fFilteri.push("SATA III");
+                fFilteri.push("3.5\"");
             }
         }
         if (format)

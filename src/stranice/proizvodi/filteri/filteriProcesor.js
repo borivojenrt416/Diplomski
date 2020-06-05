@@ -52,10 +52,10 @@ export class FilteriProcesor extends Component {
                </div>
                <div className="inside">
                <label className="nazivCheckboxova">Tip procesora</label><br/>
-              <input type="checkbox" name="Intel® Core™ i5" id="Intel® Core™ i5" value="Intel® Core™ i5" onChange={this.props.checkChanged}/>
-               <label htmlFor="Intel® Core™ i5">Intel® Core™ i5</label><br/>
-               <input type="checkbox" name="AMD Ryzen 7" id="AMD Ryzen 7" value="AMD Ryzen 7" onChange={this.props.checkChanged}/>
-               <label htmlFor="AMD Ryzen 7">AMD Ryzen 7</label><br/>
+              <input type="checkbox" name="INTEL® Core™ i5" id="INTEL® Core™ i5" value="INTEL® Core™ i5" onChange={this.props.checkChanged}/>
+               <label htmlFor="INTEL® Core™ i5">INTEL® Core™ i5</label><br/>
+               <input type="checkbox" name="AMD® Ryzen 7" id="AMD® Ryzen 7" value="AMD® Ryzen 7" onChange={this.props.checkChanged}/>
+               <label htmlFor="AMD® Ryzen 7">AMD® Ryzen 7</label><br/>
                <input type="checkbox" name="INTEL Procesor Celeron" id="INTEL Procesor Celeron" value="INTEL Procesor Celeron" onChange={this.props.checkChanged}/>
                <label htmlFor="INTEL Procesor Celeron">INTEL Procesor Celeron</label><br/>
                <input type="checkbox" name="AMD® Ryzen 5" id="AMD® Ryzen 5" value="AMD® Ryzen 5" onChange={this.props.checkChanged}/>

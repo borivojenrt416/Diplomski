@@ -31,13 +31,15 @@ brisi=()=>{
         
         const {product} = this.props   
             return (
+                <tbody>
                 <tr>
                 <td><div className="ArtikalSlika"><img src={product.image}/></div></td>
-                <td><div className="ArtikalNaziv"><h5>{product.Naziv}</h5><h5>Proizvodjac : {product.Proizvodjac}</h5>
+                <td><div className="ArtikalNaziv"><h5>{product.Naziv}</h5><h5>Proizvođač : {product.Proizvodjac}</h5>
                 <button type="submit" className="dodajUKorpu" id={product.Naziv} onClick={this.dodaj}>DODAJ U KORPU<span id="korpa"><i className="fas fa-cart-plus"></i></span></button></div></td>
                 <td><button type="button" id="" value="" className="brisi" onClick={this.brisi}><i className="far fa-window-close"></i></button></td>
                 <td><div className="ArtikalCena"><p>Cena: {product.Cena.toLocaleString('en')}  RSD</p></div></td>
             </tr>
+            </tbody>
             )
         }
          

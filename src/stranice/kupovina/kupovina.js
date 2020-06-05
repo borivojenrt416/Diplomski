@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Kupovinacard from '../kartice/kupovinacard'
-import { uzmiTip } from "../../actions/tipAkcija"
+import { uzmiTip, oznaci } from "../../actions/tipAkcija"
 import { isprazniKorpu } from "../../actions/dodajUKorpu"
 import { vratiBroj, filtriraj, kolicinaputacena, racunaj } from "../../actions/dodajUKorpu"
 import {
@@ -58,7 +58,7 @@ class Kupovina extends Component {
   }
 
   componentWillMount() {
-    this.props.uzmiTip("");
+    this.props.oznaci("")
     localStorage.setItem("tip", "");
   }
 
@@ -66,6 +66,7 @@ class Kupovina extends Component {
 
 
   render() {
+    console.log(this.props.korpa)
     if (this.props.korpa !== null) {
       if (this.props.korpa.length !== 0) {
         return (
@@ -80,7 +81,7 @@ class Kupovina extends Component {
 
               {this.props.korpa.map(k => (
 
-                <Kupovinacard product={k} vrsta="korpa" remove={this.removeItem} poz={this.ponovo} vratiKolicinu={this.vrati} />
+                <Kupovinacard product={k} key={k.proizvod.Naziv} vrsta="korpa" remove={this.removeItem} poz={this.ponovo} vratiKolicinu={this.vrati} />
 
 
               ))}
@@ -130,4 +131,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { isprazniKorpu, vratiBroj, filtriraj, kolicinaputacena, racunaj, uzmiTip })(Kupovina)
+export default connect(mapStateToProps, { isprazniKorpu, vratiBroj, filtriraj, kolicinaputacena, racunaj, uzmiTip, oznaci })(Kupovina)

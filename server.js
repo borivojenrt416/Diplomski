@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const router = express.Router();
+const nodemailer = require('nodemailer');
 const mysql = require("mysql");
 const app = express();
 
 app.use(cors());
+app.use(express.json())
+app.use('/', router)
 
 const SELECTALL = "SELECT * FROM table1";
 const SVIPROIZVODI = "SELECT * FROM proizvodi";
@@ -52,13 +56,14 @@ app.get("/korisnici/sviproizvodi", (req, res) => {
 app.get("/korisnici/pretraga", (req, res) => {
   var nizTabela = [];
   connection.query(
-    `Select TABLE_NAME from information_schema.columns where column_name='Naziv'`,
+    `Select TABLE_NAME from information_schema.columns where column_name='IdAll'`,
     (err, result) => {
       if (err) {
         console.log(err);
         return res.send(err);
       } else {
         for (let i = 0; i < result.length; i++)
+        if(result[i].TABLE_NAME!=='kupljeniproizvodi' && result[i].TABLE_NAME!=='komentari')
           nizTabela.push(result[i].TABLE_NAME);
 
         console.log(nizTabela);
@@ -345,8 +350,8 @@ app.get("/uzmiProizvode/:id", (req, res) => {
     }
   );
 });
-app.get("/korisnici/:tip", (req, res) => {
-  connection.query(`SELECT * FROM ${req.params.tip}`, (err, result) => {
+app.post("/vrstaProizvoda/", (req, res) => {
+  connection.query(`SELECT * FROM ${req.body.tip}`, (err, result) => {
     if (err) {
       return res.send(err);
     } else {
@@ -357,7 +362,7 @@ app.get("/korisnici/:tip", (req, res) => {
   });
 });
 
-app.get("/getUsers", (req, res) => {
+app.post("/getUsers", (req, res) => {
   connection.query(`SELECT * FROM table1`, (err, result) => {
     if (err) {
       return res.send(err);
@@ -369,8 +374,8 @@ app.get("/getUsers", (req, res) => {
   });
 });
 
-app.get("/deleteUser/:id", (req, res) => {
-  connection.query(`DELETE FROM table1 WHERE id=?`, [req.params.id], (err, result) => {
+app.post("/deleteUser/", (req, res) => {
+  connection.query(`DELETE FROM table1 WHERE id=?`, [req.body.id], (err, result) => {
     if (err) {
       return res.send(err);
     } else {
@@ -380,11 +385,11 @@ app.get("/deleteUser/:id", (req, res) => {
 });
 
 
-app.get("/korisnici/:email/:lozinka", (req, res) => {
-  console.log(req.params.email, req.params.lozinka);
+app.post("/ulogujKorisnika/", (req, res) => {
+  // console.log(req.params.email, req.params.lozinka);
   connection.query(
     `SELECT * FROM table1 WHERE (email=? OR ime=?) AND sifra=?`,
-    [req.params.email, req.params.email, req.params.lozinka],
+    [req.body.email, req.body.email, req.body.lozinka],
     (err, korisnik) => {
       console.log(res);
       if (err) {
@@ -559,13 +564,16 @@ app.get(
 app.get(
   "/addOrder/:idn/:IDA/:Datum/:IDK/:racun/:nacinPlacanja",
   (req, res) => {
+    console.log(req.params.Datum)
     var s = req.params.Datum.split('_').join('/')
+    var date = new Date(s)
+    console.log(date)
     connection.query(
       `INSERT INTO narudzbenice (IDN,IDA,Datum,Status,IDK,Racun,NacinPlacanja) VALUES(?,?,?,?,?,?,?)`,
       [
         req.params.idn,
         req.params.IDA,
-        s,
+        date,
         false,
         req.params.IDK,
         req.params.racun,
@@ -587,12 +595,13 @@ app.get(
   (req, res) => {
     console.log(req.params.idn, req.params.Datum, req.params.IDK, req.params.racun, req.params.nacinPlacanja)
     var s = req.params.Datum.split('_').join('/')
-
+    var date = new Date(s)
+    console.log(date)
     connection.query(
       `INSERT INTO narudzbenice (IDN,Datum,Status,IDK,Racun,NacinPlacanja) VALUES(?,?,?,?,?,?)`,
       [
         req.params.idn,
-        s,
+        date,
         false,
         req.params.IDK,
         req.params.racun,
@@ -647,7 +656,7 @@ app.get(
   }
 );
 //
-app.get("/orders", (req, res) => {
+app.post("/orders", (req, res) => {
 
   console.log("SELECT ORDERS")
   connection.query(`SELECT * FROM narudzbenice`, (err, result) => {
@@ -663,9 +672,24 @@ app.get("/orders", (req, res) => {
   })
 })
 
-app.get("/orders/:id", (req, res) => {
+app.post("/kupljeniProizvodi/", (req, res) => {
+  console.log("SELECT PRODUCTS")
+  connection.query(`SELECT * FROM kupljeniproizvodi where IDN=?`, [req.body.idn],(err, result) => {
+    console.log(res)
+    if (err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: result
+      })
+    }
+  })
+})
+
+app.post("/ordersApprove/", (req, res) => {
   console.log("UPDATE ORDERS")
-  connection.query(`UPDATE narudzbenice SET Status=true WHERE ID=?`, [req.params.id], (err, result) => {
+  connection.query(`UPDATE narudzbenice SET Status=true WHERE ID=?`, [req.body.id], (err, result) => {
     console.log(res)
     if (err) {
       return res.send(err)

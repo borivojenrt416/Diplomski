@@ -18,16 +18,17 @@ export class NacinPlacanja extends Component {
         console.log(e.target.value)
          this.props.changeNacinPlacanja(e.target.value)
      }
+
     render() {
         const {korisnik} = this.state
                     return (
    <div>
-                    <div className="nazivKomponente"><h2 className="nazivKomponente">Nacin placanja</h2></div>
+                    <div className="nazivKomponente"><h2 className="nazivKomponente">Način plaćanja</h2></div>
                     <div className="divForm">
                     <div className="inputRadio">
                         <input type="radio" id="Kešom u prodavnici" name="NacinPlacanja" defaultChecked value="Kešom u prodavnici" onClick={this.changeNacinPlacanja}/>
                         <label htmlFor="Kešom u prodavnici">Kešom u prodavnici</label><br/><br/>
-                        <input type="radio" id="Uplatnica / Faktura" name="NacinPlacanja" value="Uplatnica / Faktura" onClick={this.changeNacinPlacanja}/>
+                        <input type="radio" id="Uplatnica / Faktura" name="NacinPlacanja" value="Uplatnica Faktura" onClick={this.changeNacinPlacanja}/>
                         <label htmlFor="Uplatnica / Faktura">Uplatnica / Faktura</label><br/><br/>
                         <input type="radio" id="Pouzećem, dostavljaču kurirske službe" name="NacinPlacanja" value="Pouzećem, dostavljaču kurirske službe" onClick={this.changeNacinPlacanja}/>
                         <label htmlFor="Pouzećem, dostavljaču kurirske službe">Pouzećem, dostavljaču kurirske službe</label><br/><br/>

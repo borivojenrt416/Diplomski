@@ -5,7 +5,7 @@ import { Narucilac } from "./narucilac";
 import { Dostava } from "./dostava";
 import { NacinPlacanja } from "./nacinPlacanja";
 import { Link } from "react-router-dom";
-
+import Popup from "reactjs-popup";
 import "./dostava.scss";
 class Narucivanje extends Component {
   constructor(props) {
@@ -26,10 +26,11 @@ class Narucivanje extends Component {
       prodavnica: "Dalmatinska 17,Beograd",
       nacinPlacanja: "Kešom u prodavnici",
       postojiKupac: false,
-      postojiKorisnik: false
-    };
+      postojiKorisnik: false,
+    validate:true,
+  uspelo:false   };
+  
   }
-
   componentWillMount() {
     const { kupac } = this.state;
     if (this.props.korisnik !== null && this.props.korisnik !== undefined  && this.props.korisnik[0] !== undefined) {
@@ -43,13 +44,21 @@ class Narucivanje extends Component {
           telefon: this.props.korisnik[0].telefon
         }
       });
-    }
+      }
   }
   componentDidMount() {
     this.props.racunaj(this.props.korpa);
+    if(this.props.korpa.length!=0)
+    {
+      document.getElementById("plati").disabled = true;
+    }
   }
 
   placanje = () => {
+    if(this.state.validate==false)
+    {
+      console.log("pozitivan sam!")
+    }
     console.log(this.state.kupac.email);
 
     if (
@@ -58,12 +67,6 @@ class Narucivanje extends Component {
       this.state.kupac.email !== undefined &&
       this.state.kupac.telefon !== undefined
     ) {
-      if (
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          this.state.kupac.email
-        ) &&
-        /[0-9]{7,10}/.test(this.state.kupac.telefon)
-      ) {
         if (this.state.nacinDostave === "Dostava") {
           if (
             this.state.dostava.adresa !== undefined &&
@@ -124,7 +127,7 @@ class Narucivanje extends Component {
                 var datum = new Date().getMinutes();
                 var idn = JSON.stringify(this.state.kupac.email).concat(datum);
                 console.log(idn);
-                var datum2 = (new Date().toLocaleDateString())
+                var datum2 = (new Date().toLocaleDateString('dd/MM/yyyy'))
                 console.log(datum2)
                 datum2 = datum2.split('/').join('_');
                 const {korpa} = this.props
@@ -138,6 +141,9 @@ class Narucivanje extends Component {
                   ime = ime.split('/').join('_')
                   fetch(`http://localhost:4000/addProduct/${idn}/${korpa[i].proizvod.IdAll}/${korpa[i].proizvod.ID}/${ime}/${korpa[i].kolicina}/${korpa[i].proizvod.Cena}/${(korpa[i].proizvod.Cena*korpa[i].kolicina).toLocaleString()}/${datum2}/${k}/${this.state.kupac.email}`)
                 }
+                this.setState({
+                  uspelo:true
+                })
                 this.props.isprazniKorpu();
             } else alert("Nema nacina placanja!");
           } else alert("popuni sva polja za dostavu!");
@@ -179,7 +185,7 @@ class Narucivanje extends Component {
               var datum = new Date().getMinutes();
               var idn = JSON.stringify(this.state.kupac.email).concat(datum);
               console.log(idn);
-              var datum2 = (new Date().toLocaleDateString());
+              var datum2 = (new Date().toLocaleDateString('en-EN'));
               datum2 = datum2.split('/').join('_');
               //DODAVANJE NARUDZBINE
               const {korpa} = this.props
@@ -194,13 +200,13 @@ class Narucivanje extends Component {
                   console.log(k)
                   fetch(`http://localhost:4000/addProduct/${idn}/${korpa[i].proizvod.IdAll}/${korpa[i].proizvod.ID}/${ime}/${korpa[i].kolicina}/${korpa[i].proizvod.Cena}/${(korpa[i].proizvod.Cena*korpa[i].kolicina).toLocaleString()}/${datum2}/${k}/${this.state.kupac.email}`)
                 }
+                this.setState({
+                  uspelo:true
+                })
               this.props.isprazniKorpu();
             } else alert("Nema nacina placanja");
           } else alert("Nema prodavnice!");
         }
-      } else {
-        alert("Unesite pravilno email i broj telefona");
-      }
     } else alert("Nisu popunjena sva polja za korisnika!");
   };
 
@@ -279,6 +285,16 @@ class Narucivanje extends Component {
     console.log(this.state.nacinPlacanja);
   };
 
+  validate=disabled =>
+  {
+    this.setState({
+      validate:disabled
+    })
+    console.log(disabled)
+    document.getElementById("plati").disabled = disabled;
+  }
+
+
   render() {
     console.log(this.props.korpa);
     console.log(this.props.cena);
@@ -294,6 +310,7 @@ class Narucivanje extends Component {
             <Narucilac
               kupac={this.state.kupac}
               changeKupac={this.changeKupac}
+              changeDisabled={this.validate}
             />
             <Dostava
               nacinDostave={this.changeNacinDostave}
@@ -304,7 +321,7 @@ class Narucivanje extends Component {
               changeNacinPlacanja={this.changeNacinPlacanja}
             />
             <div className="racun">
-              <p className="cena2tekst">Vas iznos : {this.props.cena} RSD</p>
+              <p className="cena2tekst">Vaš iznos : {this.props.cena} RSD</p>
             </div>
             <div></div>
             <div className="dugmici">
@@ -315,17 +332,42 @@ class Narucivanje extends Component {
                   </button>
                 </Link>
               </div>
-              <div className="dugmeZaNapred">
+              <Popup trigger={    <div className="dugmeZaNapred">
                 <Link className="linkInsideButton" to="#">
-                  <button
+                  <button 
+                  disabled={this.state.validate}
                     type="submit"
-                    className="dugmeKupi"
+                    className={this.state.validate?"dugmeKupiDisabled":"dugmeKupi"}
+                    id="plati"
                     onClick={this.placanje}
                   >
                     Potvrdi kupovinu
                   </button>
                 </Link>
-              </div>
+                
+              </div>} modal>
+    {close => (
+      <div className="modal">
+       <div className="header"> Neuspešna kupovina </div><div className="content">
+          {" "}
+        Poštovani,
+       Došlo je do greške prilikom naručivanja, molimo Vas proverite unete podatke.<br/>
+       Hvala
+        </div>
+        <div className="actions">
+
+          <button
+            className="button"
+            onClick={() => {
+              console.log("modal closed ");
+              close();
+            }}
+          >
+           OK
+          </button>
+        </div></div>)}
+ 
+  </Popup>
             </div>
           </div>
         );
@@ -337,9 +379,36 @@ class Narucivanje extends Component {
                 <i className="fas fa-shopping-cart"></i>
               </p>
               <p>Nemate proizvode u korpi</p>
+              <Popup open={this.state.uspelo} closeOnDocumentClick modal>
+    {close => (
+      <div className="modal">
+        <div className="header"> Uspešna kupovina! </div>
+        <div className="content">
+          {" "}
+        Poštovani,<br/>
+        Hvala Vam na porudžbini!
+        </div>
+        <div className="actions">
+
+          <button
+            className="button"
+            onClick={() => {
+              console.log("modal closed ");
+              this.setState({
+                uspelo:false
+              })
+              close();
+            }}
+          >
+           OK
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
               <p>
                 <Link className="back" to="/home">
-                  Vrati se na pocetnu stranu
+                  Vrati se na početnu stranu
                 </Link>
               </p>
             </div>

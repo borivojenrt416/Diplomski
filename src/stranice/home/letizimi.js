@@ -12,7 +12,12 @@ export class Letizimi extends Component {
   componentDidMount(){
     this._isMounted=true;
     console.log("pozvalo se?")
-    fetch(`http://localhost:4000/korisnici/monitori`)
+    const request = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tip:'monitori' })
+      };
+    fetch(`http://localhost:4000/vrstaProizvoda/`,request)
     .then(response=>response.json())
     .then(json=>{
       if(this._isMounted)
