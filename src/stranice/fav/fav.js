@@ -15,14 +15,11 @@ class Fav extends Component {
 
 componentWillMount(){
   this.props.oznaci("");
-  console.log("pozvano")
-  console.log(this.props.tip);
   localStorage.setItem("tip","");
 
 }
 
   render() {
-    console.log(this.props.omiljeno)
     if (this.props.omiljeno !== null) {
       if (this.props.omiljeno.length !== 0) {
         return (

@@ -11,7 +11,6 @@ export class Pametanizbor extends Component {
   }
   componentDidMount(){
     this._isMounted=true;
-    console.log("pozvalo se?");
     const request = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

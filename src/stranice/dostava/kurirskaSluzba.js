@@ -7,7 +7,6 @@ export class KurirskaSluzba extends Component {
     }
 
     changeDostava=(e)=>{
-        console.log(e.target.value,e.target.className)
         this.props.changeNacinDostave(e.target.value,e.target.className)
 
     }

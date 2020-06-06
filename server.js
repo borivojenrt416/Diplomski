@@ -4,12 +4,30 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const mysql = require("mysql");
 const app = express();
+const creds = require('./config');
 
 app.use(cors());
 app.use(express.json())
 app.use('/', router)
 
-const SELECTALL = "SELECT * FROM table1";
+//create transporter
+const transporter = nodemailer.createTransport({
+  service:'smtp@gmail.com',
+  port:587,
+  tls: {
+    rejectUnauthorized: false
+},
+  auth:{
+    user:'stojiljkovicborivoje97@gmail.com',
+    pass:'0612922197'
+  }
+})
+
+
+
+
+
+const SELECTALL = "SELECT * FROM registrovanikorisnici";
 const SVIPROIZVODI = "SELECT * FROM proizvodi";
 const connection = mysql.createConnection({
   host: "localhost",
@@ -22,10 +40,30 @@ connection.connect(err => {
   if (err) return err;
 });
 
-console.log(connection);
+
 app.get("/", (req, res) => {
   res.send("RADI");
 });
+
+app.post("/sendEmail",(req,res)=>{
+  let mailOptions={
+    from:'stojiljkovicborivoje97@gmail.com',
+    to:req.body.email,
+    subject:'Porudžbina je odobrena!',
+    text:req.body.text
+  }
+
+  transporter.sendMail(mailOptions,function(err,data){
+    if(err){
+      res.send("FAIL")
+    }
+    else{
+      res.send("SUCCESS")
+    }
+  })
+
+  transporter.close();
+})
 
 app.get("/korisnici/sviproizvodi", (req, res) => {
   connection.query(SVIPROIZVODI, (err, result) => {
@@ -59,14 +97,12 @@ app.get("/korisnici/pretraga", (req, res) => {
     `Select TABLE_NAME from information_schema.columns where column_name='IdAll'`,
     (err, result) => {
       if (err) {
-        console.log(err);
         return res.send(err);
       } else {
         for (let i = 0; i < result.length; i++)
         if(result[i].TABLE_NAME!=='kupljeniproizvodi' && result[i].TABLE_NAME!=='komentari')
           nizTabela.push(result[i].TABLE_NAME);
 
-        console.log(nizTabela);
 
         return res.json({
           data: nizTabela
@@ -80,17 +116,13 @@ app.get(
   "/korisnici/pretragaProizvoda/:imeTabele/:nazivProizvoda",
   (req, res) => {
     var rec = req.params.nazivProizvoda.toLowerCase();
-    console.log(rec);
-    console.log(req.params.imeTabele);
     connection.query(
       `SELECT * FROM ${req.params.imeTabele} WHERE lower(Naziv) LIKE ?`,
       "%" + rec + "%",
       (err, result) => {
         if (err) {
-          console.log(err);
           return res.send(err);
         } else {
-          console.log(result);
           return res.json({
             data: result
           });
@@ -100,112 +132,21 @@ app.get(
   }
 );
 
-// app.get("/korisnici/pretraga/:naziv",(req,res)=>{
-//     var rec = req.params.naziv.toLowerCase()
-//     var tabele=['desktop','memorije','procesori']
-//     var rezultat=[]
-//     for(let i=0;i<tabele.length;i++)
-//     {
-//         connection.query(`SELECT * FROM ${tabele[i]} WHERE lower(Naziv) LIKE ?`,'%' + rec + '%',(err,result)=>{
-//             if(err)
-//             {   console.log(err)
-//                 return res.send(err)
-//             }
-//             else{
-//                 console.log(result)
-//                 console.log(rezultat)
-//                 rezultat.push(res.json({
-//                     data:result
-//                 }))
-//             }
-//         })
-//     }
-//     return rezultat;
-// })
 
-// app.get("/korisnici/pretraga/:naziv",(req,res)=>{
-//     var rec = req.params.naziv.toLowerCase()
-//     var tabele=['desktop','memorije','procesori']
-//     var rezultat=[]
-//     var objekti=[]
-//         connection.query(`Select TABLE_NAME from information_schema.columns where column_name='IdAll'`,(err,result)=>{
-//             if(err)
-//             {   console.log(err)
-//                 return res.send(err)
-//             }
-//             else{
-//                 console.log(result)
-//                 rezultat=result
-//             }
-//             console.log(rezultat)
-//             for(let i=0;i<rezultat.length;i++)
-//             console.log(rezultat[i].TABLE_NAME) //vratio tabele
-//             for(let i=0;i<rezultat.length;i++)
-//             {
-//                 connection.query(`SELECT * FROM ${rezultat[i].TABLE_NAME} WHERE IdAll='desktop'`,(err,result)=>{
-//                     if(err)
-//                     {
-//                         console.log(err)
-//                         return res.send(err)
-//                     }
-//                     else{
-//                         console.log(result)
-//                         objekti.push(result)
-//                     }
-//                     console.log(objekti,objekti.length)
-
-//                 })
-//             }
-//             console.log(objekti,objekti.length)
-//             for(let j=0;j<objekti.length;j++)
-//             {
-//                 console.log(objekti[j].RowDataPacket)
-// connection.query(`SELECT * FROM ${objekti[j]} `,(err,result)=>{
-//     if(err)
-//     {
-//         console.log(err)
-//         return res.send(err)
-//     }
-//     else{
-//         console.log(result)
-//     }
-// })
-// }
-
-// return objekti;
-//         })
-
-// })
-//     connection.query(`SELECT * FROM monitori WHERE lower(Naziv) LIKE ?`,'%' + rec + '%',(err,result)=>{
-//         if(err)
-//         {   return res.send(err)
-//         }
-//         else{
-//             return res.json({
-//                 data:result
-//             })
-//         }
-//     })
-
-// })
 
 app.get("/korisnici/komentari/:ID/:IdAll/:Ime/:Komentar", (req, res) => {
-  console.log(req.params.IdAll);
-  console.log(req.params.ID);
-  console.log(req.params.Ime);
-  console.log(req.params.Komentar);
-  var datum = new Date().toLocaleDateString();
-  console.log(datum)
+
+  var datum = new Date().getDate()+"-"+parseInt(new Date().getMonth()+1)+"-"+new Date().getFullYear();
+
   connection.query(
     `INSERT INTO komentari (ID,IdAll,Ime,Komentar,Datum) VALUES(?,?,?,?,?)`,
     [req.params.ID, req.params.IdAll, req.params.Ime, req.params.Komentar, datum],
     err => {
       if (err) {
-        console.log("NEuspesno dodavanje komentara");
-        console.log(err);
+
         return res.send(err);
       } else {
-        console.log("Uspesno dodat komentar");
+
         return res.send("Uspesno");
       }
     }
@@ -213,19 +154,16 @@ app.get("/korisnici/komentari/:ID/:IdAll/:Ime/:Komentar", (req, res) => {
 });
 
 app.get("/korisnici/komentari/:ID/:IdAll", (req, res) => {
-  console.log(req.params.IdAll);
-  console.log(req.params.ID);
+
   connection.query(
     `SELECT * FROM komentari WHERE ID=? AND IdAll=?`,
     [req.params.ID, "$" + req.params.IdAll],
     (err, result) => {
       if (err) {
-        console.log("NEuspesno ucitavanje komentara");
-        console.log(err);
+
         return res.send(err);
       } else {
-        console.log(res);
-        console.log("Uspesno ucitan komentar");
+
         return res.json({
           data: result
         });
@@ -235,17 +173,14 @@ app.get("/korisnici/komentari/:ID/:IdAll", (req, res) => {
 });
 
 app.get("/korisnici/proizvod/:IdAll/:ID", (req, res) => {
-  console.log(req.params.IdAll);
-  console.log(req.params.ID);
+
   connection.query(
     `SELECT * FROM ${req.params.IdAll} WHERE ID=?`,
     [req.params.ID],
     (err, result) => {
       if (err) {
-        console.log(err);
         return res.send(err);
       } else {
-        console.log(result);
         return res.json({
           data: result
         });
@@ -257,20 +192,17 @@ app.get("/korisnici/proizvod/:IdAll/:ID", (req, res) => {
     [req.params.ID],
     (err, result) => {
       if (err) {
-        console.log(err);
         return res.send(err);
       } else {
-        console.log("All done");
       }
     }
   );
 });
 
-app.get("/korisnici/pretrazi/:email", (req, res) => {
-  console.log(req.params.email);
+app.post("/pretraziKorisnika/", (req, res) => {
   connection.query(
-    `SELECT * FROM table1 WHERE email=?`,
-    [req.params.email],
+    `SELECT * FROM registrovanikorisnici WHERE email=?`,
+    [req.body.email],
     (err, result) => {
       if (err) {
         return res.send(err);
@@ -283,24 +215,22 @@ app.get("/korisnici/pretrazi/:email", (req, res) => {
   );
 });
 
-app.get("/korisnici/dodaj/:ime/:prezime/:email/:sifra/:telefon", (req, res) => {
-  console.log(req.params.email, req.params.ime, req.params.sifra);
+app.post("/korisnici/dodaj/", (req, res) => {
   connection.query(
-    `INSERT INTO table1 (ime,prezime,email,sifra,telefon) VALUES(?,?,?,?,?)`,
+    `INSERT INTO registrovanikorisnici (ime,prezime,email,sifra,telefon) VALUES(?,?,?,?,?)`,
     [
-      req.params.ime,
-      req.params.prezime,
-      req.params.email,
-      req.params.sifra,
-      req.params.telefon
+      req.body.ime,
+      req.body.prezime,
+      req.body.email,
+      req.body.sifra,
+      req.body.telefon
     ],
     err => {
       if (err) {
-        console.log("NEuspesna registracija");
-        console.log(err);
+
         return res.send(err);
       } else {
-        console.log("uspesna registracija");
+
         return res.send("Uspesno");
       }
     }
@@ -308,7 +238,7 @@ app.get("/korisnici/dodaj/:ime/:prezime/:email/:sifra/:telefon", (req, res) => {
 });
 app.get("/korisnik/uplati/:novac/:email", (req, res) => {
   connection.query(
-    `UPDATE table1 SET novac=? WHERE email=?`,
+    `UPDATE registrovanikorisnici SET novac=? WHERE email=?`,
     [req.params.novac, req.params.email],
     err => {
       if (err) {
@@ -319,10 +249,10 @@ app.get("/korisnik/uplati/:novac/:email", (req, res) => {
     }
   );
 });
-app.get("/uzmiProizvode/:email", (req, res) => {
+app.post("/uzmiProizvodeEmail/", (req, res) => {
   connection.query(
     `SELECT * FROM kupljeniproizvodi WHERE Email=?`,
-    [req.params.email],
+    [req.body.email],
     (err, result) => {
       if (err) {
         return res.send(err);
@@ -363,7 +293,7 @@ app.post("/vrstaProizvoda/", (req, res) => {
 });
 
 app.post("/getUsers", (req, res) => {
-  connection.query(`SELECT * FROM table1`, (err, result) => {
+  connection.query(`SELECT * FROM registrovanikorisnici`, (err, result) => {
     if (err) {
       return res.send(err);
             } else {
@@ -375,23 +305,22 @@ app.post("/getUsers", (req, res) => {
 });
 
 app.post("/deleteUser/", (req, res) => {
-  connection.query(`DELETE FROM table1 WHERE id=?`, [req.body.id], (err, result) => {
+  connection.query(`DELETE FROM registrovanikorisnici WHERE id=?`, [req.body.id], (err, result) => {
     if (err) {
       return res.send(err);
     } else {
-      console.log(result)
     }
   });
 });
 
 
 app.post("/ulogujKorisnika/", (req, res) => {
-  // console.log(req.params.email, req.params.lozinka);
+
   connection.query(
-    `SELECT * FROM table1 WHERE (email=? OR ime=?) AND sifra=?`,
+    `SELECT * FROM registrovanikorisnici WHERE (email=? OR ime=?) AND sifra=?`,
     [req.body.email, req.body.email, req.body.lozinka],
     (err, korisnik) => {
-      console.log(res);
+
       if (err) {
         return null;
       } else {
@@ -404,7 +333,7 @@ app.post("/ulogujKorisnika/", (req, res) => {
 });
 app.get("/korisnici/:ime/:prezime/:email/:sifra/:telefon", (req, res) => {
   connection.query(
-    `UPDATE table1 SET ime = ?,
+    `UPDATE registrovanikorisnici SET ime = ?,
     prezime=?,
     sifra=?,
     telefon=? WHERE email=?`,
@@ -434,9 +363,7 @@ app.get(
     var k = s.split("_").join("/");
     var n = k.split('"').join("");
     var q = n.split("\\").join("");
-    console.log(k);
-    console.log(n);
-    console.log(q);
+
 
     connection.query(
       `INSERT INTO kupljeniproizvodi (id,idpr,nazivPr,kolicina,cena,ukupnaCena,datumKupovine,img) VALUES(?,?,?,?,?,?,?,?)`,
@@ -475,7 +402,7 @@ app.get("/korisnici", (req, res) => {
 //UBACIVANJE NARUDZBINE
 //PROVERA DA LI POSTOJI KORISNIK U BAZI
 app.get("/userExistInRegistered/:email/", (req, res) => {
-  connection.query(`SELECT * FROM table1 WHERE email=?`, [req.params.email], (err, postoji) => {
+  connection.query(`SELECT * FROM registrovanikorisnici WHERE email=?`, [req.params.email], (err, postoji) => {
     if (err) {
       return res.send(err)
     }
@@ -487,9 +414,9 @@ app.get("/userExistInRegistered/:email/", (req, res) => {
   })
 })
 app.get("/userExist/:email/", (req, res) => {
-  console.log(req.params.email)
+
   connection.query(`SELECT * FROM kupac WHERE email=?`, [req.params.email], (err, postoji) => {
-    console.log(res)
+
     if (err) {
       return res.send(err)
     }
@@ -502,10 +429,9 @@ app.get("/userExist/:email/", (req, res) => {
 })
 //PROVERA DA LI ADRESA POSTOJI U BAZI
 app.get("/addressExist/:IDA", (req, res) => {
-  console.log(req.params.IDA)
-  console.log("DODAJE SE ADRESA")
+
   connection.query(`SELECT * FROM adresa WHERE IDA=?`, [req.params.IDA], (err, postoji) => {
-    console.log(res)
+
     if (err) {
       return res.send(err)
     }
@@ -519,7 +445,7 @@ app.get("/addressExist/:IDA", (req, res) => {
 app.get(
   "/addAddress/:IDA/:Ulica/:Grad/:PBroj",
   (req, res) => {
-    console.log("DODAVANJE ADRESE U TABELU")
+
     connection.query(
       `INSERT INTO adresa (IDA,Ulica,Grad,Postanski_broj) VALUES(?,?,?,?)`,
       [
@@ -541,7 +467,7 @@ app.get(
 app.get(
   "/addUser/:email/:ime/:prezime/:telefon",
   (req, res) => {
-    console.log("DODAVANJE KUPCA U TABELU")
+
     connection.query(
       `INSERT INTO kupac (email,ime,prezime,telefon) VALUES(?,?,?,?)`,
       [
@@ -564,10 +490,8 @@ app.get(
 app.get(
   "/addOrder/:idn/:IDA/:Datum/:IDK/:racun/:nacinPlacanja",
   (req, res) => {
-    console.log(req.params.Datum)
     var s = req.params.Datum.split('_').join('/')
-    var date = new Date(s)
-    console.log(date)
+    var date = new Date().getDate()+"-"+parseInt(new Date().getMonth()+1)+"-"+new Date().getFullYear();
     connection.query(
       `INSERT INTO narudzbenice (IDN,IDA,Datum,Status,IDK,Racun,NacinPlacanja) VALUES(?,?,?,?,?,?,?)`,
       [
@@ -593,10 +517,10 @@ app.get(
 app.get(
   "/addOrder/:idn/:Datum/:IDK/:racun/:nacinPlacanja",
   (req, res) => {
-    console.log(req.params.idn, req.params.Datum, req.params.IDK, req.params.racun, req.params.nacinPlacanja)
+
     var s = req.params.Datum.split('_').join('/')
-    var date = new Date(s)
-    console.log(date)
+    var date = new Date().getDate()+"-"+parseInt(new Date().getMonth()+1)+"-"+new Date().getFullYear();
+
     connection.query(
       `INSERT INTO narudzbenice (IDN,Datum,Status,IDK,Racun,NacinPlacanja) VALUES(?,?,?,?,?,?)`,
       [
@@ -618,32 +542,29 @@ app.get(
   }
 );
 //UBACIVANJE U TABELU KUPLJENI PROIZVODI
-app.get(
-  "/addProduct/:idn/:IdAll/:ID/:Naziv/:kolicina/:cena/:ukupnaCena/:DatumKupovine/:img/:email",
+app.post(
+  "/addProduct/",
   (req, res) => {
-    var s = JSON.stringify(req.params.img);
+    var s = JSON.stringify(req.body.img);
     var k = s.split("_").join("/");
     var n = k.split('"').join("");
     var q = n.split("\\").join("");
-    console.log(k);
-    console.log(n);
-    console.log(q);
-    console.log(req.params.DatumKupovine)
-    var s = req.params.DatumKupovine.split('_').join('/')
-    var ime = req.params.Naziv.split('_').join('/')
+
+    var s = req.body.DatumKupovine.split('_').join('/')
+    var ime = req.body.Naziv.split('_').join('/')
     connection.query(
       `INSERT INTO kupljeniproizvodi (IDN,IdAll,ID,Naziv,Kolicina,Cena,UkupnaCena,Datum,Slika,Email) VALUES(?,?,?,?,?,?,?,?,?,?)`,
       [
-        req.params.idn,
-        req.params.IdAll,
-        req.params.ID,
+        req.body.idn,
+        req.body.IdAll,
+        req.body.ID,
         ime,
-        req.params.kolicina,
-        req.params.cena,
-        req.params.ukupnaCena,
+        req.body.kolicina,
+        req.body.cena,
+        req.body.ukupnaCena,
         s,
         q,
-        req.params.email
+        req.body.email
       ],
       err => {
         if (err) {
@@ -658,9 +579,8 @@ app.get(
 //
 app.post("/orders", (req, res) => {
 
-  console.log("SELECT ORDERS")
+
   connection.query(`SELECT * FROM narudzbenice`, (err, result) => {
-    console.log(res)
     if (err) {
       return res.send(err)
     }
@@ -673,9 +593,8 @@ app.post("/orders", (req, res) => {
 })
 
 app.post("/kupljeniProizvodi/", (req, res) => {
-  console.log("SELECT PRODUCTS")
   connection.query(`SELECT * FROM kupljeniproizvodi where IDN=?`, [req.body.idn],(err, result) => {
-    console.log(res)
+
     if (err) {
       return res.send(err)
     }
@@ -688,9 +607,9 @@ app.post("/kupljeniProizvodi/", (req, res) => {
 })
 
 app.post("/ordersApprove/", (req, res) => {
-  console.log("UPDATE ORDERS")
+
   connection.query(`UPDATE narudzbenice SET Status=true WHERE ID=?`, [req.body.id], (err, result) => {
-    console.log(res)
+
     if (err) {
       return res.send(err)
     }
@@ -703,9 +622,9 @@ app.post("/ordersApprove/", (req, res) => {
 })
 
 app.get("/removeorders/:id", (req, res) => {
-  console.log("REMOVE ORDERS")
+
   connection.query(`DELETE FROM narudzbenice WHERE ID=?`, [req.params.id], (err, result) => {
-    console.log(res)
+
     if (err) {
       return res.send(err)
     }
@@ -719,9 +638,9 @@ app.get("/removeorders/:id", (req, res) => {
 
 app.get("/specificOrders/:id", (req, res) => {
 
-  console.log("SELECT SPECIFIC ORDERS")
+
   connection.query(`SELECT * FROM narudzbenice WHERE IDK=?`, [req.params.id], (err, result) => {
-    console.log(res)
+
     if (err) {
       return res.send(err)
     }
@@ -733,5 +652,5 @@ app.get("/specificOrders/:id", (req, res) => {
   })
 })
 app.listen(4000, () => {
-  console.log("Port 4000");
+
 });

@@ -15,15 +15,15 @@ export class Users extends Component {
         <table className="opisnaTabela">
         <thead>
           <tr>
-            <th>ID KORISNIKA</th><th>Ime</th><th>Prezime</th><th className="hideUser">Datum rodjenja</th><th>Email</th><th className="hideUser">Sifra</th><th className="hideUser">Broj telefona</th><th>Remove user</th>
+            <th>ID KORISNIKA</th><th>Ime</th><th>Prezime</th><th>Email</th><th className="hideUser">Šifra</th><th className="hideUser">Broj telefona</th><th>Remove user</th>
           </tr>
         </thead>
         <tbody>
         {this.props.users.map(u=>u.Status!=='admin'?(
           <tr key={u.id}>
-            <td>{u.id}</td><td>{u.ime}</td><td>{u.prezime}</td><td className="hideUser">{new Date(u.datumRodjenja).toLocaleDateString()}</td><td>{u.email}</td><td className="hideUser">{u.sifra}</td><td className="hideUser">{u.telefon}</td><td><button className="removeUser" value={u.id} type="submit" onClick={this.props.deleteUser}>X</button></td>
+            <td>{u.id}</td><td>{u.ime}</td><td>{u.prezime}</td><td>{u.email}</td><td className="hideUser">{u.sifra}</td><td className="hideUser">{u.telefon}</td><td><button className="removeUser" value={u.id} type="submit" onClick={this.props.deleteUser}>X</button></td>
           </tr>
-        ):<></>)}
+        ):<tr key={u.id}></tr>)}
         </tbody>
         </table>
     );

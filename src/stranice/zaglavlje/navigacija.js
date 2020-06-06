@@ -18,11 +18,6 @@ class Navigacija extends Component{
     }
 
     changeShow=()=>{
-        // console.log(this.state.show)
-        // this.setState({
-        //     show:!this.state.show
-        // })
-        console.log(document.getElementById("p"))
         if(document.getElementById("p").style.height!=="465px")
         {
             document.getElementById("p").style.height="465px"

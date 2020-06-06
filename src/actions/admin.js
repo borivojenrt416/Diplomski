@@ -2,7 +2,7 @@ import {GETUSERS,DELETEUSER,SELECTORDER,UPDATEORDERSTATUS} from './types'
 
 
 export const getUsers=()=>dispatch=>{
-    console.log("get users")
+
     const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
@@ -17,14 +17,14 @@ export const getUsers=()=>dispatch=>{
 }
 
 export const deleteUser = (id, niz) =>dispatch=>{
-    niz.map(n=>console.log(n.id))
+
     const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id:id })
         };
     var niz2 = niz.filter(n=>n.id!=id)
-    console.log(niz2)
+
     fetch(`http://localhost:4000/deleteUser/`,request)
     .then(response=>response.json())
     dispatch({
@@ -34,7 +34,7 @@ export const deleteUser = (id, niz) =>dispatch=>{
 }
 
 export const getOrders=()=>dispatch=>{
-    console.log("get orders")
+
     const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
@@ -48,13 +48,43 @@ export const getOrders=()=>dispatch=>{
 
 }
 
-export const approveOrder = (id, niz) =>dispatch=>{
-    niz.map(n=>console.log(n.ID))
+export const approveOrder = (id, niz,idn) =>dispatch=>{
+
+    var detalji=[];
     const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id:id })
         };
+    
+        const requestForDetails = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idn:idn })
+        };
+          fetch(`http://localhost:4000/kupljeniProizvodi/`,requestForDetails)
+          .then(response=>response.json())
+          .then(json=>{
+              var text='';
+              var title = 'Detalji porudžbine'
+              var emailadr=''
+              json.data.map(proizvod=>{
+
+                text += '\nNaziv artikla: ' + proizvod.Naziv.split('\"').join("")+'\nKoličina: ' + proizvod.Kolicina 
+                +'\nDatum: ' + proizvod.Datum +'\nUkupna cena: ' + proizvod.UkupnaCena;
+                emailadr = proizvod.Email;
+              })
+
+              text += '\n\nVaš Electroshop'
+    
+              const messageRequest = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: emailadr, title:title, text:text })
+                };
+                fetch(`http://localhost:4000/sendEmail`,messageRequest)
+
+                    })
     for(let i=0;i<niz.length;i++)
     {
         if(niz[i].ID===id)
@@ -62,8 +92,6 @@ export const approveOrder = (id, niz) =>dispatch=>{
     }
     fetch(`http://localhost:4000/ordersApprove/`,request)
     .then(response=>response.json())
-
-
     const requestFetch = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
@@ -75,8 +103,7 @@ export const approveOrder = (id, niz) =>dispatch=>{
         type:SELECTORDER,
         payload: podatak.data
     })); 
-
-    
 }
+
 
 

@@ -12,37 +12,7 @@ export class Komentari extends Component {
       }
     };
   }
-  //   componentWillUpdate(prevProps) {
-  //     console.log(this.props.match.params.ID);
-  //     if (
-  //       this.props.match.params.ID !== prevProps.match.params.ID ||
-  //       this.props.match.params.IdAll !== prevProps.match.params.IdAll
-  //     ) {
-  //       fetch(
-  //         `http://localhost:4000/korisnici/proizvod/${prevProps.match.params.IdAll}/${prevProps.match.params.ID}`
-  //       )
-  //         .then(response => response.json())
-  //         .then(vrati => {
-  //           this.setState({
-  //             objekat: vrati.data[0]
-  //           });
-  //         });
-  //     }
-  //   }
-  //   componentWillMount() {
-  //     fetch(
-  //       `http://localhost:4000/korisnici/proizvod/${this.props.match.params.IdAll}/${this.props.match.params.ID}`
-  //     )
-  //       .then(response => response.json())
-  //       .then(vrati => {
-  //         this.setState({
-  //           objekat: vrati.data[0]
-  //         });
-  //       });
-  //   }
 dodajKomentar=()=>{
-    console.log(this.state.komentar)
-    console.log(this.props.product)
     if(this.state.komentar.ime!==undefined && this.state.komentar.poruka!==undefined )
     {
     fetch(`http://localhost:4000/korisnici/komentari/${this.props.product.ID}/$${this.props.product.IdAll}/${this.state.komentar.ime}/${this.state.komentar.poruka}`)
@@ -51,7 +21,6 @@ dodajKomentar=()=>{
 }
   render() {
     const {komentar} = this.state
-    console.log(this.props.kom)
     return (
             <div className="kom">
                 <form className="forma">

@@ -22,9 +22,6 @@ constructor(props) {
     }
 }
 
-componentDidMount(){
-    document.getElementById("registracija").disabled=true;
-}
 componentWillMount(){
     this.props.oznaci("");
     this.validator = new SimpleReactValidator({
@@ -40,7 +37,7 @@ componentWillMount(){
             this.validatorForPassword = new SimpleReactValidator({
                 element: (message) => <div className="errorMessageRegister">{message}</div>,
                 autoForceUpdate: this,
-                messages: { alpha:'Samo slova su dozvoljena!',required: 'Obavezno polje!', min: 'Minimum 4 karaktera!', max: 'Maksimum 25 karaktera!' }});
+                messages: { alpha_num:'Samo brojevi i slova su dozvoljena!',required: 'Obavezno polje!', min: 'Minimum 4 karaktera!', max: 'Maksimum 25 karaktera!' }});
 
         this.validatorForTelephone = new SimpleReactValidator({
             element: (message) => <div className="errorMessageRegister">{message}</div>,
@@ -63,17 +60,27 @@ dodajKorisnika=e=>{
     else{
         if(this.state.korisnik.telefon.match("[0-9]{9,10}"))
                 {
-                    fetch(`http://localhost:4000/korisnici/pretrazi/${korisnik.email}`)
+                    var requestEmail={
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                         body: JSON.stringify({ email:korisnik.email })
+                    }
+                    fetch(`http://localhost:4000/pretraziKorisnika/`,requestEmail)
                     .then(response=>response.json())
                     .then(broj=>{
                         if(broj.data===0)
                         {
-                            fetch(`http://localhost:4000/korisnici/dodaj/${korisnik.ime}/${korisnik.prezime}/${korisnik.email}/${korisnik.sifra}/${korisnik.telefon}`)
+                            var request={
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ ime:korisnik.ime, prezime:korisnik.prezime, email:korisnik.email, sifra:korisnik.sifra, telefon:korisnik.telefon })
+                            }
+                            fetch(`http://localhost:4000/korisnici/dodaj/`, request)
                             alert("USPESNO STE SE REGISTROVALI NA SAJT")
                         }
                         else
                         {
-                            alert("KORISNIK VEĆ POSTOJI")
+                            alert("Korisnik sa zadatom email adresom je već registrovan!")
                         }
                       })
                 }    
@@ -116,19 +123,15 @@ dodajKorisnika=e=>{
                 korisnik:{...korisnik,telefon:e.target.value}
             })
         }
-        console.log(korisnik)
     }
     isValid(){
-        // this.props.changeDisabled(true)
-        console.log('usao')
         if(this.validator.fieldValid('ime')&&this.validator.fieldValid('prezime')&&
         this.validatorForEmail.fieldValid('email')&&this.validatorForTelephone.fieldValid('telefon')&&this.validatorForPassword.fieldValid('sifra'))
         {
-            console.log('valja');
             this.setState({
                 disabled:false
             })
-        //    this.props.changeDisabled(false);
+                   
         }
         else{
             this.setState({
@@ -163,9 +166,9 @@ render(){
                    <label htmlFor={korisnik.prezime}>Vaše prezime</label><input required className="inp"  id="prezime" placeholder="Unesite Vaše prezime..." type="text" onChange={this.twoFunctions}/>{this.validator.message('prezime', korisnik.prezime, 'required|min:3|max:25|alpha')}<br/>
                 <label htmlFor={korisnik.email}>Vaš email</label>
                 <input required className="inp"  id="email" placeholder="Unesite Vaš email..." type="email" onChange={this.twoFunctions}/>{this.validatorForEmail.message('email', korisnik.email, 'required|min:5|max:50|email')}<br/>
-               <label htmlFor={korisnik.sifra}>Vaša sifra</label><input required className="inp"  id="sifra" placeholder="Unesite lozinku..." type="text" onChange={this.twoFunctions}/>{this.validatorForPassword.message('sifra', korisnik.sifra, 'required|min:4|max:25|alpha')}<br/>
+               <label htmlFor={korisnik.sifra}>Vaša sifra</label><input required className="inp"  id="sifra" placeholder="Unesite lozinku..." type="text" onChange={this.twoFunctions}/>{this.validatorForPassword.message('sifra', korisnik.sifra, 'required|min:4|max:25|alpha_num')}<br/>
                <label htmlFor={korisnik.telefon}>Vaš telefon</label><input required className="inp"  id="telefon" placeholder="Unesite Vaš broj telefona..." type="text" onChange={this.twoFunctions}/>{this.validatorForTelephone.message('telefon', korisnik.telefon, 'required|min:9|max:10|numeric')}<br/>
-               <Link className={this.state.disabled?"registrationDisabled":"lgn"} to="#"><button id="registracija" className={this.state.disabled?"btnDsbld":""} type="submit" onClick={()=>this.dodajKorisnika}>Registruj se</button></Link><br/><br/>
+               <Link className={this.state.disabled?"registrationDisabled":"lgn"} to="#"><button disabled={this.state.disabled} id="registracija" className={this.state.disabled?"btnDsbld":""} type="submit" onClick={this.dodajKorisnika}>Registruj se</button></Link><br/><br/>
                {/* <button type="submit" onClick={this.dodajKorisnika}><Link className="lgn register" to="/register">Registruj se</Link></button><br/><br/> */}
     </form>
     </div>

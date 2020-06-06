@@ -14,7 +14,6 @@ export default function(state=initialState,action){
 
 
             case NEUSPESNOPRIJAVLJIVANJE:
-                console.log("gr")
                 return{
                    korisnik:null,
                    greska:action.payload

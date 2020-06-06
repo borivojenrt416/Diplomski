@@ -16,7 +16,6 @@ class Product extends Component {
     };
   }
   componentWillUpdate(prevProps) {
-    console.log(this.props.match.params.ID);
     if (
       this.props.match.params.ID !== prevProps.match.params.ID ||
       this.props.match.params.IdAll !== prevProps.match.params.IdAll
@@ -41,8 +40,6 @@ class Product extends Component {
       }
   }
   componentWillMount() {
-    console.log("pozvano")
-    console.log(this.props.tip);
     localStorage.setItem("tip","");
     fetch(
       `http://localhost:4000/korisnici/proizvod/${this.props.match.params.IdAll}/${this.props.match.params.ID}`
@@ -60,8 +57,6 @@ class Product extends Component {
           komentari: vrati.data
         });
       });
-
-      console.log(this.state.komentari)
   }
   dodaj = () => {
     this.props.dodajUKorpu(this.state.objekat, this.props.korpa);

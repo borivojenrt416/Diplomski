@@ -34,7 +34,6 @@ class Narucivanje extends Component {
   componentWillMount() {
     const { kupac } = this.state;
     if (this.props.korisnik !== null && this.props.korisnik !== undefined  && this.props.korisnik[0] !== undefined) {
-      console.log(this.props.korisnik[0].ime);
       this.setState({
         kupac: {
           ...kupac,
@@ -55,12 +54,6 @@ class Narucivanje extends Component {
   }
 
   placanje = () => {
-    if(this.state.validate==false)
-    {
-      console.log("pozitivan sam!")
-    }
-    console.log(this.state.kupac.email);
-
     if (
       this.state.kupac.ime !== undefined &&
       this.state.kupac.prezime !== undefined &&
@@ -74,26 +67,7 @@ class Narucivanje extends Component {
             this.state.dostava.postanskiBroj !== undefined
           ) {
             if (this.state.nacinPlacanja !== undefined) {
-              // alert(
-              //   "Ime :" +
-              //     this.state.kupac.ime +
-              //     "Prezime : " +
-              //     this.state.kupac.prezime +
-              //     "Email :" +
-              //     this.state.kupac.email +
-              //     "Telefon : " +
-              //     this.state.kupac.telefon +
-              //     "Adresa :" +
-              //     this.state.dostava.adresa +
-              //     "Grad :" +
-              //     this.state.dostava.grad +
-              //     "Postanski broj :" +
-              //     this.state.dostava.postanskiBroj +
-              //     "Nacin placanja :" +
-              //     this.state.nacinPlacanja
-              // );
-              // alert(this.state.kupac.ime);
-
+            
                 //HVATANJE PODATAKA IZ BAZE
                 //1.PROVERA DA LI KORISNIK POSTOJI U BAZI
 
@@ -102,13 +76,11 @@ class Narucivanje extends Component {
                 .then(broj=>{
                   if(broj.data==0)
                   {
-                    console.log("ne postoji registrovan kupac")
                     fetch(`http://localhost:4000/userExist/${this.state.kupac.email}/`)
                     .then(response=>response.json())
                     .then(broj2=>{
                       if(broj2.data==0)
                       {
-                        console.log("ne postoji kupac")
                         fetch(`http://localhost:4000/addUser/${this.state.kupac.email}/${this.state.kupac.ime}/${this.state.kupac.prezime}/${this.state.kupac.telefon}`)
                       }
                     })
@@ -120,15 +92,12 @@ class Narucivanje extends Component {
                 .then(broj=>{
                   if(broj.data==0)
                   {
-                    console.log("ne postoji adresa!")
                     fetch(`http://localhost:4000/addAddress/${adresa}/${this.state.dostava.adresa}/${this.state.dostava.grad}/${this.state.dostava.postanskiBroj}`)
                   }
                 })
                 var datum = new Date().getMinutes();
                 var idn = JSON.stringify(this.state.kupac.email).concat(datum);
-                console.log(idn);
-                var datum2 = (new Date().toLocaleDateString('dd/MM/yyyy'))
-                console.log(datum2)
+                var datum2 = new Date().getDate()+"-"+parseInt(new Date().getMonth()+1)+"-"+new Date().getFullYear();
                 datum2 = datum2.split('/').join('_');
                 const {korpa} = this.props
                 //DODAVANJE NARUDZBINE
@@ -139,7 +108,16 @@ class Narucivanje extends Component {
                   var k = prosledi.split('/').join('_')
                   var ime = JSON.stringify(this.props.korpa[i].proizvod.Naziv)
                   ime = ime.split('/').join('_')
-                  fetch(`http://localhost:4000/addProduct/${idn}/${korpa[i].proizvod.IdAll}/${korpa[i].proizvod.ID}/${ime}/${korpa[i].kolicina}/${korpa[i].proizvod.Cena}/${(korpa[i].proizvod.Cena*korpa[i].kolicina).toLocaleString()}/${datum2}/${k}/${this.state.kupac.email}`)
+
+                  var temp1 = korpa[i].proizvod.Cena.replace(".","");
+                  var temp2 = parseInt(JSON.parse(temp1))
+                  var ukupnacena = temp2*korpa[i].kolicina
+                  var requestEmail={
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                     body: JSON.stringify({ idn:idn,IdAll:korpa[i].proizvod.IdAll,ID:korpa[i].proizvod.ID, Naziv:ime, kolicina:korpa[i].kolicina, cena:korpa[i].proizvod.Cena, ukupnaCena:ukupnacena.toLocaleString(),DatumKupovine:datum2,img:k,email:this.state.kupac.email })
+                }
+                  fetch(`http://localhost:4000/addProduct/`,requestEmail)
                 }
                 this.setState({
                   uspelo:true
@@ -170,13 +148,11 @@ class Narucivanje extends Component {
               .then(broj=>{
                 if(broj.data==0)
                 {
-                  console.log("ne postoji registrovan kupac")
                   fetch(`http://localhost:4000/userExist/${this.state.kupac.email}/`)
                   .then(response=>response.json())
                   .then(broj2=>{
                     if(broj2.data==0)
                     {
-                      console.log("ne postoji kupac")
                       fetch(`http://localhost:4000/addUser/${this.state.kupac.email}/${this.state.kupac.ime}/${this.state.kupac.prezime}/${this.state.kupac.telefon}`)
                     }
                   })
@@ -184,12 +160,10 @@ class Narucivanje extends Component {
               })
               var datum = new Date().getMinutes();
               var idn = JSON.stringify(this.state.kupac.email).concat(datum);
-              console.log(idn);
-              var datum2 = (new Date().toLocaleDateString('en-EN'));
+              var datum2 = new Date().getDate()+"-"+parseInt(new Date().getMonth()+1)+"-"+new Date().getFullYear();
               datum2 = datum2.split('/').join('_');
               //DODAVANJE NARUDZBINE
               const {korpa} = this.props
-              console.log("da li ce dodati?")
               fetch(`http://localhost:4000/addOrder/${idn}/${datum2}/${this.state.kupac.email}/${this.props.cena}/${this.state.nacinPlacanja}`)
               for(let i=0;i<korpa.length;i++)
                 {
@@ -197,8 +171,15 @@ class Narucivanje extends Component {
                   var k = prosledi.split('/').join('_')
                   var ime = JSON.stringify(this.props.korpa[i].proizvod.Naziv)
                   ime = ime.split('/').join('_')
-                  console.log(k)
-                  fetch(`http://localhost:4000/addProduct/${idn}/${korpa[i].proizvod.IdAll}/${korpa[i].proizvod.ID}/${ime}/${korpa[i].kolicina}/${korpa[i].proizvod.Cena}/${(korpa[i].proizvod.Cena*korpa[i].kolicina).toLocaleString()}/${datum2}/${k}/${this.state.kupac.email}`)
+                  var temp1 = korpa[i].proizvod.Cena.replace(".","");
+                  var temp2 = parseInt(JSON.parse(temp1))
+                  var ukupnacena = temp2*korpa[i].kolicina
+                  var requestEmail={
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                     body: JSON.stringify({ idn:idn,IdAll:korpa[i].proizvod.IdAll,ID:korpa[i].proizvod.ID, Naziv:ime, kolicina:korpa[i].kolicina, cena:korpa[i].proizvod.Cena, ukupnaCena:ukupnacena.toLocaleString(),DatumKupovine:datum2,img:k,email:this.state.kupac.email })
+                }
+                  fetch(`http://localhost:4000/addProduct/`,requestEmail)
                 }
                 this.setState({
                   uspelo:true
@@ -234,7 +215,6 @@ class Narucivanje extends Component {
     }
   };
   changeDostava = (value, ident) => {
-    console.log(value, ident);
     const { dostava } = this.state;
     if (ident == "adresa") {
       this.setState({
@@ -275,14 +255,12 @@ class Narucivanje extends Component {
         });
       }
     }
-    console.log(value);
   };
 
   changeNacinPlacanja = e => {
     this.setState({
       nacinPlacanja: e
     });
-    console.log(this.state.nacinPlacanja);
   };
 
   validate=disabled =>
@@ -290,15 +268,11 @@ class Narucivanje extends Component {
     this.setState({
       validate:disabled
     })
-    console.log(disabled)
     document.getElementById("plati").disabled = disabled;
   }
 
 
   render() {
-    console.log(this.props.korpa);
-    console.log(this.props.cena);
-    console.log(this.props.korisnik);
     if (this.props.korpa !== null) {
       if (this.props.korpa.length !== 0) {
         return (
@@ -348,18 +322,17 @@ class Narucivanje extends Component {
               </div>} modal>
     {close => (
       <div className="modal">
-       <div className="header"> Neuspešna kupovina </div><div className="content">
+       <div className="header"> Neuspešna kupovina </div><div className="content"><br/><br/>
           {" "}
         Poštovani,
        Došlo je do greške prilikom naručivanja, molimo Vas proverite unete podatke.<br/>
        Hvala
-        </div>
+        </div><br/><br/>
         <div className="actions">
 
           <button
             className="button"
             onClick={() => {
-              console.log("modal closed ");
               close();
             }}
           >
@@ -382,18 +355,17 @@ class Narucivanje extends Component {
               <Popup open={this.state.uspelo} closeOnDocumentClick modal>
     {close => (
       <div className="modal">
-        <div className="header"> Uspešna kupovina! </div>
+        <div className="header"> Uspešna kupovina! </div><br/><br/>
         <div className="content">
           {" "}
         Poštovani,<br/>
         Hvala Vam na porudžbini!
-        </div>
+        </div><br/><br/>
         <div className="actions">
 
           <button
             className="button"
             onClick={() => {
-              console.log("modal closed ");
               this.setState({
                 uspelo:false
               })

@@ -20,20 +20,17 @@ export default function(state=initialState,action){
                     oznaka:action.payload
                 }
         case SORTIRAJ_TIP:
-            console.log(action.payload)
             return{
                 ...state,
                 tip:action.payload
             }
         
         case CENA_TIP:
-            console.log(action.payload)
             return{
                 ...state,
                 tip:action.payload
             }
         case FILTERI:
-            console.log(action.payload)
             return{
                 ...state,
                 tip:action.payload

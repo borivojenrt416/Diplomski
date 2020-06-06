@@ -16,16 +16,9 @@ export class Home extends Component {
   }
   componentWillMount() {
     this.props.oznaci("")
-    // this.props.uzmiTip("");
-    // console.log("pozvano")
-    // console.log(this.props.tip);
-    // localStorage.setItem("tip","");
-
-  
   }
 
   render() {
-    console.log(this.state.memorije)
     return (
       <div>
         <div className="preporuka">

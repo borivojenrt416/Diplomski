@@ -34,27 +34,22 @@ export class Admin extends Component {
       this.setState({
           korisnici:false
       })
-      console.log("user")
   }
   changeOrderCard=()=>{
     this.setState({
         korisnici:true
     })
-    console.log("order")
 }
 
 deleteUs=(e)=>{
-  console.log(e.target.value)
   this.props.deleteUser(e.target.value,this.props.users)
 }
 
 approveOrder=(e)=>{
-  this.props.approveOrder(e.target.value,this.props.orders)
+  this.props.approveOrder(e.target.value,this.props.orders,e.target.id)
 }
 
   render() {
-console.log(this.props.users)
-console.log(this.props.orders)
         return (
         <div className="admin" key={uuid()}>
             <div className="buttonsForAdmin">
@@ -74,6 +69,6 @@ const mapDispatchToProps = dispatch => ({
   deleteUser: (id,niz) => dispatch(deleteUser(id,niz)),
   getUsers: id => dispatch(getUsers()),
   getOrders: id=>dispatch(getOrders()),
-  approveOrder: (id,niz) => dispatch(approveOrder(id,niz))
+  approveOrder: (id,niz,idn) => dispatch(approveOrder(id,niz,idn))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);

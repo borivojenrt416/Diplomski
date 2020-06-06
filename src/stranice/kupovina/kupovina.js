@@ -66,7 +66,6 @@ class Kupovina extends Component {
 
 
   render() {
-    console.log(this.props.korpa)
     if (this.props.korpa !== null) {
       if (this.props.korpa.length !== 0) {
         return (

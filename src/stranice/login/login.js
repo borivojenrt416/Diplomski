@@ -37,7 +37,6 @@ render(){
    {
        if(this.props.korisnik[0]!==null)
        {
-           console.log('asd')
         return(
             <Redirect to="/"></Redirect>
    )

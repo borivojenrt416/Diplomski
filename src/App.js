@@ -54,7 +54,7 @@ class App extends React.Component {
   render() {
     if (this.props.korisnik !== undefined && this.props.korisnik !== null && this.props.korisnik[0] !== undefined) {
       if (this.props.korisnik[0].Status === "admin") {
-        console.log(this.props.korisnik[0].Status, "POSTOIOAFGAH");
+
         return (
           <div className="App">
             <Heder />
@@ -71,7 +71,7 @@ class App extends React.Component {
           </div>
         );
       } else {
-        console.log("HAHAHA");
+  
         return (
           <div className="App">
             <Heder />

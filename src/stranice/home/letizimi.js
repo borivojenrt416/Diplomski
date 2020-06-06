@@ -11,7 +11,6 @@ export class Letizimi extends Component {
   }
   componentDidMount(){
     this._isMounted=true;
-    console.log("pozvalo se?")
     const request = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,7 +21,6 @@ export class Letizimi extends Component {
     .then(json=>{
       if(this._isMounted)
       {
-        console.log(json.data)
       this.setState({
         monitori: json.data
       })}}
@@ -34,7 +32,6 @@ export class Letizimi extends Component {
     this._isMounted = false;
   }
     render() {
-      console.log(this.state.monitori)
         return (
             <div>
             <div className="odeljak">

@@ -45,12 +45,9 @@ class Proizvodi extends Component {
     };
   }
   componentWillMount() {
-    console.log(this.props.match.params.tip);
     this.props.uzmiTip(this.props.match.params.tip);
     this.props.oznaci(this.props.match.params.tip)
     localStorage.setItem("tip", this.props.match.params.tip);
-    console.log(this.props.match.params.tip);
-    console.log(this.props.oznaka)
   }
 
   componentWillUpdate(prevProps) {
@@ -62,10 +59,7 @@ class Proizvodi extends Component {
       let checkedBoxes = document.querySelectorAll(
         "input[type=checkbox]:checked"
       );
-      console.log(this.props.oznaka)
-
       for (let i = 0; i < checkedBoxes.length; i++) {
-        console.log(checkedBoxes[i]);
         document.getElementById(checkedBoxes[i].id).checked = false;
       }
       this.setState({
@@ -96,7 +90,6 @@ class Proizvodi extends Component {
       document.getElementById("cenaDo").value = "dsvi";
     }
 
-    console.log(this.props.tip);
   }
 
   filter = e => {
@@ -164,42 +157,7 @@ class Proizvodi extends Component {
     }
   };
 
-  // cenaDo=(e)=>{
-  //   var n = this.state.filteri;
-  //   var n2=[]
-  //   var postoji=0
-  //   for(let i=0;i<n.length;i++)
-  //   {
-  //     if(n[i][0]===e.target.value[0])
-  //     {
-  //     console.log("posotji")
-  //     var d= n[i]
-  //     postoji=1;
-  //       n2=n.filter(n=>n!=d)
-  //       n2.push(e.target.value)
-  //        this.setState({
-  //     filteri:n2
-  //   })
-  //   this.props.filteri(n2,this.props.match.params.tip)
-  //   console.log("PRONADJENO",n2)
-  //     }
-  //   }
-  //   if(postoji===0)
-  //   {
-  //     n.push(e.target.value)
-  //      this.setState({
-  //     filteri:n
-  //   })
-  //   this.props.filteri(n,this.props.match.params.tip)
-  //   console.log("NIJE PRONADJENO",n)
-  //   }
-
-  // this.props.cenaTipDo(e.target.value,this.props.match.params.tip)
-  // this.setState({
-  //   filteri:n
-  // })
-  // this.props.filteri(this.state.filteri,this.props.match.params.tip)
-  // }
+  
   checkChanged = e => {
     var niz = this.state.filteri;
     var nadjenCheck = false;

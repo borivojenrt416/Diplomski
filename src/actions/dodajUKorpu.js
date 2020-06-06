@@ -16,9 +16,9 @@ export function racunanje(korpa){
 }
 
 export const racunaj = (korpa)=>dispatch=>{
-    console.log("POZVANO???")
+
     var t = racunanje(korpa)
-    console.log(t)
+
     dispatch({
         type:KOLICINA,
         c:t
@@ -26,36 +26,18 @@ export const racunaj = (korpa)=>dispatch=>{
 
 }
 export const kolicinaputacena=(naziv,kolicina,niz)=>dispatch=>{
-    console.log("KOLICINAPUTACENA???")
+
     var ukupno=0;
     for(let i=0;i<niz.length;i++)
   
     {
-        console.log(niz[i].proizvod.Naziv);
        if(niz[i].proizvod.Naziv===naziv)
        {
-        console.log("NADJENO???")
         niz[i].kolicina = kolicina;
-        console.log(niz[i].kolicina)
        }
     }
     var n = racunanje(niz);
-    //     var a = JSON.stringify(niz[i].proizvod.cena)
-    //     var d = a.replace('.','')
-    //     var s = JSON.parse(d)
-    //     var izracunaj = parseInt(s)*parseInt(kolicina)
-    //     ukupno+=izracunaj
-    //    }
-    //    else
-    //    {
-    //     var a = JSON.stringify(niz[i].cena)
-    //     var d = a.replace('.','')
-    //     var s = JSON.parse(d)
-    //     ukupno+=parseInt(s)
-    //    }
-    // }
-    // console.log(ukupno)
-    // var n = ukupno.toLocaleString()
+    
     dispatch({
         type:RACUN,
         c:n
@@ -71,13 +53,8 @@ export const isprazniKorpu=()=>dispatch=>{
 }
 export const filtriraj=(niz,element)=>dispatch=>{
     var niz2 = niz.filter(n=>n.proizvod!==element)
-    // var a = JSON.stringify(staraCena)
-    // var d = a.replace('.','')
-    // var s = JSON.parse(d)
-    // var nova = parseInt(s)-parseInt(novac)
-    // var t = nova.toLocaleString()
+  
     var t = racunanje(niz2)
-    console.log("NAKON BRISANJA CENA", t)
     dispatch({
         type:FILTRIRANJEKORPE,
         payload:niz2,

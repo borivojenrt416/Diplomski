@@ -8,35 +8,6 @@ export class Opis extends Component {
       objekat: null
     };
   }
-  //   componentWillUpdate(prevProps) {
-  //     console.log(this.props.match.params.ID);
-  //     if (
-  //       this.props.match.params.ID !== prevProps.match.params.ID ||
-  //       this.props.match.params.IdAll !== prevProps.match.params.IdAll
-  //     ) {
-  //       fetch(
-  //         `http://localhost:4000/korisnici/proizvod/${prevProps.match.params.IdAll}/${prevProps.match.params.ID}`
-  //       )
-  //         .then(response => response.json())
-  //         .then(vrati => {
-  //           this.setState({
-  //             objekat: vrati.data[0]
-  //           });
-  //         });
-  //     }
-  //   }
-  //   componentWillMount() {
-  //     fetch(
-  //       `http://localhost:4000/korisnici/proizvod/${this.props.match.params.IdAll}/${this.props.match.params.ID}`
-  //     )
-  //       .then(response => response.json())
-  //       .then(vrati => {
-  //         this.setState({
-  //           objekat: vrati.data[0]
-  //         });
-  //       });
-  //   }
-
   render() {
     return (
       <table className="opisnaTabela">

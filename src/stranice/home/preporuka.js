@@ -14,7 +14,6 @@ export class Preporuka extends Component {
 
   componentDidMount(){
     this._isMounted=true;
-    console.log("pozvalo se?")
     const request = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -36,7 +35,6 @@ export class Preporuka extends Component {
 
 
     render() {
-     console.log(this.state.desktop)
         return (
             <div className="odeljak">
             <p className="podnaslov">Najbolji dekstop računari</p>

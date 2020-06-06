@@ -9,7 +9,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         }
       }
     }
-    console.log(noviNiz);
     return noviNiz;
   }
   
@@ -19,7 +18,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
     for (
       let indeksProizvoda = 0;indeksProizvoda < niz.length;indeksProizvoda++)
        {
-      // console.log(niz[indeksProizvoda]);
       var a = JSON.stringify(niz[indeksProizvoda].Cena).replace(".", "");
       var b = parseInt(JSON.parse(a));
       if (vrednost === "ddo10") {
@@ -50,7 +48,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         }
       }
     }
-    console.log(noviNiz);
     return noviNiz;
   }
   
@@ -63,7 +60,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         }
       }
     }
-    console.log(noviNiz);
     return noviNiz;
   }
   
@@ -76,7 +72,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         }
       }
     }
-    console.log(noviNiz);
     return noviNiz;
   }
   
@@ -89,7 +84,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         }
       }
     }
-    console.log(noviNiz);
     return noviNiz;
   }
   
@@ -102,7 +96,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         }
       }
     }
-    console.log(noviNiz);
     return noviNiz;
   }
   export function sortirajMonitore(vrednost,niz3){
@@ -161,7 +154,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
       .then(response => response.json())
       .then(niz => {
         for (let i = 0; i < niz.data.length; i++) {
-          console.log(niz.data[i]);
         }
         //Nalazenje da li ima u nizu filtera filter za proizvodjacMonitora
         var niz2 = [];
@@ -172,7 +164,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
             proizvodjacFilteri.push(filteri[filterIndex]);
           }
           if (filteri[filterIndex] === "DELL") {
-            console.log("DELL nadjen")
             proizvodjacMonitoraFilter = true;
             proizvodjacFilteri.push(filteri[filterIndex]);
           }
@@ -188,7 +179,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         if (proizvodjacMonitoraFilter)
           niz2 = filtrirajProizvodjaca(proizvodjacFilteri, niz.data);
         if (!proizvodjacMonitoraFilter) niz2 = niz.data;
-        console.log(niz2)
         //Nalazenje da li ima u nizu filtera filter za dijagonalu?
         var nizDijagonala=[]
         var dijagonalaFilteri=[]
@@ -214,7 +204,6 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
             dijagonalaFilteri.push(filteri[filterIndex]);
           }
         }
-        console.log("Nadjena dijagonala?",dijagonala)
         if (dijagonala)
         nizDijagonala = filtrirajPoDijagonali(dijagonalaFilteri, niz2);
         if (!dijagonala) nizDijagonala = niz2;
@@ -302,26 +291,20 @@ export function filtrirajProizvodjaca(proizvodjacFilteri, niz) {
         for (let filterIndex = 0; filterIndex < filteri.length; filterIndex++) {
           if (filteri[filterIndex][0] === "d") cenaFilter = filteri[filterIndex];
         }
-        console.log("Pronadjen filter za cenu?", cenaFilter);
         //Ako ima radi se filtriranje za opseg cene
         if (cenaFilter !== "") {
-          console.log("USAO U FILTRIRANJE");
           niz3 = filtrirajPoCeni(cenaFilter,nizOdziv)
         } 
         else {
           niz3 = nizOdziv;
-          console.log(niz3);
         }
              //Sortiranje?
         for (let filterIndex = 0; filterIndex < filteri.length; filterIndex++) {
           if (filteri[filterIndex][0] === "S") imaSort = filteri[filterIndex];
         }
-        console.log("Pronadjeno sortiranje?", imaSort);
         if (imaSort !== "") {
-          console.log("USAO U SORTIRANJE");
           niz3 = sortirajMonitore(imaSort,niz3)
         }
-        console.log(niz3);
         dispatch({
           type: FILTERI,
           payload: niz3

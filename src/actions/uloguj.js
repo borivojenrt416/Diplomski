@@ -2,7 +2,6 @@ import {ULOGUJ, NEUSPESNOPRIJAVLJIVANJE, ISPRAZNI} from './types'
 import {AZURIRAJKORISNIKA} from './types'
 
 export const uloguj=(email,lozinka)=>dispatch=>{
-    console.log("uloguj")
     const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

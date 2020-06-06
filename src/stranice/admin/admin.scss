@@ -1,6 +1,6 @@
 .admin{
     background-color: white;
-    width:90%;
+    width:85%;
     box-shadow: 0 0 4px black;
     text-align: left;
 
@@ -21,10 +21,16 @@
         }
     }
 
+    table{
+        width: 100%;
+        table-layout: fixed;
+    }
     table tbody tr td{
+        table-layout: fixed;
+
         position: relative;
         text-align: center;
-        max-width:8vw;
+        max-width:5%;
         overflow-wrap: break-word;
         button{
             color:rgb(134, 0, 0);
@@ -38,7 +44,9 @@
 }
 }
 @media only screen and (max-width: 834px) {
-   
+    .hideUser{
+        display:none;
+    }
     .admin{
         width: 99% !important;
         margin-right: auto !important;

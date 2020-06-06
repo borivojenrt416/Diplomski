@@ -12,7 +12,7 @@ export class Card extends Component {
 
         }
     }
-
+    
     dodaj = () => {
         this.props.dodajUKorpu(this.props.product, this.props.korpa)
         this.props.vratiBroj(this.props.korpa)

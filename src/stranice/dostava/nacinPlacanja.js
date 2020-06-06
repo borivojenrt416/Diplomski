@@ -15,7 +15,6 @@ export class NacinPlacanja extends Component {
     }
 
      changeNacinPlacanja=(e)=>{
-        console.log(e.target.value)
          this.props.changeNacinPlacanja(e.target.value)
      }
 

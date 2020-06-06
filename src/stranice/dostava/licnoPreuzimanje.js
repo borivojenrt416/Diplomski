@@ -14,7 +14,6 @@ export class LicnoPreuzimanje extends Component {
         this.setState({
             dostava: e.target.value
         })
-        console.log(e.target.value)
     }
 
     updateState=(e)=>{

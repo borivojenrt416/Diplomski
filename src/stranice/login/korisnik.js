@@ -59,8 +59,12 @@ export class Korisnik extends Component {
   componentDidMount() {
     if(this.state.korisnik!==undefined)
     {
-      console.log("postoji korisnik")
-      fetch(`http://localhost:4000/uzmiProizvode/${this.state.korisnik.email}`)
+      var requestEmail={
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ email:this.state.korisnik.email })
+    }
+      fetch(`http://localhost:4000/uzmiProizvodeEmail/`,requestEmail)
       .then(response=>response.json())
       .then(json=>{
         {
@@ -73,7 +77,6 @@ export class Korisnik extends Component {
 
   render() {
     const { korisnik } = this.state;
-    console.log(this.state.proizvodi)
     if (this.props.korisnik === undefined) {
       return (
         <div className="nema">
@@ -96,7 +99,7 @@ export class Korisnik extends Component {
             <p>Telefon : <span className="imeKorisnika">{korisnik.telefon}</span></p><br/>
             <p>Ime : <span className="imeKorisnika">{korisnik.ime}</span></p><br/>
             <p>Prezime : <span className="imeKorisnika">{korisnik.prezime}</span></p><br/>
-            <p>Sifra : <span className="imeKorisnika">{korisnik.sifra}</span></p><br/>
+            <p>Šifra : <span className="imeKorisnika">{korisnik.sifra}</span></p><br/>
           </div>
           <h2 className="nazivKomponente2">Naručeni proizvodi</h2>
           <table className="opisnaTabela2">

@@ -24,7 +24,6 @@ export class Searchbar extends Component {
             fetch(`http://localhost:4000/korisnici/pretraga`)
                 .then(response => response.json())
                 .then(response => {
-                    console.log(this.state.vrednost, response.data);
                     this.pretraziProizvode(response.data, this.state.vrednost);
                 });
         }
@@ -38,12 +37,9 @@ export class Searchbar extends Component {
                 .then(response2 => response2.json())
                 .then(response2 => {
                     nizProizvoda = response2.data;
-                    console.log(response2.data);
-                    console.log(nizProizvoda);
                     for (let i = 0; i < nizProizvoda.length; i++) {
                         if (nizProizvoda[i].IdAll !== "") niz3.push(nizProizvoda[i]);
                     }
-                    console.log(niz3)
                     this.setState({
                         niz: niz3
                     });

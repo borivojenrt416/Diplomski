@@ -13,7 +13,6 @@ export class FilteriMemorija extends Component {
 
 
   changeHidden=()=>{
-      console.log(this.state.hidden)
       let b = this.state.hidden;
       this.setState({
           hidden: !b
