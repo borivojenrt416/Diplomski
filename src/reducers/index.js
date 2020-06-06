@@ -20,5 +20,7 @@ broj:dodajUKorpu,
 omiljeno:dodajUOmiljeno,
 cena:dodajUKorpu,
 users:usersReducer,
-orders:orders
+orders:orders,
+postoji:dodajUOmiljeno,
+postoji2:dodajUKorpu
 });

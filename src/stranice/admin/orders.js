@@ -56,7 +56,7 @@ export class Orders extends Component {
             <td>{k.Naziv.toString().split("\"")}</td>
             <td><img className="detaljiSlika" src={k.Slika}/></td>
             <td>{k.Kolicina}</td>
-            <td>{new Date(k.Datum).toLocaleDateString()}</td>
+            <td className="hideUser">{new Date(k.Datum).toLocaleDateString()}</td>
             <td>{k.UkupnaCena.toString().replace(",",".")}</td>
           </tr>
           </tbody>

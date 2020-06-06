@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Popup from 'reactjs-popup'
 import "./proizvodi.scss";
 import Card from "../kartice/card";
 import { connect } from "react-redux";
-import { uzmiTip,oznaci } from "../../actions/tipAkcija";
+import { uzmiTip,oznaci,nista } from "../../actions/tipAkcija";
 import { filteriDesktopRacunara } from "../../actions/filteriDesktopRacunaraAkcija";
 import { filteriMonitora } from "../../actions/filteriMonitori";
 import { filteriGrafickihKartica } from "../../actions/filteriGrafickihKartica";
@@ -14,6 +15,8 @@ import { filteriMemorija } from "../../actions/filteriMemorija";
 import { filteriNapajanja } from "../../actions/filteriNapajanja";
 import { filteriProcesora } from "../../actions/filteriProcesora";
 import { filteriSSD } from "../../actions/filteriSSD";
+import { promeniNadjeno } from "../../actions/dodajUOmiljeno";
+import { promeniNadjeno2 } from "../../actions/dodajUKorpu";
 import { FilteriDesktopRacunari } from "./filteri/filteriDesktopRacunari";
 import { FilteriGornjiDekstopRacunari } from "./filteri/filteriGornjiDesktopRacunari";
 import { FilteriGornjiMonitori } from "./filteri/filteriGornjiMonitori";
@@ -34,9 +37,28 @@ import { FilteriGornjiNapajanja } from "./filteri/filteriGornjiNapajanja";
 import { FilteriNapajanja } from "./filteri/filteriNapajanja";
 import { FilteriKucista } from "./filteri/filteriKucista";
 import { FilteriGornjiKucista } from "./filteri/filteriGornjiKucista";
+import { usePromiseTracker } from "react-promise-tracker";
+import Loader from 'react-loader-spinner';
 const Proizvod = ({ match }) => <p>{match.params.id}</p>;
-
+const LoadingIndicator = props => {
+  const { promiseInProgress } = usePromiseTracker();
+  return (
+      promiseInProgress && 
+      <div
+      style={{
+      width: "100%",
+      height: "100",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+      }}
+      >
+      <Loader type="TailSpin" color="#ad0000" height="100" width="100" />
+      </div>
+  );  
+  }
 class Proizvodi extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -44,11 +66,16 @@ class Proizvodi extends Component {
       filteri: []
     };
   }
+
+
+
   componentWillMount() {
     this.props.uzmiTip(this.props.match.params.tip);
     this.props.oznaci(this.props.match.params.tip)
     localStorage.setItem("tip", this.props.match.params.tip);
   }
+
+
 
   componentWillUpdate(prevProps) {
     localStorage.setItem("tip", prevProps.match.params.tip);
@@ -267,6 +294,54 @@ class Proizvodi extends Component {
     return (
       <div className="sve">
         <div>
+        <Popup open={this.props.postoji} closeOnDocumentClick={false} modal>
+    {close => (
+      <div className="modal">
+        <div className="header"> OBAVEŠTENJE </div><br/><br/>
+        <div className="content">
+          {" "}
+        Poštovani,<br/>
+        Proizvod već postoji na Vašoj listi želja.
+        </div><br/><br/>
+        <div className="actions">
+
+          <button
+            className="button"
+            onClick={() => {
+              this.props.promeniNadjeno();
+              close();
+            }}
+          >
+           OK
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
+  <Popup open={this.props.postoji2} closeOnDocumentClick={false} modal>
+    {close => (
+      <div className="modal">
+        <div className="header"> OBAVEŠTENJE </div><br/><br/>
+        <div className="content">
+          {" "}
+        Poštovani,<br/>
+        Proizvod već postoji u Vašoj korpi.
+        </div><br/><br/>
+        <div className="actions">
+
+          <button
+            className="button"
+            onClick={() => {
+              this.props.promeniNadjeno2();
+              close();
+            }}
+          >
+           OK
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
           <div className="proiz">
             <div className="checkbox">
               {this.props.match.params.tip === "desktop" ? (
@@ -321,6 +396,7 @@ class Proizvodi extends Component {
               )}
             </div>
             <div className="proiz1">
+            <LoadingIndicator />
               {this.props.match.params.tip === "desktop" ? (
                 <FilteriGornjiDekstopRacunari
                   clear={this.clear}
@@ -408,10 +484,15 @@ class Proizvodi extends Component {
 }
 const mapStateToProps = state => ({
   tip: state.tip.tip,
-  oznaka:state.oznaka
+  oznaka:state.oznaka,
+  postoji:state.postoji.postoji,
+  postoji2:state.postoji2.postoji2
 });
 
 export default connect(mapStateToProps, {
+  nista,
+  promeniNadjeno,
+  promeniNadjeno2,
   uzmiTip,
   oznaci,
   filteriDesktopRacunara,

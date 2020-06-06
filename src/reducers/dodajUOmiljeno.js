@@ -1,13 +1,18 @@
-import {DODAJUOMILJENO,FILTRIRANJEOMILJENIH} from '../actions/types'
+import {DODAJUOMILJENO,FILTRIRANJEOMILJENIH, NADJENU} from '../actions/types'
 
 const initialState={
-    omiljeno:[]
+    omiljeno:[],
+    postoji:false
 }
 
 
 export default function(state=initialState,action){
     
     switch(action.type){
+        case NADJENU:
+            return{...state,
+            postoji:action.payload
+        }
         case DODAJUOMILJENO:
             return{...state,
                omiljeno:action.payload

@@ -68,19 +68,23 @@ export const approveOrder = (id, niz,idn) =>dispatch=>{
               var text='';
               var title = 'Detalji porudžbine'
               var emailadr=''
+              var UkupnaCena=0;
               json.data.map(proizvod=>{
 
                 text += '\nNaziv artikla: ' + proizvod.Naziv.split('\"').join("")+'\nKoličina: ' + proizvod.Kolicina 
                 +'\nDatum: ' + proizvod.Datum +'\nUkupna cena: ' + proizvod.UkupnaCena;
+                var cena = proizvod.UkupnaCena.toString().replace(".","");
+                var cena2 = parseInt(JSON.parse(cena))
+                UkupnaCena+=cena2;
                 emailadr = proizvod.Email;
               })
-
-              text += '\n\nVaš Electroshop'
-    
+              
+              var tekst2='\n\nVaš račun:' + UkupnaCena.toLocaleString() + 'RSD\n\nVaš Electroshop';
+              var tekst=text.concat(tekst2)
               const messageRequest = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: emailadr, title:title, text:text })
+                body: JSON.stringify({ email: emailadr, title:title, text:tekst })
                 };
                 fetch(`http://localhost:4000/sendEmail`,messageRequest)
 

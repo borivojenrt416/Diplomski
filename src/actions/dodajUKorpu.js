@@ -1,4 +1,4 @@
-import {DODAJUKORPU,VRATIPORUKU,ISPRAZNIKORPU,VRATIBROJKORPA,FILTRIRANJEKORPE,KOLICINA, RACUN} from './types'
+import {DODAJUKORPU,VRATIPORUKU,ISPRAZNIKORPU,VRATIBROJKORPA,FILTRIRANJEKORPE,KOLICINA, RACUN, NADJENU2} from './types'
 
 
 export function racunanje(korpa){
@@ -69,6 +69,13 @@ export const vratiBroj=(proizvodi)=>dispatch=>{
         payload:proizvodi.length
     })
 }
+
+export const promeniNadjeno2=()=>dispatch=>{
+    dispatch({
+      type:NADJENU2,
+      payload:false
+  })
+}
 export const dodajUKorpu=(proizvod,postojeciniz,kolicina=1)=>dispatch=>{
     var br=0;
     for(let i=0;i<postojeciniz.length;i++)
@@ -76,6 +83,10 @@ export const dodajUKorpu=(proizvod,postojeciniz,kolicina=1)=>dispatch=>{
       if(postojeciniz[i].proizvod.Naziv===proizvod.Naziv)
     {
         br=1;
+        dispatch({
+            type:NADJENU2,
+            payload:true
+        })
     }
     }
     if(br===0)

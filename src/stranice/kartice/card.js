@@ -3,8 +3,9 @@ import './card.scss'
 import "../../../node_modules/@fortawesome/fontawesome-free/css/all.css"
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { dodajUOmiljeno } from "../../actions/dodajUOmiljeno"
-import { vratiBroj, dodajUKorpu } from "../../actions/dodajUKorpu"
+import { dodajUOmiljeno, promeniNadjeno } from "../../actions/dodajUOmiljeno"
+import { vratiBroj, dodajUKorpu, promeniNadjeno2 } from "../../actions/dodajUKorpu"
+import Popup from 'reactjs-popup'
 export class Card extends Component {
     constructor(props) {
         super(props)
@@ -24,6 +25,56 @@ export class Card extends Component {
         const { product } = this.props
         return (
             <div>
+                <div className="popup">
+    <Popup open={this.props.postoji} closeOnDocumentClick={false} modal>
+    {close => (
+      <div className="modal">
+        <div> OBAVEŠTENJE </div><br/>
+        <div className="content">
+          {" "}
+        Poštovani,<br/>
+        Proizvod već postoji na Vašoj listi želja.
+        </div><br/>
+        <div className="actions">
+
+          <button
+            className="button"
+            onClick={() => {
+              this.props.promeniNadjeno();
+              close();
+            }}
+          >
+           OK
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
+  <Popup open={this.props.postoji2} closeOnDocumentClick={false} modal>
+    {close => (
+      <div className="modal">
+        <div> OBAVEŠTENJE </div><br/>
+        <div className="content">
+          {" "}
+        Poštovani,<br/>
+        Proizvod već postoji u Vašoj korpi.
+        </div><br/>
+        <div className="actions">
+
+          <button
+            className="button"
+            onClick={() => {
+              this.props.promeniNadjeno2();
+              close();
+            }}
+          >
+           OK
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
+  </div>
                 <div className="card" >
                     <div className="buttonForFav">
                         <button type="button" id="" value="" className="omiljeno" onClick={this.omiljeno}><i className="far fa-heart"></i></button>
@@ -56,6 +107,8 @@ export class Card extends Component {
 const mapStateToProps = state => ({
     korpa: state.korpa.korpa,
     poruka: state.poruka,
-    omiljeno: state.omiljeno.omiljeno
+    omiljeno: state.omiljeno.omiljeno,
+    postoji: state.postoji.postoji,
+    postoji2: state.postoji2.postoji2
 })
-export default connect(mapStateToProps, { dodajUKorpu, vratiBroj, dodajUOmiljeno })(Card);
+export default connect(mapStateToProps, { dodajUKorpu, vratiBroj, dodajUOmiljeno,promeniNadjeno,promeniNadjeno2 })(Card);

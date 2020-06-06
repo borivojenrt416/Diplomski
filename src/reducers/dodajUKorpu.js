@@ -1,17 +1,22 @@
-import {DODAJUKORPU,VRATIPORUKU, ISPRAZNIKORPU, VRATIBROJKORPA,FILTRIRANJEKORPE,KOLICINA, RACUN} from '../actions/types'
+import {DODAJUKORPU,VRATIPORUKU, ISPRAZNIKORPU, VRATIBROJKORPA,FILTRIRANJEKORPE,KOLICINA, RACUN, NADJENU2} from '../actions/types'
 
 
 const initialState={
     poruka:"",
     korpa:[],
     broj:0,
-    cena:""
+    cena:"",
+    postoji2:false
 }
 
 
 export default function(state=initialState,action){
     
     switch(action.type){
+        case NADJENU2:
+            return{...state,
+            postoji2:action.payload
+        }
         case DODAJUKORPU:
             return{...state,
                korpa:action.payload,
