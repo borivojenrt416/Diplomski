@@ -87,6 +87,15 @@
                         cursor: pointer;
                 }
             }
+
+            .dugmeDisabled2{
+                 text-decoration: none;
+                font-size: 12px !important;
+              
+                button:hover{
+                        cursor: pointer;
+                }
+            }
             .registrationDisabled{
                 text-decoration: none;
                 font-size: 12px !important;
@@ -132,4 +141,10 @@
         text-decoration: none;
         font-size: 12px !important;
         padding:0.6vw 1.2vw !important;
+    }
+
+    .btnDis2{
+        background-color: #d8d8d8 !important;
+        color: #505050 !important;
+        text-decoration: none;
     }

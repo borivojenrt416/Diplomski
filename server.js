@@ -18,8 +18,8 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false
 },
   auth:{
-    user:'stojiljkovicborivoje97@gmail.com',
-    pass:'0612922197'
+    user:creds.USER,
+    pass:creds.PASS
   }
 })
 
@@ -76,20 +76,7 @@ app.get("/korisnici/sviproizvodi", (req, res) => {
     }
   });
 });
-// app.get("/korisnici/pretraga/:naziv",(req,res)=>{
-//     var rec = req.params.naziv.toLowerCase()
-//     connection.query(`SELECT * FROM monitori WHERE lower(Naziv) LIKE ?`,'%' + rec + '%',(err,result)=>{
-//         if(err)
-//         {   return res.send(err)
-//         }
-//         else{
-//             return res.json({
-//                 data:result
-//             })
-//         }
-//     })
 
-// })
 
 app.get("/korisnici/pretraga", (req, res) => {
   var nizTabela = [];

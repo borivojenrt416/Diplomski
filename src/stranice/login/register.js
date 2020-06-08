@@ -1,14 +1,16 @@
 import React,{Component} from 'react'
 import './login.scss'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {oznaci} from "../../actions/tipAkcija"
 import {connect} from 'react-redux'
 import SimpleReactValidator from 'simple-react-validator';
-
+import Popup from 'reactjs-popup';
 class Register extends Component{
 constructor(props) {
     super(props);
     this.state = {
+        dodat:false,
+        red:false,
          korisnik:{
              ime:undefined,
              prezime:undefined,
@@ -76,7 +78,9 @@ dodajKorisnika=e=>{
                                  body: JSON.stringify({ ime:korisnik.ime, prezime:korisnik.prezime, email:korisnik.email, sifra:korisnik.sifra, telefon:korisnik.telefon })
                             }
                             fetch(`http://localhost:4000/korisnici/dodaj/`, request)
-                            alert("USPESNO STE SE REGISTROVALI NA SAJT")
+                            this.setState({
+                                dodat:true
+                            })
                         }
                         else
                         {
@@ -147,9 +151,47 @@ dodajKorisnika=e=>{
 
 render(){
  const{korisnik} = this.state;
-
+if(this.state.dodat==true )
+{
+    return(
+        <div>
+        <Popup open={this.state.dodat} closeOnDocumentClick={false} modal>
+        {close => (
+          <div className="modal">
+            <div> REGISTRACIJA </div><br/>
+            <div className="content">
+              {" "}
+            Poštovani,<br/>
+            Uspešno ste se registrovali na sajt!
+            </div><br/>
+            <div className="actions">
+    
+              <button
+                className="button"
+                onClick={() => {this.setState({
+                    red:true,
+                    dodat:false
+                })
+                  close();
+                }}
+              >
+               OK
+              </button>
+            </div>
+          </div>
+        )}
+      </Popup></div>
+    )
+}
+else if(this.state.red==true)
+{
+    return( <Redirect to="/" />)
+   
+}
+{
     return(
         <div className="stil">
+            
         <div className="levoL">
         <h2>Registracija fizičkog lica</h2>
         <p>Electroshop se obavezuje na privatnost Vaših ličnih podataka koji će biti korišćeni isključivo u svrhe kupovine na našem web sajtu.</p>
@@ -174,6 +216,7 @@ render(){
     </div>
     </div>
     );
+}
 }
 }
 

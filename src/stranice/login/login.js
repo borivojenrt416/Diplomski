@@ -13,6 +13,7 @@ constructor(props) {
     super(props)
 
     this.state = {
+        validate:true,
          korisnik:{
              email:"",
              sifra:""
@@ -29,7 +30,17 @@ componentWillUnmount(){
 componentWillMount(){
     this.props.oznaci();
 }
-    
+   
+validate=()=>{
+    console.log("AFHEAFG")
+    if(this.state.korisnik.email.length>3 && this.state.korisnik.email!=="" && this.state.korisnik.sifra.length>=4 && this.state.korisnik.sifra!=="")
+    {
+        console.log("gkald")
+        return false;
+    }
+    else
+    return true;
+}
 
 render(){
     const {korisnik} = this.state
@@ -52,7 +63,7 @@ render(){
                 <p><i className="far fa-check-circle"></i> prolazite brže kroz proces plaćanja,</p>
                 <p><i className="far fa-check-circle"></i> da koristite više adresa za isporuku,</p>
                 <p><i className="far fa-check-circle"></i> pregledate i pratite Vaše porudžbine itd.</p>
-                <button type="submit" onClick={()=>{alert("REG")}}><Link className="reg" to="/register">Kreiraj korisnički nalog</Link></button>
+                <button type="submit" ><Link className="reg" to="/register">Kreiraj korisnički nalog</Link></button>
             </div>
             <div className="desnoL">
                 <h2>Registrovani korisnici</h2>
@@ -65,7 +76,7 @@ render(){
                  <label htmlFor={korisnik.sifra}>Lozinka</label>
                 <input placeholder="Unesite Vašu lozinku..." className="inp" type="password" value={korisnik.sifra} onChange={e=>this.setState({
                    korisnik:{...korisnik,sifra:e.target.value}})}/><br/>
-                  <Link className="lgn" to="#"><button type="submit" onClick={()=>this.props.uloguj(this.state.korisnik.email,this.state.korisnik.sifra)}>Prijavi se</button></Link><br/><br/>
+                  <Link className={this.validate()?"dugmeDisabled2":"lgn"} to="#"><button type="submit" onChange={this.validate} className={this.validate()?"btnDis2":""} disabled={this.validate()?true:false}   onClick={()=>this.props.uloguj(this.state.korisnik.email,this.state.korisnik.sifra)}>Prijavi se</button></Link><br/><br/>
             </form>
             <hr/>
             <div className="drm">

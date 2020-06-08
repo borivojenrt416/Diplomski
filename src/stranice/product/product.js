@@ -6,6 +6,26 @@ import { Opis } from './opis'
 import { Komentari } from './komentari'
 import "./product.scss";
 import {uzmiTip} from '../../actions/tipAkcija'
+import { usePromiseTracker } from "react-promise-tracker";
+import { trackPromise } from 'react-promise-tracker';
+import Loader from 'react-loader-spinner';
+const LoadingIndicator = props => {
+  const { promiseInProgress } = usePromiseTracker();
+  return (
+      promiseInProgress && 
+      <div
+      style={{
+      width: "100%",
+      height: "100",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+      }}
+      >
+      <Loader type="TailSpin" color="#ad0000" height="100" width="100" />
+      </div>
+  );  
+  }
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +61,7 @@ class Product extends Component {
   }
   componentWillMount() {
     localStorage.setItem("tip","");
+    trackPromise(
     fetch(
       `http://localhost:4000/korisnici/proizvod/${this.props.match.params.IdAll}/${this.props.match.params.ID}`
     )
@@ -49,7 +70,7 @@ class Product extends Component {
         this.setState({
           objekat: vrati.data[0]
         });
-      });
+      }));
       fetch(`http://localhost:4000/korisnici/komentari/${this.props.match.params.ID}/${this.props.match.params.IdAll}`)
       .then(response => response.json())
       .then(vrati => {
@@ -80,7 +101,9 @@ ukljuciKomentare=()=>{
   render() {
     if (this.state.objekat !== undefined && this.state.objekat !== null) {
       return (
+        
         <div className="proizvod">
+          <LoadingIndicator />
           <div className="levaStrana">
             <div className="img">
               <img src={this.state.objekat.image} />
@@ -127,8 +150,9 @@ ukljuciKomentare=()=>{
       );
     } else {
       return (
-        <div className="nema">
-          <p>Poštovani korisniče, trenutno nemamo traženi proizvod u bazi!</p>
+    <div className="nema">
+        <div className="prazno">
+        <p>Poštovani korisniče, trenutno nemamo traženi proizvod u bazi!</p>
           <p>
             Molimo Vas da se
             <Link className="n" to="/">
@@ -138,6 +162,7 @@ ukljuciKomentare=()=>{
             Hvala
           </p>
         </div>
+      </div>
       );
     }
   }

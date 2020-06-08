@@ -1,6 +1,27 @@
 import React, { Component } from "react";
 import "./admin.scss";
 import Popup from 'reactjs-popup'
+import { trackPromise } from 'react-promise-tracker';
+import Loader from 'react-loader-spinner';
+import { usePromiseTracker } from "react-promise-tracker";
+
+const LoadingIndicator = props => {
+const { promiseInProgress } = usePromiseTracker();
+  return (
+      promiseInProgress && 
+      <div
+      style={{
+      width: "100%",
+      height: "100",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+      }}
+      >
+      <Loader type="TailSpin" color="#ad0000" height="100" width="100" />
+      </div>
+  );  
+  }
 export class Orders extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +44,7 @@ export class Orders extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idn:e.target.value })
   };
+  trackPromise(
     fetch(`http://localhost:4000/kupljeniProizvodi/`,request)
     .then(response=>response.json())
     .then(json=>{
@@ -31,7 +53,7 @@ export class Orders extends Component {
         kupljeniProizvodi: json.data,
         show:true
       })}}
-    )
+    ))
   }
   
 
@@ -42,6 +64,7 @@ export class Orders extends Component {
       {close => (
         <div className="modal">
           <div className="header"> Detalji porudžbine </div><br/><br/>
+          <LoadingIndicator />
           <div className="content">
             {" "}
             <table className="tabelaDetalji">

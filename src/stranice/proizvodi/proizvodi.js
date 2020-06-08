@@ -62,7 +62,6 @@ class Proizvodi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tip: this.props.match.params.tip,
       filteri: []
     };
   }
@@ -251,11 +250,6 @@ class Proizvodi extends Component {
   
   clear = e => {
     e.preventDefault();
-    // var checkBoxes = this.state.filteri;
-    // for(let i=0;i<checkBoxes.length;i++)
-    // {
-    //   document.getElementById(checkBoxes[i])
-    // }
     let checkedBoxes = document.querySelectorAll(
       "input[type=checkbox]:checked"
     );

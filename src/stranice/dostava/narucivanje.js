@@ -11,6 +11,7 @@ class Narucivanje extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dodat:false,
       kupac: {
         ime: undefined,
         prezime: undefined,
@@ -154,6 +155,9 @@ class Narucivanje extends Component {
                     if(broj2.data==0)
                     {
                       fetch(`http://localhost:4000/addUser/${this.state.kupac.email}/${this.state.kupac.ime}/${this.state.kupac.prezime}/${this.state.kupac.telefon}`)
+                      this.setState({
+                        dodat:true
+                      })
                     }
                   })
                 }

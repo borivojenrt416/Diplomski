@@ -45,7 +45,6 @@ export class Korisnik extends Component {
   componentWillMount() {
     this.props.oznaci("")
 
-    // this.props.uzmiTip("");
     localStorage.setItem("tip","");
 
     if (this.props.korisnik === undefined) {

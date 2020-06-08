@@ -17,14 +17,7 @@ export class Kupovinacard extends Component {
 
 brisi=()=>{
     
-    // var s1 = document.getElementById("1".concat(JSON.stringify(this.props.product.naziv))).value
-    // var s = this.props.product.cena
-    // var a = JSON.stringify(s)
-    // var d = a.replace('.','')
-    // var k = JSON.parse(d)
-    // var novac = parseInt(k)*parseInt(s1)
     this.props.remove(this.props.product.proizvod)
-    // this.props.poz()
     
   
 }

@@ -17,11 +17,6 @@ export default function(state=initialState,action){
             return{...state,
                omiljeno:action.payload
             }
-            //     case ISPRAZNIKORPU:
-            //         return{
-            //             ...state,
-            //             korpa:action.payload
-            //         }
                         case FILTRIRANJEOMILJENIH:
                             return{
                                 ...state,

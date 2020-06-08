@@ -16,7 +16,7 @@ dodajKomentar=()=>{
     if(this.state.komentar.ime!==undefined && this.state.komentar.poruka!==undefined )
     {
     fetch(`http://localhost:4000/korisnici/komentari/${this.props.product.ID}/$${this.props.product.IdAll}/${this.state.komentar.ime}/${this.state.komentar.poruka}`)
-    alert("USPESNO STE DODALI KOMENTAR")
+    
     }
 }
   render() {

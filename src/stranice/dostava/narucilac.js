@@ -8,16 +8,7 @@ export class Narucilac extends Component {
         super(props);
         this.state = {
             validate: true
-            //     korisnik: {
-            //         ime: undefined,
-            //         prezime: undefined,
-            //         email: undefined,
-            //         sifra: undefined,
-            //         datumRodjenja: undefined,
-            //         telefon: undefined
-            //     },
-            //     kolicine: []
-            // };
+
         }
 
     }
@@ -81,25 +72,7 @@ export class Narucilac extends Component {
                     </div>
     
                 );
-            // }
-            // else
-            //     {
-            //         return(
-                    
-            //             <div>
-            //             <div className="nazivKomponente"><h2 className="nazivKomponente">Narucilac</h2></div>
-            //             <div className="divForm">
-            //                 <form className="forma">
-            //                 <h4>Ime : {kupac.ime}</h4>
-            //                 <h4>Prezime : {kupac.prezime}</h4>
-            //                 <h4>Email : {kupac.email}</h4>
-            //                 <h4>Telefon : {kupac.telefon}</h4>
-            //                 </form>
-            //             </div>
-            //         </div>
-    
-            //         );
-            //     }
+          
             }
            
         }
