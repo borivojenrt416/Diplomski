@@ -14,7 +14,7 @@
     "mysql": "^2.18.1",
     "node-sass": "^4.13.0",
     "node-uuid": "^1.4.8",
-    "nodemailer": "^6.4.8",
+    "nodemailer": "^6.4.16",
     "react": "^16.10.1",
     "react-animated-css": "^1.2.1",
     "react-awesome-slider": "^2.1.0",
